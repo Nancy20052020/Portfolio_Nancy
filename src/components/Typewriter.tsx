@@ -28,8 +28,10 @@ export function Typewriter({
     if (!deleting && text === current) {
       timeout = setTimeout(() => setDeleting(true), pauseMs);
     } else if (deleting && text === "") {
-      setDeleting(false);
-      setIndex((i) => (i + 1) % phrases.length);
+      timeout = setTimeout(() => {
+        setDeleting(false);
+        setIndex((i) => (i + 1) % phrases.length);
+      }, 0);
     } else {
       const delta = deleting ? -1 : 1;
       timeout = setTimeout(

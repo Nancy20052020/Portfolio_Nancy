@@ -30,8 +30,11 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
         : window.matchMedia("(prefers-color-scheme: dark)").matches
           ? "dark"
           : "light";
-    setThemeState(preferred);
-    document.documentElement.setAttribute("data-theme", preferred);
+    const id = window.setTimeout(() => {
+      setThemeState(preferred);
+      document.documentElement.setAttribute("data-theme", preferred);
+    }, 0);
+    return () => window.clearTimeout(id);
   }, []);
 
   const setTheme = useCallback((next: Theme) => {

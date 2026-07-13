@@ -29,13 +29,12 @@ export function About() {
     <section className="section">
       <div className="section-inner">
         <div className="section-heading reveal-item">
-          <p className="eyebrow">About Me</p>
-          <h2 className="section-title">Curious mind. Builder at heart.</h2>
+          <p className="eyebrow">About</p>
+          <h2 className="section-title">About</h2>
           <p className="section-sub">
-            I&apos;m an AI & ML undergraduate at Manipal University Jaipur with a
-            9.79 CGPA, currently shipping software at Grids App LLC and exploring
-            the frontier where intelligence meets real-world systems — from
-            clinical ML to satellite Earth observation.
+            AI & ML undergraduate at Manipal University Jaipur with a 9.79 CGPA,
+            currently shipping software at Grids App LLC — from clinical ML to
+            satellite Earth observation.
           </p>
         </div>
 
@@ -48,7 +47,7 @@ export function About() {
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
                 {card.label}
               </p>
-              <p className="mt-2 font-display text-xl font-semibold text-[var(--text)]">
+              <p className="mt-2 font-display text-xl font-semibold text-[var(--heading)]">
                 {card.value}
               </p>
               <p className="mt-1 text-sm text-[var(--text-soft)]">{card.sub}</p>

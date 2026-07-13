@@ -9,10 +9,9 @@ export function Skills() {
       <div className="section-inner">
         <div className="section-heading reveal-item">
           <p className="eyebrow">Skills</p>
-          <h2 className="section-title">Floating tech lab</h2>
+          <h2 className="section-title">Skills</h2>
           <p className="section-sub">
-            Slowly rotating 3D objects for the tools I ship with — crystals,
-            cubes, ribbons, atoms, and cylinders in motion.
+            Languages, ML frameworks, tools, and soft skills I use to build.
           </p>
         </div>
 

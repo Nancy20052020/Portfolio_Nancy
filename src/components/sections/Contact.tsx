@@ -26,8 +26,8 @@ export function Contact() {
     <section className="section">
       <div className="section-inner">
         <div className="section-heading reveal-item">
-          <p className="eyebrow">Let&apos;s Connect</p>
-          <h2 className="section-title">Say hello</h2>
+          <p className="eyebrow">Contact</p>
+          <h2 className="section-title">Contact</h2>
           <p className="section-sub">
             Open to internships, research collaborations, and interesting
             problems in AI, ML, and software engineering.
@@ -42,7 +42,7 @@ export function Contact() {
                 <p className="text-xs uppercase tracking-[0.14em] text-[var(--text-muted)]">
                   Email
                 </p>
-                <p className="break-all text-sm font-semibold text-[var(--text)]">
+                <p className="break-all text-sm font-semibold text-[var(--heading)]">
                   {profile.email}
                 </p>
               </div>
@@ -56,7 +56,7 @@ export function Contact() {
                 <p className="text-xs uppercase tracking-[0.14em] text-[var(--text-muted)]">
                   Phone
                 </p>
-                <p className="text-sm font-semibold text-[var(--text)]">
+                <p className="text-sm font-semibold text-[var(--heading)]">
                   {profile.phone}
                 </p>
               </div>
@@ -67,7 +67,7 @@ export function Contact() {
                 <p className="text-xs uppercase tracking-[0.14em] text-[var(--text-muted)]">
                   Location
                 </p>
-                <p className="text-sm font-semibold text-[var(--text)]">
+                <p className="text-sm font-semibold text-[var(--heading)]">
                   {profile.location}
                 </p>
               </div>

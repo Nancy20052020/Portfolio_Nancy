@@ -4,7 +4,7 @@ import { skills } from "@/data/content";
 
 export function Skills() {
   return (
-    <section id="skills" className="section section-alt">
+    <section className="section">
       <div className="section-inner">
         <div className="section-heading reveal-item">
           <p className="eyebrow">Skills</p>

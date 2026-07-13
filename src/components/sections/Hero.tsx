@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Mail, ArrowRight } from "lucide-react";
 import { profile } from "@/data/content";
 import { Typewriter } from "@/components/Typewriter";
@@ -7,7 +8,7 @@ import { GitHubIcon, LinkedInIcon } from "@/components/icons";
 
 export function Hero() {
   return (
-    <section id="home" className="section hero-section">
+    <section className="section hero-section">
       <div className="hero-bg" aria-hidden>
         <div className="hero-arch" />
         <div className="hero-glow hero-glow-a" />
@@ -31,10 +32,10 @@ export function Hero() {
         </p>
 
         <div className="reveal-item mt-8 flex flex-wrap items-center gap-4">
-          <a href="#projects" className="btn-primary">
+          <Link href="/projects" className="btn-primary">
             Explore My Work
             <ArrowRight size={16} />
-          </a>
+          </Link>
           <div className="flex gap-2">
             <a
               href={profile.links.github}

@@ -28,14 +28,14 @@ export const profile = {
 };
 
 export const navItems = [
-  { id: "home", label: "Home" },
-  { id: "about", label: "About" },
-  { id: "skills", label: "Skills" },
-  { id: "projects", label: "Projects" },
-  { id: "experience", label: "Experience" },
-  { id: "achievements", label: "Achievements" },
-  { id: "publications", label: "Publications" },
-  { id: "contact", label: "Contact" },
+  { id: "home", label: "Home", href: "/" },
+  { id: "about", label: "About", href: "/about" },
+  { id: "skills", label: "Skills", href: "/skills" },
+  { id: "projects", label: "Projects", href: "/projects" },
+  { id: "experience", label: "Experience", href: "/experience" },
+  { id: "achievements", label: "Achievements", href: "/achievements" },
+  { id: "publications", label: "Publications", href: "/publications" },
+  { id: "contact", label: "Contact", href: "/contact" },
 ] as const;
 
 export const skills = {
@@ -68,7 +68,7 @@ export const projects: Project[] = [
     links: {
       github: "https://github.com/Nancy20052020",
     },
-    accent: "#7c5cff",
+    accent: "#5b3fd4",
   },
   {
     id: "multipdf",
@@ -79,7 +79,7 @@ export const projects: Project[] = [
     links: {
       github: "https://github.com/Nancy20052020",
     },
-    accent: "#a78bfa",
+    accent: "#4f46e5",
   },
   {
     id: "gee-p1",
@@ -91,7 +91,7 @@ export const projects: Project[] = [
       demo: "https://drive.google.com/file/d/1RZha6dBhiwGYqZHKaGM_WiZF5jK6NnmV/view?usp=drivesdk",
       code: "https://code.earthengine.google.com/1f478591ab593ffe9bcde0a27be6fc48",
     },
-    accent: "#8b5cf6",
+    accent: "#6d28d9",
   },
   {
     id: "gee-p2",
@@ -103,7 +103,7 @@ export const projects: Project[] = [
       demo: "https://drive.google.com/file/d/1TFvuLC2Rm8a2FTUSVplmug-8RdcGejW3/view?usp=drivesdk",
       code: "https://code.earthengine.google.com/170c492464d96e8cc66d885f25702049",
     },
-    accent: "#6366f1",
+    accent: "#4338ca",
   },
 ];
 

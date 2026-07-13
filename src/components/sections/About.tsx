@@ -26,7 +26,7 @@ const cards = [
 
 export function About() {
   return (
-    <section id="about" className="section">
+    <section className="section">
       <div className="section-inner">
         <div className="section-heading reveal-item">
           <p className="eyebrow">About Me</p>

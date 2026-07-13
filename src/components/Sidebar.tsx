@@ -60,7 +60,7 @@ export function Sidebar() {
         </span>
       </div>
       <div className="min-w-0">
-        <p className="font-display truncate text-sm font-semibold text-[var(--text)]">
+        <p className="font-display truncate text-sm font-semibold text-[var(--heading)]">
           {profile.name}
         </p>
         <p className="text-xs text-[var(--text-muted)]">AI & ML · SWE</p>
@@ -120,7 +120,7 @@ export function Sidebar() {
           <div className="avatar-ring avatar-ring-sm shrink-0">
             <span className="font-display text-sm font-bold text-white">NV</span>
           </div>
-          <span className="font-display truncate text-sm font-semibold text-[var(--text)]">
+          <span className="font-display truncate text-sm font-semibold text-[var(--heading)]">
             {profile.name}
           </span>
         </Link>

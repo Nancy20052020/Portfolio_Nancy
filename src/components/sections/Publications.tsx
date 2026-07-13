@@ -9,10 +9,9 @@ export function Publications() {
       <div className="section-inner">
         <div className="section-heading reveal-item">
           <p className="eyebrow">Publications</p>
-          <h2 className="section-title">Research & IP</h2>
+          <h2 className="section-title">Publications</h2>
           <p className="section-sub">
-            Peer-reviewed deep learning work and a multi-country patent on
-            eye-tracking for autism detection.
+            Peer-reviewed deep learning research and a multi-country patent.
           </p>
         </div>
 
@@ -29,7 +28,7 @@ export function Publications() {
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--accent)]">
                   {pub.venue}
                 </p>
-                <h3 className="mt-1 font-display text-lg font-semibold text-[var(--text)]">
+                <h3 className="mt-1 font-display text-lg font-semibold text-[var(--heading)]">
                   {pub.title}
                 </h3>
                 <p className="mt-2 text-sm text-[var(--text-soft)]">

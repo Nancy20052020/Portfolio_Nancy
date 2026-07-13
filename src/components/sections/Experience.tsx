@@ -2,44 +2,62 @@
 
 import { experience } from "@/data/content";
 
+const years = [...new Set(experience.map((item) => item.year))];
+
 export function Experience() {
   return (
     <section className="section">
       <div className="section-inner">
         <div className="section-heading reveal-item">
-          <p className="eyebrow">Experience</p>
-          <h2 className="section-title">Experience</h2>
+          <p className="eyebrow">Journey</p>
+          <h2 className="section-title">Journey</h2>
           <p className="section-sub">
-            Internships, scholarships, and programs that shaped my work in AI,
-            software, and geospatial tech.
+            A clear look at internships, scholarships, and programs across the
+            years.
           </p>
         </div>
 
-        <div className="experience-list mt-10">
-          {experience.map((item) => (
-            <article
-              key={`${item.role}-${item.org}`}
-              className="experience-card glass-panel reveal-item"
-            >
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
-                <div>
-                  <h3 className="font-display text-lg font-semibold text-[var(--heading)]">
-                    {item.role}
-                  </h3>
-                  <p className="mt-1 text-sm font-semibold text-[var(--accent)]">
-                    {item.org}
-                    {item.current ? " · Current" : ""}
-                  </p>
+        <div className="journey-chapters mt-10">
+          {years.map((year, yearIndex) => {
+            const items = experience.filter((item) => item.year === year);
+            return (
+              <div
+                key={year}
+                className={`journey-chapter reveal-item ${
+                  yearIndex % 2 === 1 ? "journey-chapter-alt" : ""
+                }`}
+              >
+                <div className="journey-year-rail" aria-hidden>
+                  <span className="journey-year-badge">{year}</span>
+                  <span className="journey-year-line" />
                 </div>
-                <span className="w-fit rounded-full bg-[var(--accent-soft)] px-3 py-1 text-xs font-semibold text-[var(--accent)]">
-                  {item.period}
-                </span>
+
+                <div className="journey-chapter-body">
+                  <p className="journey-chapter-label">
+                    {year === "2026" ? "Industry & geospatial" : "Scholarships & immersion"}
+                  </p>
+                  <div className="journey-cards">
+                    {items.map((item) => (
+                      <article
+                        key={`${item.role}-${item.org}`}
+                        className="journey-card glass-panel"
+                      >
+                        <div className="journey-card-top">
+                          <h3>{item.role}</h3>
+                          {item.current && (
+                            <span className="journey-now">Current</span>
+                          )}
+                        </div>
+                        <p className="journey-org">{item.org}</p>
+                        <p className="journey-period">{item.period}</p>
+                        <p className="journey-desc">{item.description}</p>
+                      </article>
+                    ))}
+                  </div>
+                </div>
               </div>
-              <p className="mt-3 text-sm leading-relaxed text-[var(--text-soft)]">
-                {item.description}
-              </p>
-            </article>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

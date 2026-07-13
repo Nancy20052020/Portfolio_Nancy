@@ -1,34 +1,32 @@
 "use client";
 
 import { skills } from "@/data/content";
+import { TechObject } from "@/components/TechObjects";
 
 export function Skills() {
   return (
-    <section className="section">
+    <section className="section skills-section">
       <div className="section-inner">
         <div className="section-heading reveal-item">
           <p className="eyebrow">Skills</p>
-          <h2 className="section-title">Tools I think and build with</h2>
+          <h2 className="section-title">Floating tech lab</h2>
           <p className="section-sub">
-            A focused stack spanning languages, ML frameworks, geospatial tools,
-            and the soft skills that make collaboration click.
+            Slowly rotating 3D objects for the tools I ship with — crystals,
+            cubes, ribbons, atoms, and cylinders in motion.
           </p>
         </div>
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 space-y-10">
           {Object.entries(skills).map(([category, items]) => (
-            <div key={category} className="skill-column reveal-item">
+            <div key={category} className="reveal-item">
               <h3 className="mb-4 font-display text-sm font-semibold uppercase tracking-[0.16em] text-[var(--accent)]">
                 {category}
               </h3>
-              <ul className="flex flex-col gap-2">
+              <div className="skills-float-grid">
                 {items.map((item) => (
-                  <li key={item} className="skill-row glass-panel">
-                    <span className="skill-dot" />
-                    {item}
-                  </li>
+                  <TechObject key={item.name} item={item} />
                 ))}
-              </ul>
+              </div>
             </div>
           ))}
         </div>

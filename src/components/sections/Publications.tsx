@@ -5,7 +5,7 @@ import { publications } from "@/data/content";
 
 export function Publications() {
   return (
-    <section id="publications" className="section section-alt">
+    <section className="section">
       <div className="section-inner">
         <div className="section-heading reveal-item">
           <p className="eyebrow">Publications</p>
@@ -42,7 +42,7 @@ export function Publications() {
                       href={href}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1 text-sm font-medium text-[var(--accent)] hover:underline"
+                      className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent)] hover:underline"
                     >
                       {key}
                       <ExternalLink size={12} />

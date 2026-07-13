@@ -23,7 +23,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="section">
+    <section className="section">
       <div className="section-inner">
         <div className="section-heading reveal-item">
           <p className="eyebrow">Let&apos;s Connect</p>
@@ -42,18 +42,21 @@ export function Contact() {
                 <p className="text-xs uppercase tracking-[0.14em] text-[var(--text-muted)]">
                   Email
                 </p>
-                <p className="text-sm font-medium text-[var(--text)]">
+                <p className="break-all text-sm font-semibold text-[var(--text)]">
                   {profile.email}
                 </p>
               </div>
             </a>
-            <a href={`tel:${profile.phone.replace(/\s/g, "")}`} className="contact-row glass-panel">
+            <a
+              href={`tel:${profile.phone.replace(/\s/g, "")}`}
+              className="contact-row glass-panel"
+            >
               <Phone size={18} />
               <div>
                 <p className="text-xs uppercase tracking-[0.14em] text-[var(--text-muted)]">
                   Phone
                 </p>
-                <p className="text-sm font-medium text-[var(--text)]">
+                <p className="text-sm font-semibold text-[var(--text)]">
                   {profile.phone}
                 </p>
               </div>
@@ -64,7 +67,7 @@ export function Contact() {
                 <p className="text-xs uppercase tracking-[0.14em] text-[var(--text-muted)]">
                   Location
                 </p>
-                <p className="text-sm font-medium text-[var(--text)]">
+                <p className="text-sm font-semibold text-[var(--text)]">
                   {profile.location}
                 </p>
               </div>

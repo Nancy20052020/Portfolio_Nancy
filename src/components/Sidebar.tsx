@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
   Home,
@@ -30,24 +32,14 @@ const icons = {
 } as const;
 
 export function Sidebar() {
+  const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
-  const [active, setActive] = useState("home");
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const sections = navItems.map((n) => document.getElementById(n.id));
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible?.target?.id) setActive(visible.target.id);
-      },
-      { rootMargin: "-30% 0px -50% 0px", threshold: [0.15, 0.4, 0.7] },
-    );
-    sections.forEach((s) => s && observer.observe(s));
-    return () => observer.disconnect();
-  }, []);
+    const id = window.setTimeout(() => setOpen(false), 0);
+    return () => window.clearTimeout(id);
+  }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -56,10 +48,8 @@ export function Sidebar() {
     };
   }, [open]);
 
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    setOpen(false);
-  };
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   const brand = (
     <div className="mb-6 flex items-center gap-3 px-2 lg:mb-8">
@@ -82,17 +72,17 @@ export function Sidebar() {
     <nav className="flex flex-1 flex-col gap-1" aria-label="Primary">
       {navItems.map((item) => {
         const Icon = icons[item.id];
-        const isActive = active === item.id;
+        const active = isActive(item.href);
         return (
-          <button
+          <Link
             key={item.id}
-            type="button"
-            onClick={() => scrollTo(item.id)}
-            className={`nav-item ${isActive ? "nav-item-active" : ""}`}
+            href={item.href}
+            className={`nav-item ${active ? "nav-item-active" : ""}`}
+            onClick={() => setOpen(false)}
           >
-            <Icon size={18} strokeWidth={isActive ? 2.4 : 1.8} />
+            <Icon size={18} strokeWidth={active ? 2.4 : 1.8} />
             <span>{item.label}</span>
-          </button>
+          </Link>
         );
       })}
     </nav>
@@ -126,14 +116,14 @@ export function Sidebar() {
       </aside>
 
       <div className="mobile-bar glass-sidebar">
-        <div className="flex min-w-0 items-center gap-2.5">
+        <Link href="/" className="flex min-w-0 items-center gap-2.5">
           <div className="avatar-ring avatar-ring-sm shrink-0">
             <span className="font-display text-sm font-bold text-white">NV</span>
           </div>
           <span className="font-display truncate text-sm font-semibold text-[var(--text)]">
             {profile.name}
           </span>
-        </div>
+        </Link>
         <div className="flex shrink-0 items-center gap-2">
           <button
             type="button"

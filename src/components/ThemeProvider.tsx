@@ -19,24 +19,19 @@ type ThemeContextValue = {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-function getInitialTheme(): Theme {
-  if (typeof window === "undefined") return "light";
-  const stored = window.localStorage.getItem("nv-theme");
-  if (stored === "light" || stored === "dark") return stored;
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
-}
-
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("light");
-  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const initial = getInitialTheme();
-    setThemeState(initial);
-    document.documentElement.setAttribute("data-theme", initial);
-    setReady(true);
+    const stored = window.localStorage.getItem("nv-theme");
+    const preferred =
+      stored === "light" || stored === "dark"
+        ? stored
+        : window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+    setThemeState(preferred);
+    document.documentElement.setAttribute("data-theme", preferred);
   }, []);
 
   const setTheme = useCallback((next: Theme) => {
@@ -48,10 +43,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const toggleTheme = useCallback(() => {
     setTheme(theme === "light" ? "dark" : "light");
   }, [setTheme, theme]);
-
-  if (!ready) {
-    return <div className="min-h-screen bg-[var(--bg)]" aria-hidden />;
-  }
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>

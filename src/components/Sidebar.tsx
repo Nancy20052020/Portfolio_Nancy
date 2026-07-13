@@ -49,92 +49,125 @@ export function Sidebar() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setOpen(false);
   };
 
-  const nav = (
-    <>
-      <div className="mb-8 flex items-center gap-3 px-2">
-        <div className="avatar-ring">
-          <span className="font-display text-lg font-bold text-white">
-            {profile.firstName[0]}
-            {profile.lastName[0]}
-          </span>
-        </div>
-        <div className="hidden xl:block">
-          <p className="font-display text-sm font-semibold text-[var(--text)]">
-            {profile.name}
-          </p>
-          <p className="text-xs text-[var(--text-muted)]">AI & ML · SWE</p>
-        </div>
+  const brand = (
+    <div className="mb-6 flex items-center gap-3 px-2 lg:mb-8">
+      <div className="avatar-ring">
+        <span className="font-display text-lg font-bold text-white">
+          {profile.firstName[0]}
+          {profile.lastName[0]}
+        </span>
       </div>
+      <div className="min-w-0">
+        <p className="font-display truncate text-sm font-semibold text-[var(--text)]">
+          {profile.name}
+        </p>
+        <p className="text-xs text-[var(--text-muted)]">AI & ML · SWE</p>
+      </div>
+    </div>
+  );
 
-      <nav className="flex flex-1 flex-col gap-1" aria-label="Primary">
-        {navItems.map((item) => {
-          const Icon = icons[item.id];
-          const isActive = active === item.id;
-          return (
-            <button
-              key={item.id}
-              type="button"
-              onClick={() => scrollTo(item.id)}
-              className={`nav-item ${isActive ? "nav-item-active" : ""}`}
-            >
-              <Icon size={18} strokeWidth={isActive ? 2.4 : 1.8} />
-              <span>{item.label}</span>
-            </button>
-          );
-        })}
-      </nav>
+  const links = (
+    <nav className="flex flex-1 flex-col gap-1" aria-label="Primary">
+      {navItems.map((item) => {
+        const Icon = icons[item.id];
+        const isActive = active === item.id;
+        return (
+          <button
+            key={item.id}
+            type="button"
+            onClick={() => scrollTo(item.id)}
+            className={`nav-item ${isActive ? "nav-item-active" : ""}`}
+          >
+            <Icon size={18} strokeWidth={isActive ? 2.4 : 1.8} />
+            <span>{item.label}</span>
+          </button>
+        );
+      })}
+    </nav>
+  );
 
-      <button
-        type="button"
-        onClick={toggleTheme}
-        className="theme-toggle mt-6"
-        aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
-      >
-        <Sun
-          size={16}
-          className={theme === "light" ? "opacity-100" : "opacity-40"}
-        />
-        <span className="theme-toggle-thumb" data-theme={theme} />
-        <Moon
-          size={16}
-          className={theme === "dark" ? "opacity-100" : "opacity-40"}
-        />
-      </button>
-    </>
+  const themeBtn = (
+    <button
+      type="button"
+      onClick={toggleTheme}
+      className="theme-toggle mt-4 lg:mt-6"
+      aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+    >
+      <Sun
+        size={16}
+        className={theme === "light" ? "opacity-100" : "opacity-40"}
+      />
+      <span className="theme-toggle-thumb" data-theme={theme} />
+      <Moon
+        size={16}
+        className={theme === "dark" ? "opacity-100" : "opacity-40"}
+      />
+    </button>
   );
 
   return (
     <>
-      <aside className="sidebar-desktop glass-sidebar">{nav}</aside>
+      <aside className="sidebar-desktop glass-sidebar">
+        {brand}
+        {links}
+        {themeBtn}
+      </aside>
 
       <div className="mobile-bar glass-sidebar">
-        <div className="flex items-center gap-3">
-          <div className="avatar-ring avatar-ring-sm">
+        <div className="flex min-w-0 items-center gap-2.5">
+          <div className="avatar-ring avatar-ring-sm shrink-0">
             <span className="font-display text-sm font-bold text-white">NV</span>
           </div>
-          <span className="font-display text-sm font-semibold text-[var(--text)]">
+          <span className="font-display truncate text-sm font-semibold text-[var(--text)]">
             {profile.name}
           </span>
         </div>
-        <button
-          type="button"
-          className="carousel-nav"
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X size={18} /> : <Menu size={18} />}
-        </button>
+        <div className="flex shrink-0 items-center gap-2">
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="carousel-nav"
+            aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+          >
+            {theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
+          </button>
+          <button
+            type="button"
+            className="carousel-nav"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X size={18} /> : <Menu size={18} />}
+          </button>
+        </div>
       </div>
 
       {open && (
-        <div className="mobile-drawer glass-sidebar">
-          {nav}
-        </div>
+        <>
+          <button
+            type="button"
+            className="mobile-backdrop"
+            aria-label="Close menu"
+            onClick={() => setOpen(false)}
+          />
+          <div className="mobile-drawer glass-sidebar">
+            {links}
+            {themeBtn}
+          </div>
+        </>
       )}
     </>
   );

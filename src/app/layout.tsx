@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Manrope, Syne } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
@@ -25,6 +25,15 @@ export const metadata: Metadata = {
       "Techy, creative portfolio featuring projects in ML, geospatial tech, and software engineering.",
     type: "website",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#efe8f8" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f0b1a" },
+  ],
 };
 
 export default function RootLayout({

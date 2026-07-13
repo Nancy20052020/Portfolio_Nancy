@@ -93,31 +93,33 @@ export const projects: Project[] = [
     links: {
       github: "https://github.com/Nancy20052020",
     },
-    accent: "#0d9488",
+    accent: "#B79AF5",
   },
   {
-    id: "orbitmap",
-    title: "OrbitMap",
+    id: "drought-vci",
+    title:
+      "Drought severity assessment using multi-temporal vegetation condition index from satellite data",
     description:
-      "Land-cover intelligence pipeline on Google Earth Engine — classifying satellite scenes and exporting map-ready geospatial insights.",
+      "Google Earth Engine analysis that evaluates drought severity over time with multi-temporal vegetation condition indices from satellite imagery.",
     stack: ["Google Earth Engine", "JavaScript", "Remote Sensing", "GIS"],
     links: {
       demo: "https://drive.google.com/file/d/1RZha6dBhiwGYqZHKaGM_WiZF5jK6NnmV/view?usp=drivesdk",
       code: "https://code.earthengine.google.com/1f478591ab593ffe9bcde0a27be6fc48",
     },
-    accent: "#0891b2",
+    accent: "#C8D7FF",
   },
   {
-    id: "terrapulse",
-    title: "TerraPulse",
+    id: "uhi-lst",
+    title:
+      "Urban heat island mapping using land surface temperature built-up density analysis",
     description:
-      "Satellite change-detection workflows that track environmental shifts over time using Earth observation data and GIS analysis.",
+      "Maps urban heat islands by combining land surface temperature with built-up density analysis on Google Earth Engine.",
     stack: ["Google Earth Engine", "GIS", "Satellite Data", "JavaScript"],
     links: {
       demo: "https://drive.google.com/file/d/1TFvuLC2Rm8a2FTUSVplmug-8RdcGejW3/view?usp=drivesdk",
       code: "https://code.earthengine.google.com/170c492464d96e8cc66d885f25702049",
     },
-    accent: "#0284c7",
+    accent: "#F7D7CC",
   },
   {
     id: "preppilot",
@@ -128,7 +130,7 @@ export const projects: Project[] = [
     links: {
       github: "https://github.com/Nancy20052020",
     },
-    accent: "#ea580c",
+    accent: "#EBC9A7",
   },
   {
     id: "multipdf",
@@ -139,7 +141,7 @@ export const projects: Project[] = [
     links: {
       github: "https://github.com/Nancy20052020",
     },
-    accent: "#c2410c",
+    accent: "#C9C0E7",
   },
 ];
 
@@ -197,19 +199,6 @@ export const experience: ExperienceItem[] = [
     description:
       "Expanded knowledge in blockchain and Web3, developing smart contracts and decentralized applications.",
     current: false,
-  },
-];
-
-export const experiencePortals = [
-  {
-    year: "2026",
-    label: "Industry & Earth Observation",
-    items: experience.filter((e) => e.year === "2026"),
-  },
-  {
-    year: "2024",
-    label: "Scholarships & Immersion",
-    items: experience.filter((e) => e.year === "2024"),
   },
 ];
 

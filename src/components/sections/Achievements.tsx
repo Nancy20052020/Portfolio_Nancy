@@ -16,10 +16,9 @@ export function Achievements() {
       <div className="section-inner">
         <div className="section-heading reveal-item">
           <p className="eyebrow">Achievements</p>
-          <h2 className="section-title">Milestones that matter</h2>
+          <h2 className="section-title">Achievements</h2>
           <p className="section-sub">
-            Academic excellence, scholarships, consistent engineering craft, and
-            competitive hackathon finishes.
+            Academic excellence, scholarships, commits, and hackathon finishes.
           </p>
         </div>
 
@@ -35,7 +34,7 @@ export function Achievements() {
                   <Icon size={22} />
                 </div>
                 <div>
-                  <h3 className="font-display text-lg font-semibold text-[var(--text)]">
+                  <h3 className="font-display text-lg font-semibold text-[var(--heading)]">
                     {item.title}
                   </h3>
                   <p className="mt-1 text-sm text-[var(--text-soft)]">

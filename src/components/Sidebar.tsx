@@ -109,7 +109,7 @@ export function Sidebar() {
 
   return (
     <>
-      <aside className="sidebar-desktop glass-sidebar">
+      <aside className="sidebar-desktop glass-sidebar float-3d-sidebar">
         {brand}
         {links}
         {themeBtn}

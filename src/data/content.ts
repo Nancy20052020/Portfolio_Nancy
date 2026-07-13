@@ -32,7 +32,7 @@ export const navItems = [
   { id: "about", label: "About", href: "/about" },
   { id: "skills", label: "Skills", href: "/skills" },
   { id: "projects", label: "Projects", href: "/projects" },
-  { id: "experience", label: "Experience", href: "/experience" },
+  { id: "experience", label: "Journey", href: "/experience" },
   { id: "achievements", label: "Achievements", href: "/achievements" },
   { id: "publications", label: "Publications", href: "/publications" },
   { id: "contact", label: "Contact", href: "/contact" },

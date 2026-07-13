@@ -38,11 +38,36 @@ export const navItems = [
   { id: "contact", label: "Contact", href: "/contact" },
 ] as const;
 
-export const skills = {
-  Languages: ["Python", "C++", "HTML", "JavaScript", "CSS"],
-  "Machine Learning": ["TensorFlow", "Keras", "Scikit-Learn"],
-  Tools: ["Git", "LaTeX", "Google Colab", "Graphviz", "Google Earth Engine"],
-  "Soft Skills": ["Leadership", "Communication", "Team Collaboration"],
+export type SkillItem = {
+  name: string;
+  shape: "ribbon" | "crystal" | "atom" | "cube" | "cylinder" | "chip" | "orb" | "hex";
+};
+
+export const skills: Record<string, SkillItem[]> = {
+  Languages: [
+    { name: "Python", shape: "ribbon" },
+    { name: "C++", shape: "hex" },
+    { name: "HTML", shape: "chip" },
+    { name: "JavaScript", shape: "orb" },
+    { name: "CSS", shape: "chip" },
+  ],
+  "Machine Learning": [
+    { name: "TensorFlow", shape: "crystal" },
+    { name: "Keras", shape: "crystal" },
+    { name: "Scikit-Learn", shape: "orb" },
+  ],
+  Tools: [
+    { name: "Git", shape: "cube" },
+    { name: "React", shape: "atom" },
+    { name: "LaTeX", shape: "chip" },
+    { name: "Google Colab", shape: "orb" },
+    { name: "Google Earth Engine", shape: "cylinder" },
+  ],
+  "Soft Skills": [
+    { name: "Leadership", shape: "orb" },
+    { name: "Communication", shape: "ribbon" },
+    { name: "Team Collaboration", shape: "atom" },
+  ],
 };
 
 export type Project = {
@@ -68,7 +93,42 @@ export const projects: Project[] = [
     links: {
       github: "https://github.com/Nancy20052020",
     },
-    accent: "#5b3fd4",
+    accent: "#0d9488",
+  },
+  {
+    id: "orbitmap",
+    title: "OrbitMap",
+    description:
+      "Land-cover intelligence pipeline on Google Earth Engine — classifying satellite scenes and exporting map-ready geospatial insights.",
+    stack: ["Google Earth Engine", "JavaScript", "Remote Sensing", "GIS"],
+    links: {
+      demo: "https://drive.google.com/file/d/1RZha6dBhiwGYqZHKaGM_WiZF5jK6NnmV/view?usp=drivesdk",
+      code: "https://code.earthengine.google.com/1f478591ab593ffe9bcde0a27be6fc48",
+    },
+    accent: "#0891b2",
+  },
+  {
+    id: "terrapulse",
+    title: "TerraPulse",
+    description:
+      "Satellite change-detection workflows that track environmental shifts over time using Earth observation data and GIS analysis.",
+    stack: ["Google Earth Engine", "GIS", "Satellite Data", "JavaScript"],
+    links: {
+      demo: "https://drive.google.com/file/d/1TFvuLC2Rm8a2FTUSVplmug-8RdcGejW3/view?usp=drivesdk",
+      code: "https://code.earthengine.google.com/170c492464d96e8cc66d885f25702049",
+    },
+    accent: "#0284c7",
+  },
+  {
+    id: "preppilot",
+    title: "PrepPilot",
+    description:
+      "AI-assisted prep companion for interviews and placements — structured practice, smart feedback loops, and focused revision paths.",
+    stack: ["Python", "JavaScript", "AI", "Web"],
+    links: {
+      github: "https://github.com/Nancy20052020",
+    },
+    accent: "#ea580c",
   },
   {
     id: "multipdf",
@@ -79,39 +139,25 @@ export const projects: Project[] = [
     links: {
       github: "https://github.com/Nancy20052020",
     },
-    accent: "#4f46e5",
-  },
-  {
-    id: "gee-p1",
-    title: "GEE Remote Sensing — Project I",
-    description:
-      "Satellite imagery analysis pipeline built with Google Earth Engine for geospatial insights during the Remote Sensing & GIS internship.",
-    stack: ["Google Earth Engine", "JavaScript", "Remote Sensing", "GIS"],
-    links: {
-      demo: "https://drive.google.com/file/d/1RZha6dBhiwGYqZHKaGM_WiZF5jK6NnmV/view?usp=drivesdk",
-      code: "https://code.earthengine.google.com/1f478591ab593ffe9bcde0a27be6fc48",
-    },
-    accent: "#6d28d9",
-  },
-  {
-    id: "gee-p2",
-    title: "GEE Remote Sensing — Project II",
-    description:
-      "Advanced geospatial workflows and Earth observation analysis using Google Earth Engine, delivering map-ready remote sensing outputs.",
-    stack: ["Google Earth Engine", "GIS", "Satellite Data", "JavaScript"],
-    links: {
-      demo: "https://drive.google.com/file/d/1TFvuLC2Rm8a2FTUSVplmug-8RdcGejW3/view?usp=drivesdk",
-      code: "https://code.earthengine.google.com/170c492464d96e8cc66d885f25702049",
-    },
-    accent: "#4338ca",
+    accent: "#c2410c",
   },
 ];
 
-export const experience = [
+export type ExperienceItem = {
+  role: string;
+  org: string;
+  period: string;
+  description: string;
+  current: boolean;
+  year: string;
+};
+
+export const experience: ExperienceItem[] = [
   {
     role: "Software Engineering Intern",
     org: "Grids App LLC",
     period: "Jul 2026 – Present",
+    year: "2026",
     description:
       "Building production software features end-to-end — shipping reliable, user-facing product work in a fast-moving engineering team.",
     current: true,
@@ -120,6 +166,7 @@ export const experience = [
     role: "Remote Sensing & GIS Intern",
     org: "Indian Truth Academy",
     period: "May 2026 – Jul 2026",
+    year: "2026",
     description:
       "Completed hands-on remote sensing and GIS projects using satellite data and Google Earth Engine, producing analysis pipelines and geospatial deliverables.",
     current: false,
@@ -128,6 +175,7 @@ export const experience = [
     role: "WE Scholar",
     org: "Google & TalentSprint",
     period: "2024",
+    year: "2024",
     description:
       "Selected from over 30,000 applicants for an intensive Data Structures & Algorithms program.",
     current: false,
@@ -136,6 +184,7 @@ export const experience = [
     role: "Google Immersion Week",
     org: "Google",
     period: "2024",
+    year: "2024",
     description:
       "Engaged in 15+ hours of exclusive sessions covering AI, career development, and personalized mentorship.",
     current: false,
@@ -144,9 +193,23 @@ export const experience = [
     role: "SheFi Scholar",
     org: "SheFi",
     period: "2024",
+    year: "2024",
     description:
       "Expanded knowledge in blockchain and Web3, developing smart contracts and decentralized applications.",
     current: false,
+  },
+];
+
+export const experiencePortals = [
+  {
+    year: "2026",
+    label: "Industry & Earth Observation",
+    items: experience.filter((e) => e.year === "2026"),
+  },
+  {
+    year: "2024",
+    label: "Scholarships & Immersion",
+    items: experience.filter((e) => e.year === "2024"),
   },
 ];
 
@@ -162,7 +225,7 @@ export const achievements = [
     icon: "star" as const,
   },
   {
-    title: "100+ Commits on Git",
+    title: "500+ Commits on Git",
     detail: "Consistent open contribution and version control practice",
     icon: "code" as const,
   },

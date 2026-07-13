@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope, Syne } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { AppShell } from "@/components/AppShell";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -16,7 +17,10 @@ const syne = Syne({
 });
 
 export const metadata: Metadata = {
-  title: "Nancy Verma | AI & ML Portfolio",
+  title: {
+    default: "Nancy Verma | AI & ML Portfolio",
+    template: "%s | Nancy Verma",
+  },
   description:
     "Portfolio of Nancy Verma — AI & ML enthusiast, software engineering intern, and builder of intelligent systems.",
   openGraph: {
@@ -31,8 +35,8 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#efe8f8" },
-    { media: "(prefers-color-scheme: dark)", color: "#0f0b1a" },
+    { media: "(prefers-color-scheme: light)", color: "#f4f0fa" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0914" },
   ],
 };
 
@@ -42,7 +46,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${manrope.variable} ${syne.variable} h-full`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${manrope.variable} ${syne.variable} h-full`}
+    >
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -51,7 +59,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full antialiased">
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <AppShell>{children}</AppShell>
+        </ThemeProvider>
       </body>
     </html>
   );

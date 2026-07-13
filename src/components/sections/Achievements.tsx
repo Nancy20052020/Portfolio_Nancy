@@ -12,7 +12,7 @@ const iconMap = {
 
 export function Achievements() {
   return (
-    <section id="achievements" className="section">
+    <section className="section">
       <div className="section-inner">
         <div className="section-heading reveal-item">
           <p className="eyebrow">Achievements</p>

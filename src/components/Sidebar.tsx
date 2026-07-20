@@ -60,7 +60,7 @@ export function Sidebar() {
         </span>
       </div>
       <div className="min-w-0">
-        <p className="font-display truncate text-sm font-semibold text-[var(--heading)]">
+        <p className="brand-name font-display truncate text-sm font-semibold">
           {profile.name}
         </p>
         <p className="text-xs text-[var(--text-muted)]">AI & ML · SWE</p>

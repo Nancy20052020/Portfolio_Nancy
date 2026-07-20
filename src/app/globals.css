@@ -472,26 +472,17 @@ body {
   color: #faf6f3;
 }
 
+/* Solid colors — gradient text-fill breaks into opaque blocks on mobile dark mode */
 .name-gradient {
-  background: linear-gradient(120deg, #2f2a45 0%, #5b3eb0 42%, #7a58d4 78%, #8f6ad8);
-  -webkit-background-clip: text;
-  background-clip: text;
   color: #2f2a45;
-  -webkit-text-fill-color: transparent;
-}
-
-@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
-  .name-gradient {
-    color: #2f2a45;
-    -webkit-text-fill-color: #2f2a45;
-    background: none;
-  }
+  background: none;
+  -webkit-text-fill-color: currentColor;
 }
 
 [data-theme="dark"] .name-gradient {
-  background: linear-gradient(120deg, #d4c4ff 0%, #b79af5 40%, #c8d7ff 75%, #f7d7cc);
-  color: #faf6f3;
-  -webkit-text-fill-color: transparent;
+  color: #e8deff;
+  background: none;
+  -webkit-text-fill-color: currentColor;
 }
 
 .type-caret {

@@ -7,15 +7,29 @@ import { usePathname } from "next/navigation";
 import { ArrowRight, ExternalLink, Rocket } from "lucide-react";
 import { projectFilters, projects, type Project } from "@/data/content";
 
-function primaryLink(project: Project) {
-  return project.links.demo ?? project.links.github ?? project.links.code;
-}
+type ProjectAction = {
+  label: string;
+  href: string;
+};
 
-function actionLabel(project: Project) {
-  if (project.links.demo) return "Live Demo";
-  if (project.links.github) return "View Code";
-  if (project.links.code) return "Earth Engine";
-  return "View";
+function projectActions(project: Project): ProjectAction[] {
+  const actions: ProjectAction[] = [];
+  if (project.links.report) {
+    actions.push({ label: "Report", href: project.links.report });
+  }
+  if (project.links.gee) {
+    actions.push({ label: "GEE", href: project.links.gee });
+  }
+  if (project.links.demo) {
+    actions.push({ label: "Live Demo", href: project.links.demo });
+  }
+  if (project.links.github) {
+    actions.push({ label: "View Code", href: project.links.github });
+  }
+  if (project.links.code) {
+    actions.push({ label: "Earth Engine", href: project.links.code });
+  }
+  return actions;
 }
 
 export function ProjectGrid() {
@@ -52,7 +66,8 @@ export function ProjectGrid() {
 
       <div className="project-grid">
         {filtered.map((project) => {
-          const href = primaryLink(project);
+          const actions = projectActions(project);
+          const primary = actions[0];
           return (
             <article key={project.id} className="project-card reveal-item">
               <div className="project-media">
@@ -97,23 +112,28 @@ export function ProjectGrid() {
                 </div>
 
                 <div className="project-footer">
-                  {href ? (
-                    <a
-                      href={href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="project-live"
-                    >
-                      {actionLabel(project)}
-                      <ExternalLink size={14} aria-hidden />
-                    </a>
+                  {actions.length > 0 ? (
+                    <div className="project-links">
+                      {actions.map((action) => (
+                        <a
+                          key={action.label}
+                          href={action.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="project-live"
+                        >
+                          {action.label}
+                          <ExternalLink size={14} aria-hidden />
+                        </a>
+                      ))}
+                    </div>
                   ) : (
                     <span className="project-live is-disabled">Coming soon</span>
                   )}
 
-                  {href && (
+                  {primary && (
                     <a
-                      href={href}
+                      href={primary.href}
                       target="_blank"
                       rel="noreferrer"
                       className="project-arrow"

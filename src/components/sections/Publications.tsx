@@ -1,11 +1,12 @@
 "use client";
 
-import { ExternalLink, FileText } from "lucide-react";
+import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
 import { publications } from "@/data/content";
 
 export function Publications() {
   return (
-    <section className="section">
+    <section className="section pubs-section">
       <div className="section-inner">
         <div className="section-heading reveal-item">
           <p className="eyebrow">Publications</p>
@@ -15,42 +16,43 @@ export function Publications() {
           </p>
         </div>
 
-        <div className="mt-10 flex flex-col gap-4">
-          {publications.map((pub) => (
-            <article
-              key={pub.title}
-              className="publication-card glass-panel reveal-item"
-            >
-              <div className="publication-thumb" aria-hidden>
-                <FileText size={28} />
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--accent)]">
-                  {pub.venue}
-                </p>
-                <h3 className="mt-1 font-display text-lg font-semibold text-[var(--heading)]">
-                  {pub.title}
-                </h3>
-                <p className="mt-2 text-sm text-[var(--text-soft)]">
-                  {pub.description}
-                </p>
-                <div className="mt-3 flex flex-wrap gap-3">
-                  {Object.entries(pub.links).map(([key, href]) => (
+        <div className="pubs-layout mt-10">
+          <div className="pubs-list">
+            {publications.map((pub) => {
+              const primary = Object.entries(pub.links)[0];
+              return (
+                <article
+                  key={pub.title}
+                  className="pub-card glass-panel reveal-item"
+                >
+                  <p className="pub-venue">{pub.venue}</p>
+                  <h3 className="pub-title">{pub.title}</h3>
+                  <p className="pub-desc">{pub.description}</p>
+                  {primary && (
                     <a
-                      key={key}
-                      href={href}
+                      href={primary[1]}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent)] hover:underline"
+                      className="pub-link"
                     >
-                      {key}
-                      <ExternalLink size={12} />
+                      Read Paper
+                      <ArrowUpRight size={14} aria-hidden />
                     </a>
-                  ))}
-                </div>
-              </div>
-            </article>
-          ))}
+                  )}
+                </article>
+              );
+            })}
+          </div>
+
+          <div className="pubs-art reveal-item">
+            <Image
+              src="/images/publications-books.png"
+              alt=""
+              fill
+              sizes="(max-width: 900px) 100vw, 320px"
+              className="pubs-art-img"
+            />
+          </div>
         </div>
       </div>
     </section>

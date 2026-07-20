@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Image from "next/image";
 import { Mail, Send } from "lucide-react";
 import { profile } from "@/data/content";
+import { GitHubIcon, LinkedInIcon } from "@/components/icons";
 
 export function Contact() {
   const [sent, setSent] = useState(false);
@@ -23,19 +25,19 @@ export function Contact() {
   };
 
   return (
-    <section className="section">
+    <section className="section contact-section">
       <div className="section-inner">
         <div className="section-heading reveal-item">
           <p className="eyebrow">Contact</p>
           <h2 className="section-title">Contact</h2>
           <p className="section-sub">
-            Open to internships, research collaborations, and interesting
-            problems in AI, ML, and software engineering.
+            Let&apos;s connect — open to internships, research collaborations,
+            and interesting problems in AI, ML, and software engineering.
           </p>
         </div>
 
-        <div className="mt-10 grid gap-8 lg:grid-cols-2">
-          <div className="flex flex-col gap-4 reveal-item">
+        <div className="contact-layout mt-10">
+          <div className="contact-left reveal-item">
             <a href={`mailto:${profile.email}`} className="contact-row glass-panel">
               <Mail size={18} />
               <div>
@@ -47,6 +49,44 @@ export function Contact() {
                 </p>
               </div>
             </a>
+
+            <div className="contact-socials">
+              <a
+                href={profile.links.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                className="social-btn"
+                aria-label="LinkedIn"
+              >
+                <LinkedInIcon size={18} />
+              </a>
+              <a
+                href={profile.links.github}
+                target="_blank"
+                rel="noreferrer"
+                className="social-btn"
+                aria-label="GitHub"
+              >
+                <GitHubIcon size={18} />
+              </a>
+              <a
+                href={`mailto:${profile.email}`}
+                className="social-btn"
+                aria-label="Email"
+              >
+                <Mail size={18} />
+              </a>
+            </div>
+
+            <div className="contact-plane">
+              <Image
+                src="/images/contact-plane.png"
+                alt=""
+                fill
+                sizes="220px"
+                className="contact-plane-img"
+              />
+            </div>
           </div>
 
           <form onSubmit={onSubmit} className="contact-form glass-panel reveal-item">

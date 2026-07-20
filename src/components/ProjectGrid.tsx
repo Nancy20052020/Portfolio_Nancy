@@ -1,71 +1,158 @@
 "use client";
 
-import { ExternalLink } from "lucide-react";
-import { projects } from "@/data/content";
-import { GitHubIcon } from "@/components/icons";
+import { useMemo, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { ArrowRight, ExternalLink, Rocket } from "lucide-react";
+import { projectFilters, projects, type Project } from "@/data/content";
+
+function primaryLink(project: Project) {
+  return project.links.demo ?? project.links.github ?? project.links.code;
+}
+
+function actionLabel(project: Project) {
+  if (project.links.demo) return "Live Demo";
+  if (project.links.github) return "View Code";
+  if (project.links.code) return "Earth Engine";
+  return "View";
+}
 
 export function ProjectGrid() {
+  const pathname = usePathname();
+  const [active, setActive] = useState<(typeof projectFilters)[number]>("All");
+
+  const filtered = useMemo(() => {
+    if (active === "All") return projects;
+    return projects.filter((project) => project.categories.includes(active));
+  }, [active]);
+
+  const viewAllHref =
+    pathname === "/projects"
+      ? "https://github.com/Nancy20052020"
+      : "/projects";
+  const viewAllExternal = viewAllHref.startsWith("http");
+
   return (
-    <div className="project-grid">
-      {projects.map((project, i) => (
-        <article
-          key={project.id}
-          className="project-card-v2 glass-panel reveal-item"
-          style={{ ["--card-accent" as string]: project.accent }}
-        >
-          <div className="project-card-top">
-            <span className="project-index">{String(i + 1).padStart(2, "0")}</span>
-            <p className="project-kicker">Featured project</p>
-          </div>
+    <div className="projects-showcase">
+      <div className="project-filters" role="tablist" aria-label="Project filters">
+        {projectFilters.map((filter) => (
+          <button
+            key={filter}
+            type="button"
+            role="tab"
+            aria-selected={active === filter}
+            className={`project-filter${active === filter ? " is-active" : ""}`}
+            onClick={() => setActive(filter)}
+          >
+            {filter}
+          </button>
+        ))}
+      </div>
 
-          <h3 className="project-title">{project.title}</h3>
-          <p className="project-desc">{project.description}</p>
+      <div className="project-grid">
+        {filtered.map((project) => {
+          const href = primaryLink(project);
+          return (
+            <article key={project.id} className="project-card reveal-item">
+              <div className="project-media">
+                <Image
+                  src={project.image}
+                  alt={`${project.title} preview`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="project-media-img"
+                />
+                {project.featured && (
+                  <span className="project-featured">Featured</span>
+                )}
+              </div>
 
-          <div className="mt-4 flex flex-wrap gap-2">
-            {project.stack.map((tag) => (
-              <span key={tag} className="skill-chip">
-                {tag}
-              </span>
-            ))}
-          </div>
+              <div className="project-body">
+                <div className="project-tags">
+                  {project.tags.map((tag, i) => (
+                    <span
+                      key={tag}
+                      className={`project-tag${i % 2 === 1 ? " is-alt" : ""}`}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
 
-          <div className="project-actions">
-            {project.links.github && (
-              <a
-                href={project.links.github}
-                target="_blank"
-                rel="noreferrer"
-                className="btn-ghost"
-              >
-                <GitHubIcon size={16} />
-                GitHub
-              </a>
-            )}
-            {project.links.demo && (
-              <a
-                href={project.links.demo}
-                target="_blank"
-                rel="noreferrer"
-                className="btn-ghost"
-              >
-                <ExternalLink size={16} />
-                Demo
-              </a>
-            )}
-            {project.links.code && (
-              <a
-                href={project.links.code}
-                target="_blank"
-                rel="noreferrer"
-                className="btn-ghost"
-              >
-                <ExternalLink size={16} />
-                Earth Engine
-              </a>
-            )}
-          </div>
-        </article>
-      ))}
+                <h3 className="project-title">{project.title}</h3>
+                <p className="project-desc">{project.description}</p>
+
+                <div className="project-stack">
+                  {project.stack.map((tech) => (
+                    <span key={tech} className="project-stack-item">
+                      <span
+                        className="project-stack-dot"
+                        style={{ background: project.accent }}
+                        aria-hidden
+                      />
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="project-footer">
+                  {href ? (
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="project-live"
+                    >
+                      {actionLabel(project)}
+                      <ExternalLink size={14} aria-hidden />
+                    </a>
+                  ) : (
+                    <span className="project-live is-disabled">Coming soon</span>
+                  )}
+
+                  {href && (
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="project-arrow"
+                      aria-label={`Open ${project.title}`}
+                    >
+                      <ArrowRight size={18} />
+                    </a>
+                  )}
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+      {filtered.length === 0 && (
+        <p className="project-empty">No projects in this category yet.</p>
+      )}
+
+      <div className="project-view-all-wrap">
+        {viewAllExternal ? (
+          <a
+            href={viewAllHref}
+            target="_blank"
+            rel="noreferrer"
+            className="project-view-all"
+          >
+            <Rocket size={18} aria-hidden />
+            View All Projects
+            <ArrowRight size={18} aria-hidden />
+          </a>
+        ) : (
+          <Link href={viewAllHref} className="project-view-all">
+            <Rocket size={18} aria-hidden />
+            View All Projects
+            <ArrowRight size={18} aria-hidden />
+          </Link>
+        )}
+      </div>
     </div>
   );
 }

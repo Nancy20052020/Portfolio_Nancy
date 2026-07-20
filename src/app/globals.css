@@ -3359,14 +3359,25 @@ html.lenis body {
     var(--shadow),
     0 0 28px color-mix(in srgb, var(--exp-tone) 10%, transparent);
   backdrop-filter: blur(14px);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: none;
 }
 
-.exp-card:hover {
-  transform: translateY(-3px);
+.exp-card:hover,
+.exp-card:focus-within,
+.exp-journey-item:hover .exp-card,
+.exp-journey-item:hover .exp-hex {
+  transform: none;
   box-shadow:
     var(--shadow),
-    0 16px 32px color-mix(in srgb, var(--exp-tone) 16%, transparent);
+    0 0 28px color-mix(in srgb, var(--exp-tone) 10%, transparent);
+}
+
+.exp-section .exp-card,
+.exp-section .exp-hex,
+.exp-section .exp-journey-item {
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
 }
 
 .exp-card-org {
@@ -3470,73 +3481,35 @@ html.lenis body {
   }
 }
 
-/* ── Cinematic page transition ── */
+/* ── Soft page transition ── */
 .page-transition {
   position: fixed;
   inset: 0;
   z-index: 200;
-  display: grid;
-  place-items: center;
   pointer-events: none;
   visibility: hidden;
   opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.page-transition.is-soft .pt-backdrop {
+  backdrop-filter: none;
 }
 
 .pt-backdrop {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    circle at center,
-    rgba(3, 7, 18, 0.55) 0%,
-    rgba(3, 7, 18, 0.92) 70%
-  );
-  backdrop-filter: blur(8px);
+  background: color-mix(in srgb, var(--bg) 55%, transparent);
 }
 
 [data-theme="light"] .pt-backdrop {
-  background: radial-gradient(
-    circle at center,
-    rgba(244, 247, 251, 0.65) 0%,
-    rgba(232, 238, 246, 0.94) 70%
-  );
+  background: color-mix(in srgb, var(--bg) 45%, transparent);
 }
 
-.pt-stage {
-  position: relative;
-  width: 8rem;
-  height: 8rem;
-}
-
-.pt-ring {
-  position: absolute;
-  inset: 0;
-  border-radius: 9999px;
-  border: 1px solid transparent;
-}
-
-.pt-ring.ring-1 {
-  border-color: rgba(182, 186, 197, 0.55);
-  box-shadow: 0 0 24px rgba(182, 186, 197, 0.25);
-}
-
-.pt-ring.ring-2 {
-  inset: 0.75rem;
-  border-color: rgba(158, 180, 204, 0.5);
-  box-shadow: 0 0 20px rgba(158, 180, 204, 0.2);
-}
-
-.pt-ring.ring-3 {
-  inset: 1.5rem;
-  border-color: rgba(197, 210, 224, 0.45);
-  box-shadow: 0 0 16px rgba(197, 210, 224, 0.18);
-}
-
+.pt-stage,
+.pt-ring,
 .pt-core {
-  position: absolute;
-  inset: 2.25rem;
-  border-radius: 9999px;
-  background: radial-gradient(circle, #d7e1ec 0%, #9eb4cc 55%, transparent 72%);
-  box-shadow: 0 0 40px rgba(182, 186, 197, 0.5);
+  display: none;
 }
 
 /* ── Section ambient auras ── */

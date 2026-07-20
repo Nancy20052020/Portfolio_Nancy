@@ -3576,310 +3576,231 @@ html.lenis body {
   transform-style: preserve-3d;
 }
 
-/* Igloo-inspired home hero */
-.hero-section {
+/* Igloo-exact home: full-bleed icy WebGL stage + sparse overlay */
+.igloo-hero {
+  position: relative;
   min-height: 100vh;
   min-height: 100dvh;
   padding: 0;
-  display: flex;
-  align-items: center;
-  isolation: isolate;
-}
-
-.hero-bg {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-}
-
-.hero-bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 18% 12%, rgba(182, 198, 227, 0.2), transparent 32%),
-    radial-gradient(circle at 82% 24%, rgba(159, 187, 233, 0.16), transparent 30%),
-    radial-gradient(circle at 50% 80%, rgba(119, 146, 197, 0.15), transparent 36%),
-    repeating-linear-gradient(
-      165deg,
-      rgba(255, 255, 255, 0.03) 0,
-      rgba(255, 255, 255, 0.03) 2px,
-      transparent 2px,
-      transparent 24px
-    );
-  opacity: 0.72;
-}
-
-.ice-scan-line {
-  position: absolute;
-  top: 34%;
-  left: -40%;
-  width: 45%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(185, 224, 255, 0.95), transparent);
-  box-shadow: 0 0 16px rgba(170, 226, 255, 0.65);
-  filter: blur(0.25px);
-}
-
-.hero-igloo-grid {
-  position: relative;
-  z-index: 2;
-  width: min(100%, 78rem);
-  margin-inline: auto;
   display: grid;
-  gap: 2rem;
-  align-items: center;
-  padding: max(4.5rem, 8vh) 1rem 2.5rem;
+  place-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 20%, rgba(150, 176, 205, 0.16), transparent 58%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(92, 118, 148, 0.18), transparent 55%),
+    #070b12;
+}
+
+.igloo-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.igloo-webgl {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.igloo-webgl canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+.igloo-frost-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    radial-gradient(circle at 30% 25%, rgba(220, 235, 255, 0.12), transparent 42%),
+    radial-gradient(circle at 70% 70%, rgba(160, 186, 214, 0.1), transparent 45%),
+    linear-gradient(180deg, rgba(8, 12, 20, 0.15), rgba(8, 12, 20, 0.55));
+  opacity: 0.28;
+  mix-blend-mode: screen;
+}
+
+.igloo-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: radial-gradient(circle at center, transparent 35%, rgba(5, 8, 14, 0.72) 100%);
+}
+
+.igloo-grid-floor {
+  position: absolute;
+  inset: 42% -12% -18%;
+  z-index: 2;
+  background-image:
+    linear-gradient(rgba(182, 186, 197, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(182, 186, 197, 0.08) 1px, transparent 1px);
+  background-size: 62px 62px;
+  transform: perspective(760px) rotateX(64deg);
+  transform-origin: center top;
+  mask-image: linear-gradient(to bottom, transparent, black 28%, transparent 92%);
+  opacity: 0.38;
+}
+
+.igloo-chromatic {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background:
+    linear-gradient(90deg, rgba(120, 180, 255, 0.05), transparent 40%, rgba(255, 160, 200, 0.035));
+  mix-blend-mode: color-dodge;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.igloo-overlay {
+  position: relative;
+  z-index: 5;
+  width: min(100%, 68rem);
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: max(5.5rem, 10vh) 1.15rem 3rem;
 }
 
 @media (min-width: 640px) {
-  .hero-igloo-grid {
+  .igloo-overlay {
     padding-inline: 2rem;
   }
 }
 
-@media (min-width: 1024px) {
-  .hero-igloo-grid {
-    min-height: 100dvh;
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-    gap: 2rem 2.5rem;
-    padding-top: 4.5rem;
-    padding-bottom: 3.5rem;
-  }
+.igloo-copy {
+  max-width: 42rem;
 }
 
-.hero-copy {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.hero-kicker {
-  display: inline-flex;
-  width: fit-content;
-  align-items: center;
-  gap: 0.45rem;
-  border-radius: 9999px;
-  border: 1px solid color-mix(in srgb, #c8e6ff 35%, transparent);
-  background: color-mix(in srgb, var(--bg-elevated) 84%, transparent);
-  padding: 0.38rem 0.82rem;
-  font-size: 0.69rem;
+.igloo-kicker {
+  font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: #b9e1ff;
+  color: #b6bac5;
 }
 
-.hero-title {
-  margin-top: 0.9rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.42rem;
-  line-height: 0.94;
+.igloo-brand {
+  margin-top: 0.85rem;
+  line-height: 0.92;
 }
 
-.hero-title .name-gradient {
+.igloo-brand-main {
+  display: block;
   font-family: var(--font-syne), sans-serif;
-  font-size: clamp(2.4rem, 10vw, 6.7rem);
+  font-size: clamp(3.1rem, 12vw, 7.4rem);
   font-weight: 800;
-  letter-spacing: -0.05em;
-  color: #e9f3ff;
+  letter-spacing: -0.055em;
+  color: #e8eef6;
+  text-shadow:
+    0 0 40px rgba(190, 214, 240, 0.22),
+    1px 0 0 rgba(130, 180, 255, 0.18),
+    -1px 0 0 rgba(255, 170, 200, 0.12);
 }
 
-.hero-title-sub {
-  font-family: var(--font-manrope), sans-serif;
-  font-size: clamp(0.88rem, 1.8vw, 1.05rem);
-  font-weight: 650;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: rgba(203, 224, 255, 0.92);
-}
-
-.hero-role {
+.igloo-line {
+  display: block;
   margin-top: 1.1rem;
-  font-size: clamp(1rem, 1.9vw, 1.2rem);
-  color: #b7d4f8;
+  width: min(12rem, 42vw);
+  height: 1px;
+  transform-origin: left center;
+  background: linear-gradient(90deg, #b6bac5, transparent);
 }
 
-.hero-tagline {
-  margin-top: 1.1rem;
-  max-width: 40rem;
+.igloo-role {
+  margin-top: 1.05rem;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: #b6bac5;
+}
+
+.igloo-tagline {
+  margin-top: 0.95rem;
+  max-width: 34rem;
   font-size: 0.98rem;
-  line-height: 1.72;
-  color: #c6d3e3;
+  line-height: 1.7;
+  color: rgba(214, 222, 232, 0.88);
 }
 
-.hero-actions {
-  margin-top: 1.6rem;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.8rem;
+.igloo-cta {
+  margin-top: 1.7rem;
 }
 
-.hero-socials {
+.igloo-btn {
+  background: linear-gradient(135deg, #d5e3f2, #9eb4cc 55%, #b6bac5);
+  color: #0a1018;
+  box-shadow: 0 12px 34px rgba(182, 186, 197, 0.22);
+}
+
+.igloo-btn:hover {
+  box-shadow: 0 16px 40px rgba(182, 186, 197, 0.32);
+}
+
+.igloo-socials {
   margin-top: 1.15rem;
   display: flex;
   gap: 0.55rem;
 }
 
-.hero-ice-rail {
-  margin-top: 1.35rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem;
-}
-
-.hero-ice-chip {
-  border-radius: 9999px;
-  border: 1px solid color-mix(in srgb, #abd8ff 32%, transparent);
-  background: linear-gradient(
-    145deg,
-    rgba(240, 248, 255, 0.14),
-    rgba(165, 200, 240, 0.05) 70%
-  );
-  padding: 0.4rem 0.82rem;
-  font-size: 0.7rem;
-  font-weight: 650;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: #d7e8fc;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
-}
-
-.hero-stage-col {
-  width: 100%;
-}
-
-.hero-stage-wrap {
-  position: relative;
-  width: min(100%, 30rem);
-  margin-inline: auto;
-}
-
-.hero-frost-halo {
+.igloo-scroll {
   position: absolute;
-  border-radius: 9999px;
-  pointer-events: none;
-  filter: blur(64px);
-  opacity: 0.46;
-}
-
-.hero-frost-halo.halo-a {
-  width: 55%;
-  height: 45%;
-  top: 0;
-  left: 4%;
-  background: rgba(163, 215, 255, 0.38);
-}
-
-.hero-frost-halo.halo-b {
-  width: 48%;
-  height: 40%;
-  right: 2%;
-  bottom: 8%;
-  background: rgba(179, 163, 255, 0.32);
-}
-
-.hero-portal {
-  position: relative;
-  width: min(100%, 26.5rem);
-  margin-inline: auto;
-}
-
-.hero-portal-frame {
-  position: relative;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  border-radius: 1.8rem;
-  border: 1px solid color-mix(in srgb, #d7ebff 28%, var(--border));
-  background:
-    radial-gradient(circle at 30% 20%, rgba(212, 236, 255, 0.2), transparent 50%),
-    linear-gradient(155deg, rgba(216, 236, 255, 0.11), rgba(107, 145, 201, 0.14));
-  box-shadow:
-    var(--shadow),
-    0 0 48px rgba(145, 208, 255, 0.16);
-}
-
-.hero-section .hero-webgl {
-  position: absolute;
-  inset: 8%;
-  z-index: 2;
-  opacity: 0.85;
-  mix-blend-mode: screen;
-  pointer-events: none;
-}
-
-.hero-stage-panel {
-  margin-top: 0.75rem;
-  border-radius: 0.95rem;
-  padding: 0.72rem 0.85rem;
-  background: color-mix(in srgb, var(--bg-elevated) 88%, rgba(186, 217, 255, 0.08));
-}
-
-.hero-stage-label {
+  left: 50%;
+  bottom: 1.4rem;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #9dc7f1;
+  color: #8f97a5;
 }
 
-.hero-stage-value {
-  margin-top: 0.28rem;
-  font-size: 0.8rem;
-  line-height: 1.45;
-  color: #d8e7f8;
+.igloo-scroll-dot {
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 9999px;
+  background: #b6bac5;
+  box-shadow: 0 0 10px rgba(182, 186, 197, 0.7);
+  animation: igloo-scroll-pulse 1.8s ease-in-out infinite;
 }
 
-@media (min-width: 1024px) {
-  .hero-stage-wrap {
-    min-height: 34rem;
+@keyframes igloo-scroll-pulse {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.55;
   }
-
-  .hero-stage-panel {
-    position: absolute;
-    width: min(15.5rem, 46%);
-    margin-top: 0;
-    z-index: 3;
-  }
-
-  .hero-stage-panel.panel-top {
-    top: 6%;
-    left: -4%;
-  }
-
-  .hero-stage-panel.panel-bottom {
-    right: -3%;
-    bottom: 7%;
+  50% {
+    transform: translateY(4px);
+    opacity: 1;
   }
 }
 
 @media (max-width: 640px) {
-  .hero-section {
-    padding-top: 0.8rem;
+  .igloo-overlay {
+    padding-top: 5.2rem;
+    padding-bottom: 4rem;
   }
 
-  .hero-igloo-grid {
-    gap: 1.5rem;
-    padding-top: 4.4rem;
-  }
-
-  .hero-tagline {
+  .igloo-tagline {
     font-size: 0.9rem;
-    line-height: 1.62;
   }
 
-  .hero-stage-wrap {
-    width: min(100%, 22rem);
+  .igloo-scroll {
+    bottom: 1rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .page-transition,
   .section-aura-orb,
-  .ice-scan-line {
-    display: none !important;
+  .igloo-scroll-dot,
+  .igloo-chromatic {
+    animation: none !important;
+    display: none;
   }
 }

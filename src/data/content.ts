@@ -269,6 +269,8 @@ export const projects: Project[] = [
   },
 ];
 
+export type ExperienceTone = "cyan" | "purple" | "pink";
+
 export type ExperienceItem = {
   role: string;
   org: string;
@@ -276,6 +278,9 @@ export type ExperienceItem = {
   description: string;
   current: boolean;
   year: string;
+  location: string;
+  icon: "briefcase" | "satellite" | "google" | "award" | "rocket";
+  tone: ExperienceTone;
 };
 
 export const experience: ExperienceItem[] = [
@@ -284,6 +289,9 @@ export const experience: ExperienceItem[] = [
     org: "Grids App LLC",
     period: "Jul 2026 – Present",
     year: "2026",
+    location: "Remote",
+    icon: "briefcase",
+    tone: "cyan",
     description:
       "Building production software features end-to-end — shipping reliable, user-facing product work in a fast-moving engineering team.",
     current: true,
@@ -293,6 +301,9 @@ export const experience: ExperienceItem[] = [
     org: "Indian Truth Academy",
     period: "May 2026 – Jul 2026",
     year: "2026",
+    location: "Online",
+    icon: "satellite",
+    tone: "purple",
     description:
       "Completed hands-on remote sensing and GIS projects using satellite data and Google Earth Engine, producing analysis pipelines and geospatial deliverables.",
     current: false,
@@ -302,6 +313,9 @@ export const experience: ExperienceItem[] = [
     org: "Google & TalentSprint",
     period: "2024",
     year: "2024",
+    location: "Online",
+    icon: "award",
+    tone: "pink",
     description:
       "Selected from over 30,000 applicants for an intensive Data Structures & Algorithms program.",
     current: false,
@@ -311,6 +325,9 @@ export const experience: ExperienceItem[] = [
     org: "Google",
     period: "2024",
     year: "2024",
+    location: "Online",
+    icon: "google",
+    tone: "cyan",
     description:
       "Engaged in 15+ hours of exclusive sessions covering AI, career development, and personalized mentorship.",
     current: false,
@@ -320,6 +337,9 @@ export const experience: ExperienceItem[] = [
     org: "SheFi",
     period: "2024",
     year: "2024",
+    location: "Online",
+    icon: "rocket",
+    tone: "pink",
     description:
       "Expanded knowledge in blockchain and Web3, developing smart contracts and decentralized applications.",
     current: false,

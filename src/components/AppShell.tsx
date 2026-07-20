@@ -80,10 +80,12 @@ export function PageMotion({ children }: { children: ReactNode }) {
         0.08,
       );
 
+      const isMobile = window.innerWidth < 640;
+
       gsap.utils.toArray<HTMLElement>(".zero-g").forEach((el, i) => {
         gsap.to(el, {
           y: `+=${3 + (i % 3)}`,
-          x: `+=${i % 2 === 0 ? 2 : -2}`,
+          x: isMobile ? 0 : `+=${i % 2 === 0 ? 2 : -2}`,
           duration: 2.8 + (i % 4) * 0.35,
           repeat: -1,
           yoyo: true,

@@ -53,6 +53,8 @@ export function AmbientUniverse() {
 
     const draw = (time: number) => {
       ctx.clearRect(0, 0, width, height);
+      const light =
+        document.documentElement.getAttribute("data-theme") === "light";
 
       for (const p of particles) {
         p.x += p.vx;
@@ -63,7 +65,9 @@ export function AmbientUniverse() {
         if (p.y > height) p.y = 0;
 
         ctx.beginPath();
-        ctx.fillStyle = `rgba(214, 222, 232, ${p.a})`;
+        ctx.fillStyle = light
+          ? `rgba(91, 107, 127, ${p.a * 0.4})`
+          : `rgba(214, 222, 232, ${p.a})`;
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
       }

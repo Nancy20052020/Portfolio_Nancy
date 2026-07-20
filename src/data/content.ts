@@ -161,14 +161,12 @@ export const skillsSubtitle =
 
 export type ProjectCategory =
   | "Web Development"
-  | "UI/UX Design"
   | "Machine Learning"
   | "Others";
 
 export const projectFilters = [
   "All",
   "Web Development",
-  "UI/UX Design",
   "Machine Learning",
   "Others",
 ] as const;
@@ -249,7 +247,7 @@ export const projects: Project[] = [
       "AI-assisted prep companion for interviews and placements — structured practice, smart feedback loops, and focused revision paths.",
     image: "/images/prepilot.png",
     tags: ["Web Development", "AI"],
-    categories: ["Web Development", "UI/UX Design"],
+    categories: ["Web Development"],
     stack: ["Python", "JavaScript", "AI"],
     links: {
       github: "https://github.com/Nancy20052020",

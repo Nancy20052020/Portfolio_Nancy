@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Send } from "lucide-react";
 import { profile } from "@/data/content";
 
 export function Contact() {
@@ -47,31 +47,6 @@ export function Contact() {
                 </p>
               </div>
             </a>
-            <a
-              href={`tel:${profile.phone.replace(/\s/g, "")}`}
-              className="contact-row glass-panel"
-            >
-              <Phone size={18} />
-              <div>
-                <p className="text-xs uppercase tracking-[0.14em] text-[var(--text-muted)]">
-                  Phone
-                </p>
-                <p className="text-sm font-semibold text-[var(--heading)]">
-                  {profile.phone}
-                </p>
-              </div>
-            </a>
-            <div className="contact-row glass-panel">
-              <MapPin size={18} />
-              <div>
-                <p className="text-xs uppercase tracking-[0.14em] text-[var(--text-muted)]">
-                  Location
-                </p>
-                <p className="text-sm font-semibold text-[var(--heading)]">
-                  {profile.location}
-                </p>
-              </div>
-            </div>
           </div>
 
           <form onSubmit={onSubmit} className="contact-form glass-panel reveal-item">

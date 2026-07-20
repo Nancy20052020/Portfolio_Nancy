@@ -96,6 +96,8 @@ export type Project = {
   links: {
     github?: string;
     demo?: string;
+    report?: string;
+    gee?: string;
     code?: string;
   };
   accent: string;
@@ -110,7 +112,7 @@ export const projects: Project[] = [
     image: "/images/auteye.png",
     tags: ["Web Development", "ML"],
     categories: ["Web Development", "Machine Learning"],
-    stack: ["Python", "Flask", "ML"],
+    stack: ["Python", "Flask"],
     featured: true,
     links: {
       github: "https://github.com/Nancy20052020",
@@ -124,12 +126,13 @@ export const projects: Project[] = [
     description:
       "Google Earth Engine analysis that evaluates drought severity over time with multi-temporal vegetation condition indices from satellite imagery.",
     image: "/images/dr.png",
-    tags: ["Machine Learning", "Geospatial"],
-    categories: ["Machine Learning", "Others"],
-    stack: ["Earth Engine", "JavaScript", "GIS"],
+    tags: ["GEE", "GIS"],
+    categories: ["Others"],
+    stack: ["Geospatial", "Remote Sensing"],
     links: {
-      demo: "https://drive.google.com/file/d/1RZha6dBhiwGYqZHKaGM_WiZF5jK6NnmV/view?usp=drivesdk",
-      code: "https://code.earthengine.google.com/1f478591ab593ffe9bcde0a27be6fc48",
+      report:
+        "https://drive.google.com/file/d/1RZha6dBhiwGYqZHKaGM_WiZF5jK6NnmV/view?usp=drivesdk",
+      gee: "https://code.earthengine.google.com/1f478591ab593ffe9bcde0a27be6fc48",
     },
     accent: "#A78BFA",
   },
@@ -140,12 +143,13 @@ export const projects: Project[] = [
     description:
       "Maps urban heat islands by combining land surface temperature with built-up density analysis on Google Earth Engine.",
     image: "/images/urban.png",
-    tags: ["Machine Learning", "Geospatial"],
-    categories: ["Machine Learning", "Others"],
-    stack: ["Earth Engine", "GIS", "JavaScript"],
+    tags: ["GEE", "GIS"],
+    categories: ["Others"],
+    stack: ["Geospatial", "Remote Sensing"],
     links: {
-      demo: "https://drive.google.com/file/d/1TFvuLC2Rm8a2FTUSVplmug-8RdcGejW3/view?usp=drivesdk",
-      code: "https://code.earthengine.google.com/170c492464d96e8cc66d885f25702049",
+      report:
+        "https://drive.google.com/file/d/1TFvuLC2Rm8a2FTUSVplmug-8RdcGejW3/view?usp=drivesdk",
+      gee: "https://code.earthengine.google.com/170c492464d96e8cc66d885f25702049",
     },
     accent: "#F9A8D4",
   },
@@ -169,8 +173,8 @@ export const projects: Project[] = [
     description:
       "Conversational Q&A over multiple PDFs with voice output — powered by GPT-3.5 and ElevenLabs text-to-speech.",
     image: "/images/multipdf.png",
-    tags: ["Machine Learning", "AI"],
-    categories: ["Machine Learning"],
+    tags: ["AI"],
+    categories: ["Others"],
     stack: ["Python", "Flask", "OpenAI"],
     links: {
       github: "https://github.com/Nancy20052020",

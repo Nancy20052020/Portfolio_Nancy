@@ -23,7 +23,7 @@ export function Publications() {
               return (
                 <article
                   key={pub.title}
-                  className="pub-card glass-panel reveal-item"
+                  className="pub-card glass-panel reveal-item zero-g"
                 >
                   <p className="pub-venue">{pub.venue}</p>
                   <h3 className="pub-title">{pub.title}</h3>

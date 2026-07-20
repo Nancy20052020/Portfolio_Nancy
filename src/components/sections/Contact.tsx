@@ -78,7 +78,7 @@ export function Contact() {
               </a>
             </div>
 
-            <div className="contact-plane">
+            <div className="contact-plane zero-g plane-orbit">
               <Image
                 src="/images/contact-plane.png"
                 alt=""
@@ -86,6 +86,7 @@ export function Contact() {
                 sizes="220px"
                 className="contact-plane-img"
               />
+              <span className="plane-trail" aria-hidden />
             </div>
           </div>
 

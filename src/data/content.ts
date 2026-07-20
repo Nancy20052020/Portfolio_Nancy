@@ -297,7 +297,7 @@ export const experience: ExperienceItem[] = [
   },
   {
     role: "Remote Sensing & GIS Intern",
-    org: "Indian Truth Academy",
+    org: "Indian Space Academy",
     period: "May 2026 – Jul 2026",
     year: "2026",
     location: "Online",

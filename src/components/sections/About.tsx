@@ -63,9 +63,7 @@ function TraitIcon({
 export function About() {
   const rootRef = useRef<HTMLElement>(null);
   const orbitRef = useRef<HTMLDivElement>(null);
-  const [activeTrait, setActiveTrait] = useState<string | null>(
-    aboutContent.traits[0]?.title ?? null,
-  );
+  const [activeTrait, setActiveTrait] = useState<string | null>(null);
 
   useGSAP(
     () => {
@@ -97,19 +95,12 @@ export function About() {
       const orbit = orbitRef.current;
       if (!orbit) return;
       if (!orbit.contains(event.target as Node)) {
-        // Keep a selected trait visible on mobile for readability
-        if (window.matchMedia("(pointer: fine)").matches) {
-          setActiveTrait(null);
-        }
+        setActiveTrait(null);
       }
     };
     document.addEventListener("pointerdown", onPointerDown);
     return () => document.removeEventListener("pointerdown", onPointerDown);
   }, []);
-
-  const active =
-    aboutContent.traits.find((trait) => trait.title === activeTrait) ??
-    aboutContent.traits[0];
 
   return (
     <section ref={rootRef} className="section about-section">
@@ -172,44 +163,49 @@ export function About() {
             {aboutContent.traits.map((trait, index) => {
               const isActive = activeTrait === trait.title;
               return (
-                <div key={trait.title} className={`about-node-wrap pos-${trait.position}`}>
+                <div
+                  key={trait.title}
+                  className={`about-node-wrap pos-${trait.position}`}
+                >
                   <button
                     type="button"
                     className={`about-orbit-node is-interactive ${nodeTone[trait.tone]} n${index + 1}${isActive ? " is-active" : ""}`}
                     aria-expanded={isActive}
-                    aria-controls="about-trait-panel"
+                    aria-controls={`about-trait-${trait.title}`}
                     aria-label={trait.title}
                     onMouseEnter={() => setActiveTrait(trait.title)}
+                    onMouseLeave={() => setActiveTrait(null)}
                     onClick={(event) => {
                       event.preventDefault();
                       event.stopPropagation();
-                      setActiveTrait(trait.title);
+                      setActiveTrait((current) =>
+                        current === trait.title ? null : trait.title,
+                      );
                     }}
                     onTouchEnd={(event) => {
                       event.preventDefault();
                       event.stopPropagation();
-                      setActiveTrait(trait.title);
+                      setActiveTrait((current) =>
+                        current === trait.title ? null : trait.title,
+                      );
                     }}
                   />
+                  <article
+                    id={`about-trait-${trait.title}`}
+                    className={`about-trait glass-panel ${toneClass[trait.tone]}${isActive ? " is-visible" : ""}`}
+                  >
+                    <span className="about-trait-icon">
+                      <TraitIcon icon={trait.icon} />
+                    </span>
+                    <div>
+                      <h3 className="about-trait-title">{trait.title}</h3>
+                      <p className="about-trait-text">{trait.text}</p>
+                    </div>
+                  </article>
                 </div>
               );
             })}
           </div>
-
-          {active && (
-            <article
-              id="about-trait-panel"
-              className={`about-trait-panel glass-panel ${toneClass[active.tone]} is-visible`}
-            >
-              <span className="about-trait-icon">
-                <TraitIcon icon={active.icon} />
-              </span>
-              <div>
-                <h3 className="about-trait-title">{active.title}</h3>
-                <p className="about-trait-text">{active.text}</p>
-              </div>
-            </article>
-          )}
 
           <span className="about-dot-grid" aria-hidden />
         </div>

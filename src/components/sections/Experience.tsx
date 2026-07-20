@@ -1,8 +1,5 @@
 "use client";
 
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 import {
   Award,
   Briefcase,
@@ -12,8 +9,6 @@ import {
 } from "lucide-react";
 import { experience, type ExperienceItem } from "@/data/content";
 import { SectionAura } from "@/components/SectionAura";
-
-gsap.registerPlugin(useGSAP);
 
 const toneClass = {
   cyan: "is-cyan",
@@ -38,27 +33,8 @@ function ExperienceIcon({ icon }: { icon: ExperienceItem["icon"] }) {
 }
 
 export function Experience() {
-  const rootRef = useRef<HTMLElement>(null);
-
-  useGSAP(
-    () => {
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (reduce) return;
-
-      gsap.to(".exp-hex", {
-        y: "+=6",
-        duration: 2.6,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        stagger: 0.2,
-      });
-    },
-    { scope: rootRef },
-  );
-
   return (
-    <section ref={rootRef} className="section exp-section">
+    <section className="section exp-section">
       <SectionAura variant="experience" />
       <div className="section-inner">
         <div className="exp-heading reveal-item">
@@ -77,14 +53,16 @@ export function Experience() {
             {experience.map((item, index) => (
               <li
                 key={`${item.role}-${item.org}`}
-                className={`exp-journey-item reveal-item depth-enter scroll-3d zero-g ${toneClass[item.tone]}`}
+                className={`exp-journey-item reveal-item ${toneClass[item.tone]}`}
               >
                 <div className="exp-rail" aria-hidden>
                   {index === 0 && <span className="exp-rail-pedestal" />}
-                  <span className="exp-hex zero-g">
+                  <span className="exp-hex">
                     <ExperienceIcon icon={item.icon} />
                   </span>
-                  <span className={`exp-rail-connector${index < experience.length - 1 ? " rail-draw" : ""}`} />
+                  <span
+                    className={`exp-rail-connector${index < experience.length - 1 ? " rail-draw" : ""}`}
+                  />
                 </div>
 
                 <article className="exp-card">

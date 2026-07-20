@@ -100,7 +100,7 @@ export function Skills() {
           <span className="skills-divider" aria-hidden />
         </div>
 
-        <div className="skills-all-layout reveal-item depth-enter">
+        <div className="skills-all-layout reveal-item">
           <div className="skills-block glass-panel skills-panel-3d">
             <SectionLabel>Languages</SectionLabel>
             <div className="skill-icon-grid">

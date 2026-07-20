@@ -91,7 +91,7 @@ export const aboutContent = {
       text: "I maintain strong academic performance while building practical projects.",
       icon: "star" as const,
       tone: "cyan" as const,
-      position: "bl" as const,
+      position: "ml" as const,
     },
   ],
 };

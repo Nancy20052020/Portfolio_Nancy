@@ -56,47 +56,59 @@ export function PageMotion({ children }: { children: ReactNode }) {
         return;
       }
 
+      const settle = (els: HTMLElement[]) => {
+        if (!els.length) return;
+        gsap.set(els, {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          scale: 1,
+          clearProps: "opacity,transform,filter",
+        });
+      };
+
       const master = gsap.timeline({
         defaults: { ease: "power3.out" },
-        onComplete: () => {
-          gsap.set([...items, ...depthItems], {
-            clearProps: "filter",
-            opacity: 1,
-            y: 0,
-            rotateX: 0,
-            scale: 1,
-          });
-        },
+        onComplete: () => settle([...items, ...depthItems]),
       });
 
       if (items.length) {
-        master.from(items, {
-          y: 36,
-          opacity: 0,
-          duration: 0.75,
-          stagger: 0.06,
-        });
-      }
-
-      if (depthItems.length) {
-        master.from(
-          depthItems,
+        master.fromTo(
+          items,
+          { y: 36, opacity: 0 },
           {
-            y: 28,
-            opacity: 0,
-            duration: 0.7,
-            stagger: 0.05,
+            y: 0,
+            opacity: 1,
+            duration: 0.75,
+            stagger: 0.06,
+            clearProps: "opacity,transform,filter",
           },
-          0.05,
         );
       }
 
-      // Ensure content is visible even if animation is interrupted
-      gsap.delayedCall(1.4, () => {
-        gsap.set([...items, ...depthItems, ...scrollItems], {
-          opacity: 1,
-          clearProps: "filter",
-        });
+      if (depthItems.length) {
+        // Skip nodes already animated as reveal-item to avoid opacity fights
+        const uniqueDepth = depthItems.filter(
+          (el) => !el.classList.contains("reveal-item"),
+        );
+        if (uniqueDepth.length) {
+          master.fromTo(
+            uniqueDepth,
+            { y: 28, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.7,
+              stagger: 0.05,
+              clearProps: "opacity,transform,filter",
+            },
+            0.05,
+          );
+        }
+      }
+
+      gsap.delayedCall(1.2, () => {
+        settle([...items, ...depthItems, ...scrollItems]);
       });
 
       const isMobile = window.innerWidth < 640;
@@ -125,33 +137,29 @@ export function PageMotion({ children }: { children: ReactNode }) {
       }
 
       scrollItems.forEach((el, i) => {
+        if (el.classList.contains("reveal-item") || el.classList.contains("depth-enter")) {
+          return;
+        }
         const rect = el.getBoundingClientRect();
         const inView = rect.top < window.innerHeight * 0.92;
 
         if (inView) {
           gsap.fromTo(
             el,
-            {
-              y: 40,
-              opacity: 0.35,
-              transformOrigin: "50% 100%",
-            },
+            { y: 40, opacity: 0 },
             {
               y: 0,
               opacity: 1,
               duration: 0.7,
               delay: 0.08 + i * 0.06,
               ease: "power3.out",
+              clearProps: "opacity,transform",
             },
           );
         } else {
           gsap.fromTo(
             el,
-            {
-              y: 48,
-              opacity: 0.35,
-              transformOrigin: "50% 100%",
-            },
+            { y: 48, opacity: 0 },
             {
               y: 0,
               opacity: 1,
@@ -161,6 +169,7 @@ export function PageMotion({ children }: { children: ReactNode }) {
                 start: "top 92%",
                 end: "top 55%",
                 scrub: 0.6,
+                once: true,
               },
             },
           );
@@ -168,17 +177,22 @@ export function PageMotion({ children }: { children: ReactNode }) {
       });
 
       gsap.utils.toArray<HTMLElement>(".scroll-reveal").forEach((el) => {
-        gsap.from(el, {
-          y: 40,
-          opacity: 0,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 88%",
-            toggleActions: "play none none reverse",
+        gsap.fromTo(
+          el,
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power3.out",
+            clearProps: "opacity,transform",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 88%",
+              toggleActions: "play none none none",
+            },
           },
-        });
+        );
       });
 
       gsap.utils.toArray<HTMLElement>(".rail-draw").forEach((el) => {
@@ -192,7 +206,7 @@ export function PageMotion({ children }: { children: ReactNode }) {
             scrollTrigger: {
               trigger: el,
               start: "top 85%",
-              toggleActions: "play none none reverse",
+              toggleActions: "play none none none",
             },
           },
         );
@@ -209,7 +223,7 @@ export function PageMotion({ children }: { children: ReactNode }) {
             scrollTrigger: {
               trigger: el,
               start: "top 80%",
-              toggleActions: "play none none reverse",
+              toggleActions: "play none none none",
             },
           },
         );

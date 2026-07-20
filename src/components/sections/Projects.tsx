@@ -4,12 +4,12 @@ import { ProjectGrid } from "@/components/ProjectGrid";
 
 export function Projects() {
   return (
-    <section className="section">
+    <section className="section projects-section">
       <div className="section-inner">
-        <div className="section-heading reveal-item">
-          <p className="eyebrow">Projects</p>
-          <h2 className="section-title">Projects</h2>
-          <p className="section-sub">
+        <div className="projects-heading reveal-item">
+          <p className="projects-eyebrow">My Work</p>
+          <h2 className="projects-title">Projects</h2>
+          <p className="projects-sub">
             ML, geospatial analysis, and conversational AI.
           </p>
         </div>

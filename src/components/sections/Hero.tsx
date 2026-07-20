@@ -29,13 +29,18 @@ export function Hero() {
         .from(".igloo-cta", { y: 14, opacity: 0, duration: 0.55 }, "-=0.35")
         .from(".igloo-socials", { y: 12, opacity: 0, duration: 0.5 }, "-=0.3");
 
-      gsap.to(".igloo-frost-veil", {
-        opacity: 0.42,
-        duration: 3.2,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
+      const isLight =
+        document.documentElement.getAttribute("data-theme") === "light";
+
+      if (!isLight) {
+        gsap.to(".igloo-frost-veil", {
+          opacity: 0.42,
+          duration: 3.2,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+      }
 
       gsap.to(".igloo-chromatic", {
         x: 1.5,

@@ -11,6 +11,7 @@ import { Typewriter } from "@/components/Typewriter";
 import { GitHubIcon, LinkedInIcon } from "@/components/icons";
 import { Magnetic } from "@/components/Magnetic";
 import { ParallaxLayer, useParallax } from "@/components/Parallax";
+import { HeroWebGL } from "@/components/HeroWebGL";
 
 gsap.registerPlugin(useGSAP);
 
@@ -34,6 +35,7 @@ function PortalStage() {
           sizes="(max-width: 900px) 100vw, 42vw"
           className="hero-portal-img"
         />
+        <HeroWebGL />
         <span className="portal-sheen" />
       </div>
     </div>

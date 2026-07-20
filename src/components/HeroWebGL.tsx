@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
+import { useTheme } from "@/components/ThemeProvider";
 
 type HeroWebGLProps = {
   className?: string;
@@ -13,6 +14,7 @@ export function HeroWebGL({
   fullBleed = false,
 }: HeroWebGLProps) {
   const mountRef = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const mount = mountRef.current;
@@ -21,11 +23,15 @@ export function HeroWebGL({
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) return;
 
+    const isLight = theme === "light";
     const width = mount.clientWidth || window.innerWidth;
     const height = mount.clientHeight || window.innerHeight;
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x0a1018, fullBleed ? 0.038 : 0.07);
+    scene.fog = new THREE.FogExp2(
+      isLight ? 0xe8eef6 : 0x0a1018,
+      fullBleed ? (isLight ? 0.028 : 0.038) : 0.07,
+    );
 
     const camera = new THREE.PerspectiveCamera(46, width / height, 0.1, 100);
     camera.position.set(0, fullBleed ? 1.2 : 0.35, fullBleed ? 7.4 : 4.4);
@@ -47,11 +53,11 @@ export function HeroWebGL({
 
     const groundGeo = new THREE.CircleGeometry(20, 72);
     const groundMat = new THREE.MeshStandardMaterial({
-      color: 0x9eb3c9,
+      color: isLight ? 0x8fa3b8 : 0x9eb3c9,
       metalness: 0.4,
       roughness: 0.5,
       transparent: true,
-      opacity: 0.16,
+      opacity: isLight ? 0.22 : 0.16,
     });
     const ground = new THREE.Mesh(groundGeo, groundMat);
     ground.rotation.x = -Math.PI / 2;
@@ -63,19 +69,19 @@ export function HeroWebGL({
     root.add(iceGroup);
 
     const iceMat = new THREE.MeshStandardMaterial({
-      color: 0xd9e8f6,
-      metalness: 0.65,
-      roughness: 0.18,
+      color: isLight ? 0xc5d2e0 : 0xd9e8f6,
+      metalness: isLight ? 0.45 : 0.65,
+      roughness: isLight ? 0.28 : 0.18,
       transparent: true,
-      opacity: 0.72,
-      emissive: 0x6f93b2,
-      emissiveIntensity: 0.22,
+      opacity: isLight ? 0.85 : 0.72,
+      emissive: isLight ? 0x6b849e : 0x6f93b2,
+      emissiveIntensity: isLight ? 0.12 : 0.22,
     });
     const wireMat = new THREE.MeshBasicMaterial({
-      color: 0xb6bac5,
+      color: isLight ? 0x5b6b7f : 0xb6bac5,
       wireframe: true,
       transparent: true,
-      opacity: 0.32,
+      opacity: isLight ? 0.28 : 0.32,
     });
     disposables.push(iceMat, wireMat);
 
@@ -107,9 +113,9 @@ export function HeroWebGL({
 
     const ringGeo = new THREE.TorusGeometry(2.9, 0.022, 12, 140);
     const ringMat = new THREE.MeshBasicMaterial({
-      color: 0xc5d7ea,
+      color: isLight ? 0x6b849e : 0xc5d7ea,
       transparent: true,
-      opacity: 0.42,
+      opacity: isLight ? 0.35 : 0.42,
     });
     const ring = new THREE.Mesh(ringGeo, ringMat);
     ring.rotation.x = Math.PI / 2.05;
@@ -129,10 +135,10 @@ export function HeroWebGL({
     }
     flakeGeo.setAttribute("position", new THREE.BufferAttribute(flakePos, 3));
     const flakeMat = new THREE.PointsMaterial({
-      color: 0xeaf3ff,
+      color: isLight ? 0x5b6b7f : 0xeaf3ff,
       size: fullBleed ? 0.034 : 0.026,
       transparent: true,
-      opacity: 0.78,
+      opacity: isLight ? 0.45 : 0.78,
       depthWrite: false,
     });
     const flakes = new THREE.Points(flakeGeo, flakeMat);
@@ -144,9 +150,9 @@ export function HeroWebGL({
       const hazeA = new THREE.Mesh(
         hazeGeo,
         new THREE.MeshBasicMaterial({
-          color: 0x8eb0ce,
+          color: isLight ? 0x9eb4cc : 0x8eb0ce,
           transparent: true,
-          opacity: 0.09,
+          opacity: isLight ? 0.16 : 0.09,
           side: THREE.DoubleSide,
         }),
       );
@@ -158,9 +164,9 @@ export function HeroWebGL({
       const hazeB = new THREE.Mesh(
         hazeGeoB,
         new THREE.MeshBasicMaterial({
-          color: 0xb6bac5,
+          color: isLight ? 0xb6bac5 : 0xb6bac5,
           transparent: true,
-          opacity: 0.07,
+          opacity: isLight ? 0.12 : 0.07,
           side: THREE.DoubleSide,
         }),
       );
@@ -169,14 +175,14 @@ export function HeroWebGL({
       disposables.push(hazeGeoB, hazeB.material);
     }
 
-    const lightA = new THREE.PointLight(0xdcecff, 2.6, 24);
+    const lightA = new THREE.PointLight(isLight ? 0xffffff : 0xdcecff, isLight ? 2.2 : 2.6, 24);
     lightA.position.set(3.2, 4.2, 4.5);
     scene.add(lightA);
-    const lightB = new THREE.PointLight(0x9bb4cc, 1.9, 20);
+    const lightB = new THREE.PointLight(isLight ? 0x9eb4cc : 0x9bb4cc, isLight ? 1.4 : 1.9, 20);
     lightB.position.set(-4.2, 2.2, 2.4);
     scene.add(lightB);
-    scene.add(new THREE.DirectionalLight(0xffffff, 0.5));
-    scene.add(new THREE.AmbientLight(0xb7c6d6, 0.4));
+    scene.add(new THREE.DirectionalLight(0xffffff, isLight ? 0.75 : 0.5));
+    scene.add(new THREE.AmbientLight(isLight ? 0xd7e1ec : 0xb7c6d6, isLight ? 0.65 : 0.4));
 
     let frame = 0;
     let raf = 0;
@@ -215,7 +221,8 @@ export function HeroWebGL({
       camera.position.y += (camY - camera.position.y) * 0.045;
       camera.lookAt(0, fullBleed ? 0.15 : 0, 0);
 
-      iceMat.emissiveIntensity = 0.18 + Math.sin(frame * 1.4) * 0.06;
+      iceMat.emissiveIntensity =
+        (isLight ? 0.1 : 0.18) + Math.sin(frame * 1.4) * (isLight ? 0.04 : 0.06);
       renderer.render(scene, camera);
       raf = requestAnimationFrame(animate);
     };
@@ -240,7 +247,7 @@ export function HeroWebGL({
         mount.removeChild(renderer.domElement);
       }
     };
-  }, [fullBleed]);
+  }, [fullBleed, theme]);
 
   return <div ref={mountRef} className={className} aria-hidden />;
 }

@@ -15,6 +15,8 @@ import {
   Target,
 } from "lucide-react";
 import { aboutContent } from "@/data/content";
+import { ParallaxLayer } from "@/components/Parallax";
+import { SectionAura } from "@/components/SectionAura";
 
 gsap.registerPlugin(useGSAP);
 
@@ -111,6 +113,7 @@ export function About() {
 
   return (
     <section ref={rootRef} className="section about-section">
+      <SectionAura variant="about" />
       <div className="section-inner about-layout">
         <div className="about-copy">
           <div className="about-heading reveal-item">
@@ -136,7 +139,7 @@ export function About() {
             {aboutContent.stats.map((stat) => (
               <article
                 key={stat.label}
-                className={`about-stat ${toneClass[stat.tone]}`}
+                className={`about-stat depth-enter zero-g ${toneClass[stat.tone]}`}
               >
                 <span className="about-stat-icon">
                   <StatIcon icon={stat.icon} />
@@ -151,7 +154,7 @@ export function About() {
             {aboutContent.values.map((value) => (
               <article
                 key={value.title}
-                className={`about-value ${toneClass[value.tone]}`}
+                className={`about-value depth-enter zero-g ${toneClass[value.tone]}`}
               >
                 <span className="about-value-icon">
                   <ValueIcon icon={value.icon} />
@@ -177,7 +180,7 @@ export function About() {
           </blockquote>
         </div>
 
-        <div className="about-visual reveal-item">
+        <ParallaxLayer depth={1.2} className="about-visual reveal-item depth-enter">
           <p className="about-orbit-hint">Hover or tap a glowing dot</p>
           <div className="about-orbit">
             <span className="about-orbit-ring ring-1" aria-hidden />
@@ -243,7 +246,7 @@ export function About() {
           </div>
 
           <span className="about-dot-grid" aria-hidden />
-        </div>
+        </ParallaxLayer>
       </div>
     </section>
   );

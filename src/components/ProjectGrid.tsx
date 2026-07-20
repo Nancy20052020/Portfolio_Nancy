@@ -1,12 +1,16 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import { ArrowRight, ExternalLink, Rocket } from "lucide-react";
 import { projectFilters, projects, type Project } from "@/data/content";
 import { TiltCard } from "@/components/TiltCard";
+
+gsap.registerPlugin(useGSAP);
 
 type ProjectAction = {
   label: string;
@@ -36,11 +40,36 @@ function projectActions(project: Project): ProjectAction[] {
 export function ProjectGrid() {
   const pathname = usePathname();
   const [active, setActive] = useState<(typeof projectFilters)[number]>("All");
+  const gridRef = useRef<HTMLDivElement>(null);
 
   const filtered = useMemo(() => {
     if (active === "All") return projects;
     return projects.filter((project) => project.categories.includes(active));
   }, [active]);
+
+  useGSAP(
+    () => {
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const grid = gridRef.current;
+      if (!grid || reduce) return;
+
+      const cards = grid.querySelectorAll(".project-tilt");
+      gsap.fromTo(
+        cards,
+        { opacity: 0, y: 24, rotateX: 12, scale: 0.96 },
+        {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          scale: 1,
+          duration: 0.5,
+          stagger: 0.06,
+          ease: "power3.out",
+        },
+      );
+    },
+    { dependencies: [active] },
+  );
 
   const viewAllHref =
     pathname === "/projects"
@@ -65,7 +94,7 @@ export function ProjectGrid() {
         ))}
       </div>
 
-      <div className="project-grid">
+      <div ref={gridRef} className="project-grid">
         {filtered.map((project) => {
           const actions = projectActions(project);
           const primary = actions[0];

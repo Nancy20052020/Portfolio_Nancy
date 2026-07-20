@@ -3,15 +3,18 @@
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { publications } from "@/data/content";
+import { ParallaxLayer } from "@/components/Parallax";
+import { SectionAura } from "@/components/SectionAura";
 
 export function Publications() {
   return (
     <section className="section pubs-section">
+      <SectionAura variant="publications" />
       <div className="section-inner">
-        <div className="section-heading reveal-item">
-          <p className="eyebrow">Publications</p>
-          <h2 className="section-title">Publications</h2>
-          <p className="section-sub">
+        <div className="pubs-heading reveal-item">
+          <p className="pubs-eyebrow">Publications</p>
+          <h2 className="pubs-title">Publications</h2>
+          <p className="pubs-sub">
             Peer-reviewed deep learning research and a multi-country patent.
           </p>
         </div>
@@ -23,7 +26,7 @@ export function Publications() {
               return (
                 <article
                   key={pub.title}
-                  className="pub-card glass-panel reveal-item zero-g scroll-3d"
+                  className="pub-card glass-panel reveal-item zero-g scroll-3d depth-enter"
                 >
                   <p className="pub-venue">{pub.venue}</p>
                   <h3 className="pub-title">{pub.title}</h3>
@@ -44,7 +47,7 @@ export function Publications() {
             })}
           </div>
 
-          <div className="pubs-art reveal-item">
+          <ParallaxLayer depth={1.3} className="pubs-art reveal-item depth-enter">
             <Image
               src="/images/publications-books.png"
               alt=""
@@ -52,7 +55,7 @@ export function Publications() {
               sizes="(max-width: 900px) 100vw, 320px"
               className="pubs-art-img"
             />
-          </div>
+          </ParallaxLayer>
         </div>
       </div>
     </section>

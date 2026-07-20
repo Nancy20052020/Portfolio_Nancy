@@ -13,6 +13,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { achievements } from "@/data/content";
+import { SectionAura } from "@/components/SectionAura";
 
 const iconMap = {
   trophy: Trophy,
@@ -34,6 +35,7 @@ const footerTraits = [
 export function Achievements() {
   return (
     <section className="section achieve-section">
+      <SectionAura variant="achievements" />
       <div className="section-inner">
         <div className="achieve-top reveal-item">
           <div className="achieve-heading">
@@ -53,7 +55,7 @@ export function Achievements() {
         </div>
 
         <div className="achieve-track reveal-item">
-          <span className="achieve-track-line" aria-hidden />
+          <span className="achieve-track-line track-draw" aria-hidden />
           <div className="achieve-cards">
             {achievements.map((item, index) => {
               const Icon = iconMap[item.icon];
@@ -62,7 +64,7 @@ export function Achievements() {
               return (
                 <article
                   key={item.title}
-                  className={`achieve-card zero-g scroll-3d ${tone}`}
+                  className={`achieve-card zero-g scroll-3d depth-enter ${tone}`}
                 >
                   <span className="achieve-card-icon" aria-hidden>
                     <Icon size={18} strokeWidth={2.2} />
@@ -79,9 +81,9 @@ export function Achievements() {
           </div>
         </div>
 
-        <div className="achieve-footer reveal-item" aria-label="Core traits">
+        <div className="achieve-footer reveal-item scroll-reveal" aria-label="Core traits">
           {footerTraits.map((trait) => (
-            <span key={trait.label} className="achieve-footer-item">
+            <span key={trait.label} className="achieve-footer-item zero-g depth-enter">
               <trait.icon size={14} strokeWidth={2.2} aria-hidden />
               {trait.label}
             </span>

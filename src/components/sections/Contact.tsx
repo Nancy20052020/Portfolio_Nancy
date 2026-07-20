@@ -1,12 +1,10 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import Image from "next/image";
 import { Mail, Send } from "lucide-react";
 import { profile } from "@/data/content";
 import { GitHubIcon, LinkedInIcon } from "@/components/icons";
 import { Magnetic } from "@/components/Magnetic";
-import { ParallaxLayer } from "@/components/Parallax";
 import { SectionAura } from "@/components/SectionAura";
 
 export function Contact() {
@@ -41,8 +39,8 @@ export function Contact() {
         </div>
 
         <div className="contact-layout mt-10">
-          <div className="contact-left reveal-item depth-enter">
-            <a href={`mailto:${profile.email}`} className="contact-row glass-panel scroll-3d">
+          <div className="contact-left reveal-item">
+            <a href={`mailto:${profile.email}`} className="contact-row glass-panel">
               <Mail size={18} />
               <div>
                 <p className="text-xs uppercase tracking-[0.14em] text-[var(--text-muted)]">
@@ -81,39 +79,26 @@ export function Contact() {
                 <Mail size={18} />
               </a>
             </div>
-
-            <ParallaxLayer depth={1.1}>
-              <div className="contact-plane zero-g plane-orbit">
-                <Image
-                  src="/images/contact-plane.png"
-                  alt=""
-                  fill
-                  sizes="220px"
-                  className="contact-plane-img"
-                />
-                <span className="plane-trail" aria-hidden />
-              </div>
-            </ParallaxLayer>
           </div>
 
           <form
             onSubmit={onSubmit}
-            className="contact-form glass-panel reveal-item depth-enter scroll-3d"
+            className="contact-form glass-panel reveal-item"
           >
-            <label className="form-field scroll-reveal">
+            <label className="form-field">
               <span>Your Name</span>
-              <input name="name" required placeholder="Alex Rivera" />
+              <input name="name" required placeholder="Your name" />
             </label>
-            <label className="form-field scroll-reveal">
+            <label className="form-field">
               <span>Your Email</span>
               <input
                 name="email"
                 type="email"
                 required
-                placeholder="alex@email.com"
+                placeholder="you@email.com"
               />
             </label>
-            <label className="form-field scroll-reveal">
+            <label className="form-field">
               <span>Your Message</span>
               <textarea
                 name="message"

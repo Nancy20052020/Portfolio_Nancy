@@ -31,8 +31,8 @@ export function Contact() {
           <p className="eyebrow">Contact</p>
           <h2 className="section-title">Contact</h2>
           <p className="section-sub">
-            Let&apos;s connect — open to internships, research collaborations,
-            and interesting problems in AI, ML, and software engineering.
+            Open to internships, research collaborations, and interesting
+            problems in AI, ML, and software engineering.
           </p>
         </div>
 

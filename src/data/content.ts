@@ -3,9 +3,9 @@ export const profile = {
   firstName: "Nancy",
   lastName: "Verma",
   titleRoles: [
-    "Aspiring Tech Innovator",
     "AI & ML Enthusiast",
     "Problem Solver",
+    "Innovator",
     "Software Engineer",
   ],
   tagline:

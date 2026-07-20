@@ -1,32 +1,29 @@
 "use client";
 
 import { useRef, type ReactNode } from "react";
-import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import {
-  Boxes,
-  Brain,
   Code2,
-  Database,
   FileCode2,
   GitBranch,
+  Globe2,
+  MessageCircle,
   Network,
   Palette,
   Sparkles,
   Users,
-  Workflow,
-  BarChart3,
-  MessageCircle,
 } from "lucide-react";
 import {
-  additionalSkills,
-  skillsFooter,
+  machineLearningSkills,
+  softSkills,
+  skillsSubtitle,
   technicalSkills,
   toolSkills,
   type AdditionalSkill,
   type SkillTone,
   type TechnicalSkill,
+  type ToolSkill,
 } from "@/data/content";
 
 gsap.registerPlugin(useGSAP);
@@ -40,48 +37,44 @@ const toneClass: Record<SkillTone, string> = {
 function TechIcon({ icon }: { icon: TechnicalSkill["icon"] }) {
   const props = { size: 22, strokeWidth: 2.1, "aria-hidden": true as const };
   switch (icon) {
-    case "code":
-      return <Code2 {...props} />;
     case "python":
       return <FileCode2 {...props} />;
-    case "react":
-      return <Network {...props} />;
-    case "node":
-      return <Workflow {...props} />;
-    case "database":
-      return <Database {...props} />;
-    case "git":
-      return <GitBranch {...props} />;
+    case "cpp":
+      return <Code2 {...props} />;
+    case "html":
+      return <Globe2 {...props} />;
+    case "js":
+      return <FileCode2 {...props} />;
+    case "css":
+      return <Palette {...props} />;
   }
 }
 
 function ExtraIcon({ icon }: { icon: AdditionalSkill["icon"] }) {
   const props = { size: 15, strokeWidth: 2.2, "aria-hidden": true as const };
   switch (icon) {
-    case "cube":
-      return <Boxes {...props} />;
-    case "users":
-      return <Users {...props} />;
-    case "brain":
-      return <Brain {...props} />;
-    case "chart":
-      return <BarChart3 {...props} />;
-    case "database":
-      return <Database {...props} />;
-    case "api":
-      return <Workflow {...props} />;
-    case "html":
-      return <Code2 {...props} />;
-    case "css":
-      return <Palette {...props} />;
-    case "js":
-      return <FileCode2 {...props} />;
     case "ml":
       return <Sparkles {...props} />;
     case "comms":
       return <MessageCircle {...props} />;
     case "team":
       return <Users {...props} />;
+  }
+}
+
+function ToolIcon({ icon }: { icon: ToolSkill["icon"] }) {
+  const props = { size: 20, strokeWidth: 2.1, "aria-hidden": true as const };
+  switch (icon) {
+    case "git":
+      return <GitBranch {...props} />;
+    case "react":
+      return <Network {...props} />;
+    case "latex":
+      return <FileCode2 {...props} />;
+    case "colab":
+      return <Sparkles {...props} />;
+    case "gee":
+      return <Globe2 {...props} />;
   }
 }
 
@@ -138,22 +131,19 @@ export function Skills() {
         <div className="skills-heading reveal-item">
           <div className="skills-eyebrow-row">
             <span className="skills-eyebrow-line" aria-hidden />
-            <p className="skills-eyebrow">My Expertise</p>
+            <p className="skills-eyebrow">Skills</p>
             <span className="skills-eyebrow-line" aria-hidden />
           </div>
           <h2 className="skills-title">Skills</h2>
-          <p className="skills-sub">
-            A blend of technical expertise and creative thinking that helps me
-            build impactful solutions.
-          </p>
+          <p className="skills-sub">{skillsSubtitle}</p>
           <span className="skills-divider" aria-hidden />
         </div>
 
         <div className="skills-layout">
           <div className="skills-main">
             <div className="reveal-item">
-              <SectionLabel>Technical Skills</SectionLabel>
-              <div className="skill-tech-grid">
+              <SectionLabel>Languages</SectionLabel>
+              <div className="skill-tech-grid skill-tech-grid-5">
                 {technicalSkills.map((skill) => (
                   <article
                     key={skill.name}
@@ -183,9 +173,24 @@ export function Skills() {
             </div>
 
             <div className="reveal-item skills-additional-block">
-              <SectionLabel>Additional Skills</SectionLabel>
+              <SectionLabel>Machine Learning</SectionLabel>
               <div className="skill-extra-grid">
-                {additionalSkills.map((skill) => (
+                {machineLearningSkills.map((skill) => (
+                  <span
+                    key={skill.name}
+                    className={`skill-extra-pill ${toneClass[skill.tone]}`}
+                  >
+                    <ExtraIcon icon={skill.icon} />
+                    {skill.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="reveal-item">
+              <SectionLabel>Soft Skills</SectionLabel>
+              <div className="skill-extra-grid">
+                {softSkills.map((skill) => (
                   <span
                     key={skill.name}
                     className={`skill-extra-pill ${toneClass[skill.tone]}`}
@@ -199,19 +204,13 @@ export function Skills() {
           </div>
 
           <aside className="skills-side reveal-item">
-            <SectionLabel>Tools & Technologies</SectionLabel>
+            <SectionLabel>Tools</SectionLabel>
             <div className="skills-tools-panel">
               <div className="skills-tools-row">
                 {toolSkills.map((tool) => (
                   <div key={tool.name} className="skills-tool">
-                    <div className="skills-tool-icon">
-                      <Image
-                        src={tool.image}
-                        alt=""
-                        width={44}
-                        height={44}
-                        className="skills-tool-img"
-                      />
+                    <div className="skills-tool-icon skills-tool-icon-lucide">
+                      <ToolIcon icon={tool.icon} />
                     </div>
                     <span className="skills-tool-name">{tool.name}</span>
                   </div>
@@ -220,24 +219,6 @@ export function Skills() {
               <span className="skills-tools-spark" aria-hidden />
             </div>
           </aside>
-        </div>
-
-        <div className="skills-footer reveal-item">
-          <div className="skills-footer-copy">
-            <span className="skills-footer-star" aria-hidden>
-              <Sparkles size={22} />
-            </span>
-            <p>{skillsFooter}</p>
-          </div>
-          <div className="skills-footer-art">
-            <Image
-              src="/images/skills-orbit.png"
-              alt=""
-              fill
-              sizes="(max-width: 768px) 100vw, 320px"
-              className="skills-footer-img"
-            />
-          </div>
         </div>
       </div>
     </section>

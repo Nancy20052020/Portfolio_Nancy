@@ -113,73 +113,51 @@ export type SkillTone = "cyan" | "purple" | "pink";
 export type TechnicalSkill = {
   name: string;
   level: number;
-  icon:
-    | "code"
-    | "python"
-    | "react"
-    | "node"
-    | "database"
-    | "git";
+  icon: "python" | "cpp" | "html" | "js" | "css";
   tone: SkillTone;
 };
 
 export type AdditionalSkill = {
   name: string;
-  icon:
-    | "cube"
-    | "users"
-    | "brain"
-    | "chart"
-    | "database"
-    | "api"
-    | "html"
-    | "css"
-    | "js"
-    | "ml"
-    | "comms"
-    | "team";
+  icon: "ml" | "comms" | "team";
   tone: SkillTone;
 };
 
 export type ToolSkill = {
   name: string;
-  image: string;
+  icon: "git" | "react" | "latex" | "colab" | "gee";
 };
 
 export const technicalSkills: TechnicalSkill[] = [
-  { name: "C++", level: 90, icon: "code", tone: "cyan" },
   { name: "Python", level: 90, icon: "python", tone: "purple" },
-  { name: "React.js", level: 80, icon: "react", tone: "cyan" },
-  { name: "JavaScript", level: 85, icon: "node", tone: "purple" },
-  { name: "SQL", level: 85, icon: "database", tone: "cyan" },
-  { name: "Git & GitHub", level: 90, icon: "git", tone: "pink" },
+  { name: "C++", level: 90, icon: "cpp", tone: "cyan" },
+  { name: "HTML", level: 85, icon: "html", tone: "pink" },
+  { name: "JavaScript", level: 85, icon: "js", tone: "purple" },
+  { name: "CSS", level: 85, icon: "css", tone: "cyan" },
 ];
 
-export const additionalSkills: AdditionalSkill[] = [
-  { name: "Data Structures & Algorithms", icon: "cube", tone: "cyan" },
-  { name: "OOPs", icon: "users", tone: "purple" },
-  { name: "Problem Solving", icon: "brain", tone: "pink" },
-  { name: "Data Analysis", icon: "chart", tone: "cyan" },
-  { name: "DBMS", icon: "database", tone: "purple" },
-  { name: "REST APIs", icon: "api", tone: "cyan" },
-  { name: "HTML", icon: "html", tone: "pink" },
-  { name: "CSS", icon: "css", tone: "purple" },
+export const machineLearningSkills: AdditionalSkill[] = [
   { name: "TensorFlow", icon: "ml", tone: "cyan" },
-  { name: "Scikit-Learn", icon: "ml", tone: "purple" },
-  { name: "Leadership", icon: "comms", tone: "pink" },
-  { name: "Team Collaboration", icon: "team", tone: "cyan" },
+  { name: "Keras", icon: "ml", tone: "purple" },
+  { name: "Scikit-Learn", icon: "ml", tone: "pink" },
+];
+
+export const softSkills: AdditionalSkill[] = [
+  { name: "Leadership", icon: "comms", tone: "cyan" },
+  { name: "Communication", icon: "comms", tone: "purple" },
+  { name: "Team Collaboration", icon: "team", tone: "pink" },
 ];
 
 export const toolSkills: ToolSkill[] = [
-  { name: "VS Code", image: "/images/tool-vscode.png" },
-  { name: "Figma", image: "/images/tool-figma.png" },
-  { name: "GitHub", image: "/images/tool-github.png" },
-  { name: "Postman", image: "/images/tool-postman.png" },
-  { name: "Docker", image: "/images/tool-docker.png" },
+  { name: "Git", icon: "git" },
+  { name: "React", icon: "react" },
+  { name: "LaTeX", icon: "latex" },
+  { name: "Google Colab", icon: "colab" },
+  { name: "Google Earth Engine", icon: "gee" },
 ];
 
-export const skillsFooter =
-  "I love learning new technologies and continuously improving my skills to build better, faster and scalable solutions.";
+export const skillsSubtitle =
+  "Languages, ML frameworks, tools, and soft skills I use to build.";
 
 export type ProjectCategory =
   | "Web Development"

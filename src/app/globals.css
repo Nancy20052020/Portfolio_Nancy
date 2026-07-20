@@ -660,7 +660,7 @@ html[data-theme="light"] {
 /* About showcase */
 .about-section {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .about-layout {
@@ -949,11 +949,14 @@ html[data-theme="light"] {
   min-height: 28rem;
   display: grid;
   place-items: center;
+  overflow: visible;
+  padding: 2.5rem 0.5rem 1rem;
 }
 
 @media (min-width: 1024px) {
   .about-visual {
     min-height: 34rem;
+    padding: 2rem 1rem;
   }
 }
 
@@ -1024,21 +1027,26 @@ html[data-theme="light"] {
   pointer-events: auto;
 }
 
+/* Evenly space the four interactive dots around the orbit */
 .about-node-wrap.pos-tr {
-  top: 4%;
-  right: 8%;
+  top: 6%;
+  right: 14%;
 }
 .about-node-wrap.pos-mr {
-  top: 38%;
-  right: 0;
+  top: 42%;
+  right: -2%;
 }
 .about-node-wrap.pos-br {
-  bottom: 10%;
-  right: 10%;
+  bottom: 6%;
+  right: 14%;
+}
+.about-node-wrap.pos-ml {
+  top: 42%;
+  left: -2%;
 }
 .about-node-wrap.pos-bl {
-  bottom: 14%;
-  left: 4%;
+  bottom: 10%;
+  left: 8%;
 }
 
 .about-orbit-node {
@@ -1118,38 +1126,40 @@ html[data-theme="light"] {
   filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.55));
 }
 
-.about-trait-panel {
+.about-trait {
   --about-tone: #b6bac5;
-  position: relative;
-  z-index: 6;
+  position: absolute;
+  z-index: 7;
   display: flex;
   align-items: flex-start;
   gap: 0.55rem;
-  width: min(100%, 22rem);
-  margin: 1rem auto 0;
-  padding: 0.85rem 0.9rem;
+  width: min(13.5rem, 70vw);
+  padding: 0.75rem 0.8rem;
   border-radius: 0.95rem;
   border: 1px solid color-mix(in srgb, var(--about-tone) 45%, var(--border));
   background: color-mix(in srgb, var(--bg-elevated) 94%, transparent);
   box-shadow:
     var(--shadow),
     0 0 20px color-mix(in srgb, var(--about-tone) 12%, transparent);
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(-50%, 0.75rem) scale(0.96);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s ease;
 }
 
-.about-trait-panel.is-cyan {
+.about-trait.is-cyan {
   --about-tone: #b6bac5;
 }
-.about-trait-panel.is-purple {
+.about-trait.is-purple {
   --about-tone: #9eb4cc;
 }
-.about-trait-panel.is-pink {
+.about-trait.is-pink {
   --about-tone: #c5d2e0;
-}
-
-.about-trait {
-  position: absolute;
-  z-index: 7;
-  display: none;
 }
 
 .about-trait.is-visible {
@@ -1160,7 +1170,7 @@ html[data-theme="light"] {
 }
 
 .about-node-wrap.pos-tr .about-trait {
-  top: 1.1rem;
+  top: 1.15rem;
   left: 0;
   transform: translate(0, 0.75rem) scale(0.96);
 }
@@ -1169,17 +1179,17 @@ html[data-theme="light"] {
 }
 
 .about-node-wrap.pos-mr .about-trait {
-  top: 1.1rem;
-  right: 0;
+  top: 50%;
+  right: 1.2rem;
   left: auto;
-  transform: translate(0, 0.75rem) scale(0.96);
+  transform: translate(0.75rem, -50%) scale(0.96);
 }
 .about-node-wrap.pos-mr .about-trait.is-visible {
-  transform: translate(0, 0) scale(1);
+  transform: translate(0, -50%) scale(1);
 }
 
 .about-node-wrap.pos-br .about-trait {
-  bottom: 1.1rem;
+  bottom: 1.15rem;
   right: 0;
   left: auto;
   top: auto;
@@ -1189,8 +1199,18 @@ html[data-theme="light"] {
   transform: translate(0, 0) scale(1);
 }
 
+.about-node-wrap.pos-ml .about-trait {
+  top: 50%;
+  left: 1.2rem;
+  right: auto;
+  transform: translate(-0.75rem, -50%) scale(0.96);
+}
+.about-node-wrap.pos-ml .about-trait.is-visible {
+  transform: translate(0, -50%) scale(1);
+}
+
 .about-node-wrap.pos-bl .about-trait {
-  bottom: 1.1rem;
+  bottom: 1.15rem;
   left: 0;
   top: auto;
   transform: translate(0, -0.75rem) scale(0.96);
@@ -1227,16 +1247,34 @@ html[data-theme="light"] {
 @media (max-width: 1023px) {
   .about-visual {
     min-height: 26rem;
-    padding: 2rem 0 0.5rem;
+    padding: 2.25rem 0.25rem 1.5rem;
   }
 
   .about-orbit {
     margin-bottom: 0;
   }
 
+  .about-node-wrap.pos-tr {
+    top: 4%;
+    right: 10%;
+  }
+  .about-node-wrap.pos-mr {
+    top: 44%;
+    right: 0;
+  }
+  .about-node-wrap.pos-br {
+    bottom: 4%;
+    right: 10%;
+  }
+  .about-node-wrap.pos-ml {
+    top: 44%;
+    left: 0;
+  }
+
   .about-node-wrap.pos-tr .about-trait,
   .about-node-wrap.pos-mr .about-trait,
   .about-node-wrap.pos-br .about-trait,
+  .about-node-wrap.pos-ml .about-trait,
   .about-node-wrap.pos-bl .about-trait {
     left: 50%;
     right: auto;
@@ -1249,6 +1287,7 @@ html[data-theme="light"] {
   .about-node-wrap.pos-tr .about-trait.is-visible,
   .about-node-wrap.pos-mr .about-trait.is-visible,
   .about-node-wrap.pos-br .about-trait.is-visible,
+  .about-node-wrap.pos-ml .about-trait.is-visible,
   .about-node-wrap.pos-bl .about-trait.is-visible {
     transform: translate(-50%, 0) scale(1);
   }

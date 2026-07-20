@@ -8,7 +8,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { profile } from "@/data/content";
 import { Typewriter } from "@/components/Typewriter";
-import { GitHubIcon, LinkedInIcon } from "@/components/icons";
+import { GitHubIcon } from "@/components/icons";
 import { Magnetic } from "@/components/Magnetic";
 import { ParallaxLayer, useParallax } from "@/components/Parallax";
 import { HeroWebGL } from "@/components/HeroWebGL";
@@ -110,15 +110,6 @@ export function Hero() {
               aria-label="GitHub"
             >
               <GitHubIcon size={18} />
-            </a>
-            <a
-              href={profile.links.linkedin}
-              target="_blank"
-              rel="noreferrer"
-              className="social-btn social-orbit"
-              aria-label="LinkedIn"
-            >
-              <LinkedInIcon size={18} />
             </a>
             <a
               href={`mailto:${profile.email}`}

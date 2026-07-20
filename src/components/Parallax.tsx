@@ -4,7 +4,6 @@ import {
   createContext,
   useContext,
   useEffect,
-  useMemo,
   useState,
   type ReactNode,
 } from "react";
@@ -49,10 +48,8 @@ export function ParallaxProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  const memo = useMemo(() => value, [value.x, value.y]);
-
   return (
-    <ParallaxContext.Provider value={memo}>{children}</ParallaxContext.Provider>
+    <ParallaxContext.Provider value={value}>{children}</ParallaxContext.Provider>
   );
 }
 

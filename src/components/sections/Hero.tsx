@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { Mail, ArrowRight } from "lucide-react";
+import { ArrowRight, Download, Mail } from "lucide-react";
 import { profile } from "@/data/content";
 import { Typewriter } from "@/components/Typewriter";
 import { GitHubIcon, LinkedInIcon } from "@/components/icons";
@@ -10,33 +11,39 @@ export function Hero() {
   return (
     <section className="section hero-section">
       <div className="hero-bg" aria-hidden>
-        <div className="hero-arch" />
         <div className="hero-glow hero-glow-a" />
         <div className="hero-glow hero-glow-b" />
         <div className="floating-orb orb-1" />
         <div className="floating-orb orb-2" />
-        <div className="floating-orb orb-3" />
       </div>
 
-      <div className="relative z-10 mx-auto flex min-h-[calc(100dvh-5rem)] max-w-5xl flex-col justify-center px-4 py-12 sm:py-16 md:px-8">
-        <p className="hero-kicker reveal-item">Portfolio</p>
-        <h1 className="reveal-item mt-3 font-display text-[2rem] font-bold leading-[1.12] tracking-tight text-[var(--heading)] sm:text-5xl md:text-6xl lg:text-7xl">
-          Hello, I&apos;m{" "}
-          <span className="name-gradient">{profile.name}</span>
-        </h1>
-        <p className="reveal-item mt-4 text-base text-[var(--text-muted)] sm:mt-5 sm:text-lg md:text-xl">
-          <Typewriter phrases={profile.titleRoles} />
-        </p>
-        <p className="reveal-item mt-4 max-w-xl text-sm leading-relaxed text-[var(--text-soft)] md:text-base">
-          {profile.tagline}
-        </p>
+      <div className="hero-layout">
+        <div className="hero-copy">
+          <p className="hero-kicker reveal-item">Portfolio</p>
+          <h1 className="hero-title reveal-item">
+            Hi, I&apos;m <span className="name-gradient">{profile.name}</span>
+          </h1>
+          <p className="hero-role reveal-item">
+            <Typewriter phrases={profile.titleRoles} />
+          </p>
+          <p className="hero-tagline reveal-item">{profile.tagline}</p>
 
-        <div className="reveal-item mt-8 flex flex-wrap items-center gap-4">
-          <Link href="/projects" className="btn-primary">
-            Explore My Work
-            <ArrowRight size={16} />
-          </Link>
-          <div className="flex gap-2">
+          <div className="hero-actions reveal-item">
+            <Link href="/projects" className="btn-primary">
+              Explore My Work
+              <ArrowRight size={16} />
+            </Link>
+            <a
+              href="/Nancy_Verma_CV.pdf"
+              className="btn-ghost hero-cv"
+              download
+            >
+              <Download size={16} />
+              Download CV
+            </a>
+          </div>
+
+          <div className="hero-socials reveal-item">
             <a
               href={profile.links.github}
               target="_blank"
@@ -62,6 +69,19 @@ export function Hero() {
             >
               <Mail size={18} />
             </a>
+          </div>
+        </div>
+
+        <div className="hero-portal reveal-item">
+          <div className="hero-portal-frame">
+            <Image
+              src="/images/hero-portal.png"
+              alt="Cosmic portal gateway"
+              fill
+              priority
+              sizes="(max-width: 900px) 100vw, 42vw"
+              className="hero-portal-img"
+            />
           </div>
         </div>
       </div>

@@ -1246,12 +1246,18 @@ html[data-theme="light"] {
 
 @media (max-width: 1023px) {
   .about-visual {
-    min-height: 26rem;
-    padding: 2.25rem 0.25rem 1.5rem;
+    min-height: auto;
+    padding: 2.25rem 0.75rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
   }
 
   .about-orbit {
     margin-bottom: 0;
+    width: min(100%, 18.5rem);
+    flex-shrink: 0;
   }
 
   .about-node-wrap.pos-tr {
@@ -1271,25 +1277,50 @@ html[data-theme="light"] {
     left: 0;
   }
 
-  .about-node-wrap.pos-tr .about-trait,
-  .about-node-wrap.pos-mr .about-trait,
-  .about-node-wrap.pos-br .about-trait,
-  .about-node-wrap.pos-ml .about-trait,
-  .about-node-wrap.pos-bl .about-trait {
-    left: 50%;
-    right: auto;
-    top: 1.25rem;
-    bottom: auto;
-    width: min(14rem, 78vw);
-    transform: translate(-50%, 0.75rem) scale(0.96);
+  /* Hide edge-anchored popovers on mobile — they clip off-screen */
+  .about-node-wrap .about-trait {
+    display: none !important;
   }
 
-  .about-node-wrap.pos-tr .about-trait.is-visible,
-  .about-node-wrap.pos-mr .about-trait.is-visible,
-  .about-node-wrap.pos-br .about-trait.is-visible,
-  .about-node-wrap.pos-ml .about-trait.is-visible,
-  .about-node-wrap.pos-bl .about-trait.is-visible {
-    transform: translate(-50%, 0) scale(1);
+  .about-trait-mobile {
+    --about-tone: #b6bac5;
+    position: relative;
+    z-index: 6;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    width: 100%;
+    max-width: min(22rem, 100%);
+    margin: 0;
+    padding: 0.85rem 0.9rem;
+    border-radius: 0.95rem;
+    border: 1px solid color-mix(in srgb, var(--about-tone) 45%, var(--border));
+    background: color-mix(in srgb, var(--bg-elevated) 94%, transparent);
+    box-shadow:
+      var(--shadow),
+      0 0 20px color-mix(in srgb, var(--about-tone) 12%, transparent);
+    box-sizing: border-box;
+  }
+
+  .about-trait-mobile.is-cyan {
+    --about-tone: #b6bac5;
+  }
+  .about-trait-mobile.is-purple {
+    --about-tone: #9eb4cc;
+  }
+  .about-trait-mobile.is-pink {
+    --about-tone: #c5d2e0;
+  }
+
+  .about-trait-mobile .about-trait-text {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-trait-mobile {
+    display: none !important;
   }
 }
 

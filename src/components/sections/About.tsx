@@ -60,9 +60,31 @@ function TraitIcon({
   }
 }
 
+function TraitCard({
+  trait,
+  id,
+  className,
+}: {
+  trait: (typeof aboutContent.traits)[number];
+  id: string;
+  className: string;
+}) {
+  return (
+    <article id={id} className={className}>
+      <span className="about-trait-icon">
+        <TraitIcon icon={trait.icon} />
+      </span>
+      <div>
+        <h3 className="about-trait-title">{trait.title}</h3>
+        <p className="about-trait-text">{trait.text}</p>
+      </div>
+    </article>
+  );
+}
+
 export function About() {
   const rootRef = useRef<HTMLElement>(null);
-  const orbitRef = useRef<HTMLDivElement>(null);
+  const visualRef = useRef<HTMLDivElement>(null);
   const [activeTrait, setActiveTrait] = useState<string | null>(null);
 
   useGSAP(
@@ -92,15 +114,22 @@ export function About() {
 
   useEffect(() => {
     const onPointerDown = (event: PointerEvent) => {
-      const orbit = orbitRef.current;
-      if (!orbit) return;
-      if (!orbit.contains(event.target as Node)) {
+      const visual = visualRef.current;
+      if (!visual) return;
+      if (!visual.contains(event.target as Node)) {
         setActiveTrait(null);
       }
     };
     document.addEventListener("pointerdown", onPointerDown);
     return () => document.removeEventListener("pointerdown", onPointerDown);
   }, []);
+
+  const active =
+    aboutContent.traits.find((trait) => trait.title === activeTrait) ?? null;
+
+  const isFinePointer = () =>
+    typeof window !== "undefined" &&
+    window.matchMedia("(pointer: fine)").matches;
 
   return (
     <section ref={rootRef} className="section about-section">
@@ -142,9 +171,9 @@ export function About() {
           </div>
         </div>
 
-        <div className="about-visual reveal-item">
+        <div ref={visualRef} className="about-visual reveal-item">
           <p className="about-orbit-hint">Tap a glowing dot</p>
-          <div ref={orbitRef} className="about-orbit">
+          <div className="about-orbit">
             <span className="about-orbit-ring ring-1" aria-hidden />
             <span className="about-orbit-ring ring-2" aria-hidden />
             <span className="about-orbit-ring ring-3" aria-hidden />
@@ -173,8 +202,12 @@ export function About() {
                     aria-expanded={isActive}
                     aria-controls={`about-trait-${trait.title}`}
                     aria-label={trait.title}
-                    onMouseEnter={() => setActiveTrait(trait.title)}
-                    onMouseLeave={() => setActiveTrait(null)}
+                    onMouseEnter={() => {
+                      if (isFinePointer()) setActiveTrait(trait.title);
+                    }}
+                    onMouseLeave={() => {
+                      if (isFinePointer()) setActiveTrait(null);
+                    }}
                     onClick={(event) => {
                       event.preventDefault();
                       event.stopPropagation();
@@ -190,22 +223,23 @@ export function About() {
                       );
                     }}
                   />
-                  <article
+                  <TraitCard
+                    trait={trait}
                     id={`about-trait-${trait.title}`}
                     className={`about-trait glass-panel ${toneClass[trait.tone]}${isActive ? " is-visible" : ""}`}
-                  >
-                    <span className="about-trait-icon">
-                      <TraitIcon icon={trait.icon} />
-                    </span>
-                    <div>
-                      <h3 className="about-trait-title">{trait.title}</h3>
-                      <p className="about-trait-text">{trait.text}</p>
-                    </div>
-                  </article>
+                  />
                 </div>
               );
             })}
           </div>
+
+          {active && (
+            <TraitCard
+              trait={active}
+              id="about-trait-mobile"
+              className={`about-trait-mobile glass-panel ${toneClass[active.tone]} is-visible`}
+            />
+          )}
 
           <span className="about-dot-grid" aria-hidden />
         </div>

@@ -29,19 +29,40 @@ export const profile = {
 
 export const aboutContent = {
   headline: [
-    { text: "Curious Mind.", tone: "white" as const },
-    { text: "Creative Soul.", tone: "purple" as const },
-    { text: "Problem Solver.", tone: "cyan" as const },
+    { text: "B.Tech AI & ML.", tone: "white" as const },
+    { text: "MUJ.", tone: "cyan" as const },
+    { text: "Builder.", tone: "purple" as const },
   ],
-  introBefore: "I'm an AI & ML undergraduate at Manipal University Jaipur crafting ",
-  introHighlight: "meaningful digital experiences",
+  introBefore:
+    "I'm pursuing a B.Tech in Artificial Intelligence & Machine Learning at Manipal University Jaipur (MUJ), currently holding a CGPA of ",
+  introHighlight: "9.79 / 10",
   introAfter:
-    " — from clinical ML and geospatial analysis to human-centered software that actually helps people.",
-  stats: [
-    { value: "2+", label: "Years of Learning", icon: "code" as const, tone: "pink" as const },
-    { value: "15+", label: "Projects Built", icon: "rocket" as const, tone: "cyan" as const },
-    { value: "8+", label: "Technologies", icon: "gear" as const, tone: "purple" as const },
-    { value: "100%", label: "Passion", icon: "heart" as const, tone: "magenta" as const },
+    ". I build intelligent systems across clinical ML, geospatial analysis, and human-centered software.",
+  education: [
+    {
+      value: "B.Tech",
+      label: "AI & Machine Learning",
+      icon: "code" as const,
+      tone: "cyan" as const,
+    },
+    {
+      value: "MUJ",
+      label: "Manipal University Jaipur",
+      icon: "rocket" as const,
+      tone: "purple" as const,
+    },
+    {
+      value: "9.79",
+      label: "CGPA / 10",
+      icon: "gear" as const,
+      tone: "pink" as const,
+    },
+    {
+      value: "2023–27",
+      label: "Undergraduate Years",
+      icon: "heart" as const,
+      tone: "magenta" as const,
+    },
   ],
   values: [
     {

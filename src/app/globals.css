@@ -1105,29 +1105,38 @@ body {
   filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.55));
 }
 
-.about-trait {
-  position: absolute;
-  z-index: 7;
+.about-trait-panel {
+  --about-tone: #b6bac5;
+  position: relative;
+  z-index: 6;
   display: flex;
   align-items: flex-start;
   gap: 0.55rem;
-  width: min(13.5rem, 70vw);
-  padding: 0.75rem 0.8rem;
+  width: min(100%, 22rem);
+  margin: 1rem auto 0;
+  padding: 0.85rem 0.9rem;
   border-radius: 0.95rem;
   border: 1px solid color-mix(in srgb, var(--about-tone) 45%, var(--border));
   background: color-mix(in srgb, var(--bg-elevated) 94%, transparent);
   box-shadow:
     var(--shadow),
     0 0 20px color-mix(in srgb, var(--about-tone) 12%, transparent);
-  backdrop-filter: blur(12px);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: translate(-50%, 0.75rem) scale(0.96);
-  transition:
-    opacity 0.2s ease,
-    transform 0.2s ease,
-    visibility 0.2s ease;
+}
+
+.about-trait-panel.is-cyan {
+  --about-tone: #b6bac5;
+}
+.about-trait-panel.is-purple {
+  --about-tone: #9eb4cc;
+}
+.about-trait-panel.is-pink {
+  --about-tone: #c5d2e0;
+}
+
+.about-trait {
+  position: absolute;
+  z-index: 7;
+  display: none;
 }
 
 .about-trait.is-visible {
@@ -3926,4 +3935,47 @@ html.lenis body {
     animation: none !important;
     display: none;
   }
+}
+
+/* Disable hover enlarge / lift on cards across sections */
+.about-stat,
+.about-value,
+.project-card,
+.achieve-card,
+.pub-card,
+.exp-card,
+.skill-icon-card,
+.skill-tech-card,
+.skill-extra-pill,
+.info-card,
+.skills-panel-3d,
+.contact-row {
+  transition: none !important;
+}
+
+.about-stat:hover,
+.about-value:hover,
+.project-card:hover,
+.achieve-card:hover,
+.pub-card:hover,
+.exp-card:hover,
+.skill-icon-card:hover,
+.skill-tech-card:hover,
+.skill-extra-pill:hover,
+.info-card:hover,
+.contact-row:hover {
+  transform: none !important;
+}
+
+.project-card:hover .project-media-img {
+  transform: none !important;
+}
+
+.skills-panel-3d:hover {
+  box-shadow: var(--shadow) !important;
+  border-color: var(--border) !important;
+}
+
+.tilt-card {
+  transform: none !important;
 }

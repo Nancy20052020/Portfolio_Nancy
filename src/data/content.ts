@@ -112,7 +112,6 @@ export type SkillTone = "cyan" | "purple" | "pink";
 
 export type TechnicalSkill = {
   name: string;
-  level: number;
   icon: "python" | "cpp" | "html" | "js" | "css";
   tone: SkillTone;
 };
@@ -125,15 +124,15 @@ export type AdditionalSkill = {
 
 export type ToolSkill = {
   name: string;
-  icon: "git" | "react" | "latex" | "colab" | "gee";
+  icon: "git" | "latex" | "colab" | "gee" | "gis";
 };
 
 export const technicalSkills: TechnicalSkill[] = [
-  { name: "Python", level: 90, icon: "python", tone: "purple" },
-  { name: "C++", level: 90, icon: "cpp", tone: "cyan" },
-  { name: "HTML", level: 85, icon: "html", tone: "pink" },
-  { name: "JavaScript", level: 85, icon: "js", tone: "purple" },
-  { name: "CSS", level: 85, icon: "css", tone: "cyan" },
+  { name: "Python", icon: "python", tone: "purple" },
+  { name: "C++", icon: "cpp", tone: "cyan" },
+  { name: "HTML", icon: "html", tone: "pink" },
+  { name: "JavaScript", icon: "js", tone: "purple" },
+  { name: "CSS", icon: "css", tone: "cyan" },
 ];
 
 export const machineLearningSkills: AdditionalSkill[] = [
@@ -150,10 +149,10 @@ export const softSkills: AdditionalSkill[] = [
 
 export const toolSkills: ToolSkill[] = [
   { name: "Git", icon: "git" },
-  { name: "React", icon: "react" },
   { name: "LaTeX", icon: "latex" },
   { name: "Google Colab", icon: "colab" },
-  { name: "Google Earth Engine", icon: "gee" },
+  { name: "GEE / Google Earth Engine", icon: "gee" },
+  { name: "GIS", icon: "gis" },
 ];
 
 export const skillsSubtitle =

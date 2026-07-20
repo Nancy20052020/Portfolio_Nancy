@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
 import { publications } from "@/data/content";
 import { ParallaxLayer } from "@/components/Parallax";
 import { SectionAura } from "@/components/SectionAura";
@@ -21,30 +20,16 @@ export function Publications() {
 
         <div className="pubs-layout mt-10">
           <div className="pubs-list">
-            {publications.map((pub) => {
-              const primary = Object.entries(pub.links)[0];
-              return (
-                <article
-                  key={pub.title}
-                  className="pub-card glass-panel reveal-item zero-g scroll-3d depth-enter"
-                >
-                  <p className="pub-venue">{pub.venue}</p>
-                  <h3 className="pub-title">{pub.title}</h3>
-                  <p className="pub-desc">{pub.description}</p>
-                  {primary && (
-                    <a
-                      href={primary[1]}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="pub-link"
-                    >
-                      Read Paper
-                      <ArrowUpRight size={14} aria-hidden />
-                    </a>
-                  )}
-                </article>
-              );
-            })}
+            {publications.map((pub) => (
+              <article
+                key={pub.title}
+                className="pub-card glass-panel reveal-item zero-g scroll-3d depth-enter"
+              >
+                <p className="pub-venue">{pub.venue}</p>
+                <h3 className="pub-title">{pub.title}</h3>
+                <p className="pub-desc">{pub.description}</p>
+              </article>
+            ))}
           </div>
 
           <ParallaxLayer depth={1.3} className="pubs-art reveal-item depth-enter">

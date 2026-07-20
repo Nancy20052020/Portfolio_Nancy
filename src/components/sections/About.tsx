@@ -1,21 +1,11 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import {
-  Code2,
-  Heart,
-  Lightbulb,
-  Puzzle,
-  Rocket,
-  Sparkles,
-  Star,
-  Target,
-} from "lucide-react";
+import { Code2, Heart, Rocket, Sparkles, Star } from "lucide-react";
 import { aboutContent } from "@/data/content";
-import { ParallaxLayer } from "@/components/Parallax";
 import { SectionAura } from "@/components/SectionAura";
 
 gsap.registerPlugin(useGSAP);
@@ -52,22 +42,6 @@ function EduIcon({
   }
 }
 
-function ValueIcon({
-  icon,
-}: {
-  icon: (typeof aboutContent.values)[number]["icon"];
-}) {
-  const props = { size: 20, strokeWidth: 2.1, "aria-hidden": true as const };
-  switch (icon) {
-    case "bulb":
-      return <Lightbulb {...props} />;
-    case "puzzle":
-      return <Puzzle {...props} />;
-    case "target":
-      return <Target {...props} />;
-  }
-}
-
 function TraitIcon({
   icon,
 }: {
@@ -88,6 +62,7 @@ function TraitIcon({
 
 export function About() {
   const rootRef = useRef<HTMLElement>(null);
+  const orbitRef = useRef<HTMLDivElement>(null);
   const [activeTrait, setActiveTrait] = useState<string | null>(null);
 
   useGSAP(
@@ -115,6 +90,22 @@ export function About() {
     { scope: rootRef },
   );
 
+  useEffect(() => {
+    const onPointerDown = (event: PointerEvent) => {
+      const orbit = orbitRef.current;
+      if (!orbit) return;
+      if (!orbit.contains(event.target as Node)) {
+        setActiveTrait(null);
+      }
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+  }, []);
+
+  const openTrait = (title: string) => {
+    setActiveTrait(title);
+  };
+
   return (
     <section ref={rootRef} className="section about-section">
       <SectionAura variant="about" />
@@ -122,7 +113,7 @@ export function About() {
         <div className="about-copy">
           <div className="about-heading reveal-item">
             <div className="about-eyebrow-row">
-              <p className="about-eyebrow">About Me</p>
+              <p className="about-eyebrow">About</p>
               <span className="about-eyebrow-line" aria-hidden />
             </div>
             <h2 className="about-headline">
@@ -153,40 +144,11 @@ export function About() {
               </article>
             ))}
           </div>
-
-          <div className="about-values reveal-item">
-            {aboutContent.values.map((value) => (
-              <article
-                key={value.title}
-                className={`about-value depth-enter ${toneClass[value.tone]}`}
-              >
-                <span className="about-value-icon">
-                  <ValueIcon icon={value.icon} />
-                </span>
-                <h3 className="about-value-title">{value.title}</h3>
-                <p className="about-value-text">{value.text}</p>
-              </article>
-            ))}
-          </div>
-
-          <blockquote className="about-quote reveal-item">
-            <span className="about-quote-mark" aria-hidden>
-              “”
-            </span>
-            <p>
-              {aboutContent.quoteBefore}
-              <span className="about-quote-accent">
-                {aboutContent.quoteHighlight}
-              </span>
-              .
-            </p>
-            <span className="about-quote-dots" aria-hidden />
-          </blockquote>
         </div>
 
-        <ParallaxLayer depth={1.2} className="about-visual reveal-item depth-enter">
-          <p className="about-orbit-hint">Hover or tap a glowing dot</p>
-          <div className="about-orbit">
+        <div className="about-visual reveal-item depth-enter">
+          <p className="about-orbit-hint">Tap a glowing dot</p>
+          <div ref={orbitRef} className="about-orbit">
             <span className="about-orbit-ring ring-1" aria-hidden />
             <span className="about-orbit-ring ring-2" aria-hidden />
             <span className="about-orbit-ring ring-3" aria-hidden />
@@ -205,18 +167,17 @@ export function About() {
 
             {aboutContent.traits.map((trait, index) => {
               const isActive = activeTrait === trait.title;
-              const nodeClass = `about-node-wrap pos-${trait.position}`;
               return (
-                <div key={trait.title} className={nodeClass}>
+                <div key={trait.title} className={`about-node-wrap pos-${trait.position}`}>
                   <button
                     type="button"
                     className={`about-orbit-node is-interactive ${nodeTone[trait.tone]} n${index + 1}${isActive ? " is-active" : ""}`}
                     aria-expanded={isActive}
-                    aria-controls={`about-trait-${trait.title}`}
+                    aria-controls={`about-trait-${index}`}
                     aria-label={trait.title}
                     onPointerEnter={(event) => {
                       if (event.pointerType === "mouse") {
-                        setActiveTrait(trait.title);
+                        openTrait(trait.title);
                       }
                     }}
                     onPointerLeave={(event) => {
@@ -224,16 +185,14 @@ export function About() {
                         setActiveTrait(null);
                       }
                     }}
-                    onFocus={() => setActiveTrait(trait.title)}
-                    onBlur={() => setActiveTrait(null)}
-                    onClick={() =>
-                      setActiveTrait((current) =>
-                        current === trait.title ? null : trait.title,
-                      )
-                    }
+                    onPointerDown={(event) => {
+                      // Single tap/click opens immediately (avoids mobile double-tap)
+                      event.stopPropagation();
+                      openTrait(trait.title);
+                    }}
                   />
                   <article
-                    id={`about-trait-${trait.title}`}
+                    id={`about-trait-${index}`}
                     className={`about-trait ${toneClass[trait.tone]}${isActive ? " is-visible" : ""}`}
                   >
                     <span className="about-trait-icon">
@@ -250,7 +209,7 @@ export function About() {
           </div>
 
           <span className="about-dot-grid" aria-hidden />
-        </ParallaxLayer>
+        </div>
       </div>
     </section>
   );

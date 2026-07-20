@@ -1,8 +1,5 @@
 "use client";
-
-import Image from "next/image";
 import { publications } from "@/data/content";
-import { ParallaxLayer } from "@/components/Parallax";
 import { SectionAura } from "@/components/SectionAura";
 
 export function Publications() {
@@ -18,7 +15,7 @@ export function Publications() {
           </p>
         </div>
 
-        <div className="pubs-layout mt-10">
+        <div className="pubs-layout pubs-layout-single mt-10">
           <div className="pubs-list">
             {publications.map((pub) => (
               <article
@@ -31,16 +28,6 @@ export function Publications() {
               </article>
             ))}
           </div>
-
-          <ParallaxLayer depth={1.3} className="pubs-art reveal-item depth-enter">
-            <Image
-              src="/images/publications-books.png"
-              alt=""
-              fill
-              sizes="(max-width: 900px) 100vw, 320px"
-              className="pubs-art-img"
-            />
-          </ParallaxLayer>
         </div>
       </div>
     </section>

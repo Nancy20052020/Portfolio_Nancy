@@ -70,11 +70,29 @@ export const skills: Record<string, SkillItem[]> = {
   ],
 };
 
+export type ProjectCategory =
+  | "Web Development"
+  | "UI/UX Design"
+  | "Machine Learning"
+  | "Others";
+
+export const projectFilters = [
+  "All",
+  "Web Development",
+  "UI/UX Design",
+  "Machine Learning",
+  "Others",
+] as const;
+
 export type Project = {
   id: string;
   title: string;
   description: string;
+  image: string;
+  tags: string[];
+  categories: ProjectCategory[];
   stack: string[];
+  featured?: boolean;
   links: {
     github?: string;
     demo?: string;
@@ -89,7 +107,11 @@ export const projects: Project[] = [
     title: "AutEye",
     description:
       "Web platform that leverages eye-tracking data and ML models to assist in early autism detection — improving accessibility and awareness.",
-    stack: ["Python", "Flask", "ML", "HTML/CSS/JS"],
+    image: "/images/auteye.png",
+    tags: ["Web Development", "ML"],
+    categories: ["Web Development", "Machine Learning"],
+    stack: ["Python", "Flask", "ML"],
+    featured: true,
     links: {
       github: "https://github.com/Nancy20052020",
     },
@@ -101,7 +123,10 @@ export const projects: Project[] = [
       "Drought severity assessment using multi-temporal vegetation condition index from satellite data",
     description:
       "Google Earth Engine analysis that evaluates drought severity over time with multi-temporal vegetation condition indices from satellite imagery.",
-    stack: ["Google Earth Engine", "JavaScript", "Remote Sensing", "GIS"],
+    image: "/images/dr.png",
+    tags: ["Machine Learning", "Geospatial"],
+    categories: ["Machine Learning", "Others"],
+    stack: ["Earth Engine", "JavaScript", "GIS"],
     links: {
       demo: "https://drive.google.com/file/d/1RZha6dBhiwGYqZHKaGM_WiZF5jK6NnmV/view?usp=drivesdk",
       code: "https://code.earthengine.google.com/1f478591ab593ffe9bcde0a27be6fc48",
@@ -114,7 +139,10 @@ export const projects: Project[] = [
       "Urban heat island mapping using land surface temperature built-up density analysis",
     description:
       "Maps urban heat islands by combining land surface temperature with built-up density analysis on Google Earth Engine.",
-    stack: ["Google Earth Engine", "GIS", "Satellite Data", "JavaScript"],
+    image: "/images/urban.png",
+    tags: ["Machine Learning", "Geospatial"],
+    categories: ["Machine Learning", "Others"],
+    stack: ["Earth Engine", "GIS", "JavaScript"],
     links: {
       demo: "https://drive.google.com/file/d/1TFvuLC2Rm8a2FTUSVplmug-8RdcGejW3/view?usp=drivesdk",
       code: "https://code.earthengine.google.com/170c492464d96e8cc66d885f25702049",
@@ -126,7 +154,10 @@ export const projects: Project[] = [
     title: "PrepPilot",
     description:
       "AI-assisted prep companion for interviews and placements — structured practice, smart feedback loops, and focused revision paths.",
-    stack: ["Python", "JavaScript", "AI", "Web"],
+    image: "/images/prepilot.png",
+    tags: ["Web Development", "AI"],
+    categories: ["Web Development", "UI/UX Design"],
+    stack: ["Python", "JavaScript", "AI"],
     links: {
       github: "https://github.com/Nancy20052020",
     },
@@ -137,7 +168,10 @@ export const projects: Project[] = [
     title: "Multi PDF Bot",
     description:
       "Conversational Q&A over multiple PDFs with voice output — powered by GPT-3.5 and ElevenLabs text-to-speech.",
-    stack: ["Python", "Flask", "OpenAI", "ElevenLabs"],
+    image: "/images/multipdf.png",
+    tags: ["Machine Learning", "AI"],
+    categories: ["Machine Learning"],
+    stack: ["Python", "Flask", "OpenAI"],
     links: {
       github: "https://github.com/Nancy20052020",
     },

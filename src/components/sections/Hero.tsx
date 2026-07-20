@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Mail } from "lucide-react";
 import { useGSAP } from "@gsap/react";
@@ -27,14 +26,6 @@ function PortalStage() {
       <span className="portal-ring ring-b" />
       <span className="portal-ring ring-c" />
       <div className="hero-portal-frame">
-        <Image
-          src="/images/hero-portal.png"
-          alt="Cosmic portal gateway"
-          fill
-          priority
-          sizes="(max-width: 900px) 100vw, 42vw"
-          className="hero-portal-img"
-        />
         <HeroWebGL />
         <span className="portal-sheen" />
       </div>

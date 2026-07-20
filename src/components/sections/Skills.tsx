@@ -1,6 +1,8 @@
 "use client";
 
-import { useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import {
   Code2,
   FileCode2,
@@ -23,6 +25,9 @@ import {
   type TechnicalSkill,
   type ToolSkill,
 } from "@/data/content";
+import { SectionAura } from "@/components/SectionAura";
+
+gsap.registerPlugin(useGSAP);
 
 const toneClass: Record<SkillTone, string> = {
   cyan: "is-cyan",
@@ -94,6 +99,7 @@ function SectionLabel({ children }: { children: ReactNode }) {
 
 export function Skills() {
   const [active, setActive] = useState<Tab>("Languages");
+  const panelRef = useRef<HTMLDivElement>(null);
 
   const panel = useMemo(() => {
     switch (active) {
@@ -103,7 +109,7 @@ export function Skills() {
             {technicalSkills.map((skill) => (
               <article
                 key={skill.name}
-                className={`skill-icon-card zero-g ${toneClass[skill.tone]}`}
+                className={`skill-icon-card zero-g depth-enter ${toneClass[skill.tone]}`}
               >
                 <div className="skill-tech-icon" aria-hidden>
                   <TechIcon icon={skill.icon} />
@@ -119,7 +125,7 @@ export function Skills() {
             {machineLearningSkills.map((skill) => (
               <span
                 key={skill.name}
-                className={`skill-extra-pill ${toneClass[skill.tone]}`}
+                className={`skill-extra-pill zero-g depth-enter ${toneClass[skill.tone]}`}
               >
                 <ExtraIcon icon={skill.icon} />
                 {skill.name}
@@ -131,7 +137,7 @@ export function Skills() {
         return (
           <div className="skills-tools-row skills-tools-row-flat">
             {toolSkills.map((tool) => (
-              <div key={tool.name} className="skills-tool">
+              <div key={tool.name} className="skills-tool zero-g depth-enter">
                 <div className="skills-tool-icon skills-tool-icon-lucide">
                   <ToolIcon icon={tool.icon} />
                 </div>
@@ -146,7 +152,7 @@ export function Skills() {
             {softSkills.map((skill) => (
               <span
                 key={skill.name}
-                className={`skill-extra-pill ${toneClass[skill.tone]}`}
+                className={`skill-extra-pill zero-g depth-enter ${toneClass[skill.tone]}`}
               >
                 <ExtraIcon icon={skill.icon} />
                 {skill.name}
@@ -157,8 +163,31 @@ export function Skills() {
     }
   }, [active]);
 
+  useGSAP(
+    () => {
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const panel = panelRef.current;
+      if (!panel || reduce) return;
+
+      gsap.fromTo(
+        panel,
+        { opacity: 0, y: 18, rotateX: 8, filter: "blur(6px)" },
+        {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          filter: "blur(0px)",
+          duration: 0.45,
+          ease: "power3.out",
+        },
+      );
+    },
+    { dependencies: [active] },
+  );
+
   return (
     <section className="section skills-section">
+      <SectionAura variant="skills" />
       <div className="section-inner">
         <div className="skills-heading reveal-item">
           <div className="skills-eyebrow-row">
@@ -171,7 +200,7 @@ export function Skills() {
           <span className="skills-divider" aria-hidden />
         </div>
 
-        <div className="skills-tabs-layout reveal-item">
+        <div className="skills-tabs-layout reveal-item depth-enter">
           <div className="skills-tabs" role="tablist" aria-label="Skill categories">
             {tabs.map((tab) => (
               <button
@@ -187,7 +216,11 @@ export function Skills() {
             ))}
           </div>
 
-          <div className="skills-panel glass-panel" role="tabpanel">
+          <div
+            ref={panelRef}
+            className="skills-panel glass-panel skills-panel-3d"
+            role="tabpanel"
+          >
             <SectionLabel>{active}</SectionLabel>
             {panel}
           </div>

@@ -9,6 +9,7 @@ import { Sidebar } from "@/components/Sidebar";
 import { AmbientUniverse } from "@/components/AmbientUniverse";
 import { ParallaxProvider } from "@/components/Parallax";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import { PageTransition } from "@/components/PageTransition";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -16,6 +17,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <ParallaxProvider>
       <SmoothScroll />
+      <PageTransition />
       <div className="portfolio-shell">
         <AmbientUniverse />
         <Sidebar />
@@ -36,22 +38,47 @@ export function PageMotion({ children }: { children: ReactNode }) {
       ).matches;
 
       const items = gsap.utils.toArray<HTMLElement>(".reveal-item");
+      const depthItems = gsap.utils.toArray<HTMLElement>(".depth-enter");
+      const scrollItems = gsap.utils.toArray<HTMLElement>(".scroll-3d");
 
       if (prefersReduced) {
-        gsap.set(items, { clearProps: "all", opacity: 1, y: 0, rotateX: 0 });
+        gsap.set([...items, ...depthItems, ...scrollItems], {
+          clearProps: "all",
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          scale: 1,
+          filter: "none",
+        });
         return;
       }
 
-      gsap.from(items, {
-        y: 48,
+      const master = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      master.from(items, {
+        y: 56,
         opacity: 0,
-        rotateX: 12,
+        rotateX: 14,
         transformOrigin: "50% 100%",
-        filter: "blur(8px)",
-        duration: 0.95,
-        stagger: 0.08,
-        ease: "power3.out",
+        filter: "blur(10px)",
+        duration: 0.9,
+        stagger: 0.07,
       });
+
+      master.from(
+        depthItems,
+        {
+          y: 72,
+          opacity: 0,
+          rotateX: 22,
+          scale: 0.94,
+          transformOrigin: "50% 100%",
+          filter: "blur(12px)",
+          duration: 1,
+          stagger: 0.09,
+        },
+        0.08,
+      );
 
       gsap.utils.toArray<HTMLElement>(".zero-g").forEach((el, i) => {
         gsap.to(el, {
@@ -76,30 +103,55 @@ export function PageMotion({ children }: { children: ReactNode }) {
         });
       }
 
-      gsap.utils.toArray<HTMLElement>(".scroll-3d").forEach((el) => {
-        gsap.fromTo(
-          el,
-          {
-            y: 80,
-            opacity: 0.15,
-            rotateX: 28,
-            scale: 0.92,
-            transformOrigin: "50% 100%",
-          },
-          {
-            y: 0,
-            opacity: 1,
-            rotateX: 0,
-            scale: 1,
-            ease: "none",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 92%",
-              end: "top 45%",
-              scrub: 0.8,
+      scrollItems.forEach((el, i) => {
+        const rect = el.getBoundingClientRect();
+        const inView = rect.top < window.innerHeight * 0.92;
+
+        if (inView) {
+          gsap.fromTo(
+            el,
+            {
+              y: 64,
+              opacity: 0.1,
+              rotateX: 24,
+              scale: 0.93,
+              transformOrigin: "50% 100%",
             },
-          },
-        );
+            {
+              y: 0,
+              opacity: 1,
+              rotateX: 0,
+              scale: 1,
+              duration: 0.85,
+              delay: 0.12 + i * 0.08,
+              ease: "power3.out",
+            },
+          );
+        } else {
+          gsap.fromTo(
+            el,
+            {
+              y: 80,
+              opacity: 0.15,
+              rotateX: 28,
+              scale: 0.92,
+              transformOrigin: "50% 100%",
+            },
+            {
+              y: 0,
+              opacity: 1,
+              rotateX: 0,
+              scale: 1,
+              ease: "none",
+              scrollTrigger: {
+                trigger: el,
+                start: "top 92%",
+                end: "top 45%",
+                scrub: 0.8,
+              },
+            },
+          );
+        }
       });
 
       gsap.utils.toArray<HTMLElement>(".scroll-reveal").forEach((el) => {
@@ -114,6 +166,40 @@ export function PageMotion({ children }: { children: ReactNode }) {
             toggleActions: "play none none reverse",
           },
         });
+      });
+
+      gsap.utils.toArray<HTMLElement>(".rail-draw").forEach((el) => {
+        gsap.fromTo(
+          el,
+          { scaleY: 0, transformOrigin: "top center" },
+          {
+            scaleY: 1,
+            duration: 1.1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          },
+        );
+      });
+
+      gsap.utils.toArray<HTMLElement>(".track-draw").forEach((el) => {
+        gsap.fromTo(
+          el,
+          { scaleX: 0, transformOrigin: "left center" },
+          {
+            scaleX: 1,
+            duration: 1.2,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 80%",
+              toggleActions: "play none none reverse",
+            },
+          },
+        );
       });
 
       ScrollTrigger.refresh();

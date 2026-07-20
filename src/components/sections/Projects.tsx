@@ -1,10 +1,12 @@
 "use client";
 
 import { ProjectGrid } from "@/components/ProjectGrid";
+import { SectionAura } from "@/components/SectionAura";
 
 export function Projects() {
   return (
     <section className="section projects-section">
+      <SectionAura variant="projects" />
       <div className="section-inner">
         <div className="projects-heading reveal-item">
           <p className="projects-eyebrow">My Work</p>

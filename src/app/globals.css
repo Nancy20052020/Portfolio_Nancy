@@ -1796,6 +1796,10 @@ body {
   .skill-tech-grid {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
+
+  .skill-tech-grid-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
 }
 
 .skill-tech-card {
@@ -1967,6 +1971,14 @@ body {
   overflow: hidden;
   border: 1px solid var(--border);
   background: color-mix(in srgb, var(--bg) 70%, transparent);
+}
+
+.skills-tool-icon-lucide {
+  display: grid;
+  place-items: center;
+  color: #67e8f9;
+  background: color-mix(in srgb, #22d3ee 12%, transparent);
+  box-shadow: 0 0 14px color-mix(in srgb, #22d3ee 18%, transparent);
 }
 
 .skills-tool-img {

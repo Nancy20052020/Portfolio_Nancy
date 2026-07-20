@@ -27,6 +27,76 @@ export const profile = {
   },
 };
 
+export const aboutContent = {
+  headline: [
+    { text: "Curious Mind.", tone: "white" as const },
+    { text: "Creative Soul.", tone: "purple" as const },
+    { text: "Problem Solver.", tone: "cyan" as const },
+  ],
+  introBefore: "I'm an AI & ML undergraduate at Manipal University Jaipur crafting ",
+  introHighlight: "meaningful digital experiences",
+  introAfter:
+    " — from clinical ML and geospatial analysis to human-centered software that actually helps people.",
+  stats: [
+    { value: "2+", label: "Years of Learning", icon: "code" as const, tone: "pink" as const },
+    { value: "15+", label: "Projects Built", icon: "rocket" as const, tone: "cyan" as const },
+    { value: "8+", label: "Technologies", icon: "gear" as const, tone: "purple" as const },
+    { value: "100%", label: "Passion", icon: "heart" as const, tone: "magenta" as const },
+  ],
+  values: [
+    {
+      title: "Always Learning",
+      text: "I enjoy exploring new technologies and staying curious.",
+      icon: "bulb" as const,
+      tone: "cyan" as const,
+    },
+    {
+      title: "Love Building",
+      text: "I build clean, efficient and user-friendly solutions.",
+      icon: "puzzle" as const,
+      tone: "purple" as const,
+    },
+    {
+      title: "Goal Oriented",
+      text: "I focus on creating impact and delivering results.",
+      icon: "target" as const,
+      tone: "pink" as const,
+    },
+  ],
+  quoteBefore: "I believe in consistency, creativity and the power of code to create a ",
+  quoteHighlight: "better tomorrow",
+  traits: [
+    {
+      title: "Innovative",
+      text: "I enjoy creating smart and modern solutions.",
+      icon: "rocket" as const,
+      tone: "cyan" as const,
+      position: "tr" as const,
+    },
+    {
+      title: "Developer",
+      text: "I write clean code and build scalable applications.",
+      icon: "code" as const,
+      tone: "purple" as const,
+      position: "mr" as const,
+    },
+    {
+      title: "Collaborative",
+      text: "I love working with people and sharing ideas.",
+      icon: "heart" as const,
+      tone: "pink" as const,
+      position: "br" as const,
+    },
+    {
+      title: "Dreamer",
+      text: "I have big dreams and I'm constantly working towards them.",
+      icon: "star" as const,
+      tone: "cyan" as const,
+      position: "bl" as const,
+    },
+  ],
+};
+
 export const navItems = [
   { id: "home", label: "Home", href: "/" },
   { id: "about", label: "About", href: "/about" },

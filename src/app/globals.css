@@ -3580,9 +3580,231 @@ html.lenis body {
   transform-style: preserve-3d;
 }
 
+/* Igloo-exact home: full-bleed icy WebGL stage + sparse overlay */
+.igloo-hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 20%, rgba(150, 176, 205, 0.16), transparent 58%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(92, 118, 148, 0.18), transparent 55%),
+    #070b12;
+}
+
+.igloo-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.igloo-webgl {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.igloo-webgl canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+.igloo-frost-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    radial-gradient(circle at 30% 25%, rgba(220, 235, 255, 0.12), transparent 42%),
+    radial-gradient(circle at 70% 70%, rgba(160, 186, 214, 0.1), transparent 45%),
+    linear-gradient(180deg, rgba(8, 12, 20, 0.15), rgba(8, 12, 20, 0.55));
+  opacity: 0.28;
+  mix-blend-mode: screen;
+}
+
+.igloo-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: radial-gradient(circle at center, transparent 35%, rgba(5, 8, 14, 0.72) 100%);
+}
+
+.igloo-grid-floor {
+  position: absolute;
+  inset: 42% -12% -18%;
+  z-index: 2;
+  background-image:
+    linear-gradient(rgba(182, 186, 197, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(182, 186, 197, 0.08) 1px, transparent 1px);
+  background-size: 62px 62px;
+  transform: perspective(760px) rotateX(64deg);
+  transform-origin: center top;
+  mask-image: linear-gradient(to bottom, transparent, black 28%, transparent 92%);
+  opacity: 0.38;
+}
+
+.igloo-chromatic {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background:
+    linear-gradient(90deg, rgba(120, 180, 255, 0.05), transparent 40%, rgba(255, 160, 200, 0.035));
+  mix-blend-mode: color-dodge;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.igloo-overlay {
+  position: relative;
+  z-index: 5;
+  width: min(100%, 68rem);
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: max(5.5rem, 10vh) 1.15rem 3rem;
+}
+
+@media (min-width: 640px) {
+  .igloo-overlay {
+    padding-inline: 2rem;
+  }
+}
+
+.igloo-copy {
+  max-width: 42rem;
+}
+
+.igloo-kicker {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #b6bac5;
+}
+
+.igloo-brand {
+  margin-top: 0.85rem;
+  line-height: 0.92;
+}
+
+.igloo-brand-main {
+  display: block;
+  font-family: var(--font-syne), sans-serif;
+  font-size: clamp(3.1rem, 12vw, 7.4rem);
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  color: #e8eef6;
+  text-shadow:
+    0 0 40px rgba(190, 214, 240, 0.22),
+    1px 0 0 rgba(130, 180, 255, 0.18),
+    -1px 0 0 rgba(255, 170, 200, 0.12);
+}
+
+.igloo-line {
+  display: block;
+  margin-top: 1.1rem;
+  width: min(12rem, 42vw);
+  height: 1px;
+  transform-origin: left center;
+  background: linear-gradient(90deg, #b6bac5, transparent);
+}
+
+.igloo-role {
+  margin-top: 1.05rem;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: #b6bac5;
+}
+
+.igloo-tagline {
+  margin-top: 0.95rem;
+  max-width: 34rem;
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: rgba(214, 222, 232, 0.88);
+}
+
+.igloo-cta {
+  margin-top: 1.7rem;
+}
+
+.igloo-btn {
+  background: linear-gradient(135deg, #d5e3f2, #9eb4cc 55%, #b6bac5);
+  color: #0a1018;
+  box-shadow: 0 12px 34px rgba(182, 186, 197, 0.22);
+}
+
+.igloo-btn:hover {
+  box-shadow: 0 16px 40px rgba(182, 186, 197, 0.32);
+}
+
+.igloo-socials {
+  margin-top: 1.15rem;
+  display: flex;
+  gap: 0.55rem;
+}
+
+.igloo-scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 1.4rem;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #8f97a5;
+}
+
+.igloo-scroll-dot {
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 9999px;
+  background: #b6bac5;
+  box-shadow: 0 0 10px rgba(182, 186, 197, 0.7);
+  animation: igloo-scroll-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes igloo-scroll-pulse {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateY(4px);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .igloo-overlay {
+    padding-top: 5.2rem;
+    padding-bottom: 4rem;
+  }
+
+  .igloo-tagline {
+    font-size: 0.9rem;
+  }
+
+  .igloo-scroll {
+    bottom: 1rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .page-transition,
-  .section-aura-orb {
-    display: none !important;
+  .section-aura-orb,
+  .igloo-scroll-dot,
+  .igloo-chromatic {
+    animation: none !important;
+    display: none;
   }
 }

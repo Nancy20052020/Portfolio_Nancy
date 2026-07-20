@@ -1,8 +1,6 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
+import { useMemo, useState, type ReactNode } from "react";
 import {
   Code2,
   FileCode2,
@@ -26,13 +24,20 @@ import {
   type ToolSkill,
 } from "@/data/content";
 
-gsap.registerPlugin(useGSAP);
-
 const toneClass: Record<SkillTone, string> = {
   cyan: "is-cyan",
   purple: "is-purple",
   pink: "is-pink",
 };
+
+const tabs = [
+  "Languages",
+  "Machine Learning",
+  "Tools & Technologies",
+  "Soft Skills",
+] as const;
+
+type Tab = (typeof tabs)[number];
 
 function TechIcon({ icon }: { icon: TechnicalSkill["icon"] }) {
   const props = { size: 22, strokeWidth: 2.1, "aria-hidden": true as const };
@@ -51,7 +56,7 @@ function TechIcon({ icon }: { icon: TechnicalSkill["icon"] }) {
 }
 
 function ExtraIcon({ icon }: { icon: AdditionalSkill["icon"] }) {
-  const props = { size: 15, strokeWidth: 2.2, "aria-hidden": true as const };
+  const props = { size: 16, strokeWidth: 2.2, "aria-hidden": true as const };
   switch (icon) {
     case "ml":
       return <Sparkles {...props} />;
@@ -88,26 +93,72 @@ function SectionLabel({ children }: { children: ReactNode }) {
 }
 
 export function Skills() {
-  const rootRef = useRef<HTMLElement>(null);
+  const [active, setActive] = useState<Tab>("Languages");
 
-  useGSAP(
-    () => {
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (reduce) return;
-
-      gsap.from(".skill-tech-card", {
-        y: 24,
-        opacity: 0,
-        duration: 0.55,
-        stagger: 0.07,
-        ease: "power3.out",
-      });
-    },
-    { scope: rootRef },
-  );
+  const panel = useMemo(() => {
+    switch (active) {
+      case "Languages":
+        return (
+          <div className="skill-icon-grid">
+            {technicalSkills.map((skill) => (
+              <article
+                key={skill.name}
+                className={`skill-icon-card ${toneClass[skill.tone]}`}
+              >
+                <div className="skill-tech-icon" aria-hidden>
+                  <TechIcon icon={skill.icon} />
+                </div>
+                <p className="skill-tech-name">{skill.name}</p>
+              </article>
+            ))}
+          </div>
+        );
+      case "Machine Learning":
+        return (
+          <div className="skill-extra-grid">
+            {machineLearningSkills.map((skill) => (
+              <span
+                key={skill.name}
+                className={`skill-extra-pill ${toneClass[skill.tone]}`}
+              >
+                <ExtraIcon icon={skill.icon} />
+                {skill.name}
+              </span>
+            ))}
+          </div>
+        );
+      case "Tools & Technologies":
+        return (
+          <div className="skills-tools-row skills-tools-row-flat">
+            {toolSkills.map((tool) => (
+              <div key={tool.name} className="skills-tool">
+                <div className="skills-tool-icon skills-tool-icon-lucide">
+                  <ToolIcon icon={tool.icon} />
+                </div>
+                <span className="skills-tool-name">{tool.name}</span>
+              </div>
+            ))}
+          </div>
+        );
+      case "Soft Skills":
+        return (
+          <div className="skill-extra-grid">
+            {softSkills.map((skill) => (
+              <span
+                key={skill.name}
+                className={`skill-extra-pill ${toneClass[skill.tone]}`}
+              >
+                <ExtraIcon icon={skill.icon} />
+                {skill.name}
+              </span>
+            ))}
+          </div>
+        );
+    }
+  }, [active]);
 
   return (
-    <section ref={rootRef} className="section skills-section">
+    <section className="section skills-section">
       <div className="section-inner">
         <div className="skills-heading reveal-item">
           <div className="skills-eyebrow-row">
@@ -120,72 +171,26 @@ export function Skills() {
           <span className="skills-divider" aria-hidden />
         </div>
 
-        <div className="skills-layout">
-          <div className="skills-main">
-            <div className="reveal-item">
-              <SectionLabel>Languages</SectionLabel>
-              <div className="skill-tech-grid skill-tech-grid-5">
-                {technicalSkills.map((skill) => (
-                  <article
-                    key={skill.name}
-                    className={`skill-tech-card ${toneClass[skill.tone]}`}
-                  >
-                    <div className="skill-tech-icon" aria-hidden>
-                      <TechIcon icon={skill.icon} />
-                    </div>
-                    <p className="skill-tech-name">{skill.name}</p>
-                  </article>
-                ))}
-              </div>
-            </div>
-
-            <div className="reveal-item skills-additional-block">
-              <SectionLabel>Machine Learning</SectionLabel>
-              <div className="skill-extra-grid">
-                {machineLearningSkills.map((skill) => (
-                  <span
-                    key={skill.name}
-                    className={`skill-extra-pill ${toneClass[skill.tone]}`}
-                  >
-                    <ExtraIcon icon={skill.icon} />
-                    {skill.name}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="reveal-item">
-              <SectionLabel>Soft Skills</SectionLabel>
-              <div className="skill-extra-grid">
-                {softSkills.map((skill) => (
-                  <span
-                    key={skill.name}
-                    className={`skill-extra-pill ${toneClass[skill.tone]}`}
-                  >
-                    <ExtraIcon icon={skill.icon} />
-                    {skill.name}
-                  </span>
-                ))}
-              </div>
-            </div>
+        <div className="skills-tabs-layout reveal-item">
+          <div className="skills-tabs" role="tablist" aria-label="Skill categories">
+            {tabs.map((tab) => (
+              <button
+                key={tab}
+                type="button"
+                role="tab"
+                aria-selected={active === tab}
+                className={`skills-tab${active === tab ? " is-active" : ""}`}
+                onClick={() => setActive(tab)}
+              >
+                {tab}
+              </button>
+            ))}
           </div>
 
-          <aside className="skills-side reveal-item">
-            <SectionLabel>Tools</SectionLabel>
-            <div className="skills-tools-panel">
-              <div className="skills-tools-row">
-                {toolSkills.map((tool) => (
-                  <div key={tool.name} className="skills-tool">
-                    <div className="skills-tool-icon skills-tool-icon-lucide">
-                      <ToolIcon icon={tool.icon} />
-                    </div>
-                    <span className="skills-tool-name">{tool.name}</span>
-                  </div>
-                ))}
-              </div>
-              <span className="skills-tools-spark" aria-hidden />
-            </div>
-          </aside>
+          <div className="skills-panel glass-panel" role="tabpanel">
+            <SectionLabel>{active}</SectionLabel>
+            {panel}
+          </div>
         </div>
       </div>
     </section>

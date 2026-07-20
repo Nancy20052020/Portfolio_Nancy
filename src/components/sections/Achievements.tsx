@@ -1,6 +1,17 @@
 "use client";
 
-import { Trophy, Star, Code2, Award } from "lucide-react";
+import {
+  Award,
+  Code2,
+  Flame,
+  Heart,
+  Mountain,
+  Sparkles,
+  Star,
+  Target,
+  Trophy,
+  TrendingUp,
+} from "lucide-react";
 import { achievements } from "@/data/content";
 
 const iconMap = {
@@ -10,40 +21,71 @@ const iconMap = {
   award: Award,
 };
 
+const toneClass = ["is-cyan", "is-purple", "is-teal", "is-pink"] as const;
+
+const footerTraits = [
+  { label: "Dedication", icon: Mountain },
+  { label: "Perseverance", icon: Flame },
+  { label: "Passion", icon: Heart },
+  { label: "Growth", icon: TrendingUp },
+  { label: "Impact", icon: Target },
+];
+
 export function Achievements() {
   return (
-    <section className="section">
+    <section className="section achieve-section">
       <div className="section-inner">
-        <div className="section-heading reveal-item">
-          <p className="eyebrow">Achievements</p>
-          <h2 className="section-title">Achievements</h2>
-          <p className="section-sub">
-            Academic excellence, scholarships, commits, and hackathon finishes.
-          </p>
+        <div className="achieve-top reveal-item">
+          <div className="achieve-heading">
+            <h2 className="achieve-title">Achievements</h2>
+            <p className="achieve-sub">
+              Academic excellence, scholarships, commits, and hackathon finishes.
+            </p>
+          </div>
+
+          <blockquote className="achieve-quote">
+            <Sparkles className="achieve-quote-mark" size={22} aria-hidden />
+            <p>
+              Achievements are the evidence of commitment, consistency, and
+              courage to go beyond limits.
+            </p>
+          </blockquote>
         </div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2">
-          {achievements.map((item) => {
-            const Icon = iconMap[item.icon];
-            return (
-              <div
-                key={item.title}
-                className="achievement-card glass-panel reveal-item"
-              >
-                <div className="achievement-icon">
-                  <Icon size={22} />
-                </div>
-                <div>
-                  <h3 className="font-display text-lg font-semibold text-[var(--heading)]">
-                    {item.title}
-                  </h3>
-                  <p className="mt-1 text-sm text-[var(--text-soft)]">
-                    {item.detail}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
+        <div className="achieve-track reveal-item">
+          <span className="achieve-track-line" aria-hidden />
+          <div className="achieve-cards">
+            {achievements.map((item, index) => {
+              const Icon = iconMap[item.icon];
+              const tone = toneClass[index % toneClass.length];
+              const number = String(index + 1).padStart(2, "0");
+              return (
+                <article
+                  key={item.title}
+                  className={`achieve-card ${tone}`}
+                >
+                  <span className="achieve-card-icon" aria-hidden>
+                    <Icon size={18} strokeWidth={2.2} />
+                  </span>
+                  <p className="achieve-card-num">{number}</p>
+                  <h3 className="achieve-card-title">{item.title}</h3>
+                  <p className="achieve-card-detail">{item.detail}</p>
+                  <span className="achieve-card-arrows" aria-hidden>
+                    {">>>"}
+                  </span>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="achieve-footer reveal-item" aria-label="Core traits">
+          {footerTraits.map((trait) => (
+            <span key={trait.label} className="achieve-footer-item">
+              <trait.icon size={14} strokeWidth={2.2} aria-hidden />
+              {trait.label}
+            </span>
+          ))}
         </div>
       </div>
     </section>

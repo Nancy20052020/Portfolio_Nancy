@@ -1648,26 +1648,257 @@ body {
   }
 }
 
-.achievement-card {
-  display: flex;
-  gap: 1rem;
-  padding: 1.25rem;
-  transition: transform 0.25s ease;
+/* Achievements infographic */
+.achieve-section {
+  position: relative;
+  overflow: hidden;
 }
 
-.achievement-card:hover {
-  transform: translateY(-3px);
-}
-
-.achievement-icon {
+.achieve-top {
   display: grid;
-  height: 3rem;
-  width: 3rem;
-  flex-shrink: 0;
-  place-items: center;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .achieve-top {
+    grid-template-columns: minmax(0, 1.2fr) minmax(16rem, 0.9fr);
+    gap: 1.5rem 2rem;
+  }
+}
+
+.achieve-title {
+  font-family: var(--font-syne), sans-serif;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #22d3ee;
+}
+
+[data-theme="light"] .achieve-title {
+  color: #0891b2;
+}
+
+.achieve-sub {
+  margin-top: 0.7rem;
+  max-width: 32rem;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--text-soft);
+}
+
+.achieve-quote {
+  position: relative;
+  padding: 1.1rem 1.15rem 1.15rem 1.2rem;
   border-radius: 1rem;
-  background: linear-gradient(145deg, rgba(232, 197, 71, 0.25), rgba(109, 74, 255, 0.15));
-  color: var(--gold);
+  border: 1px solid color-mix(in srgb, #22d3ee 40%, var(--border));
+  background: color-mix(in srgb, var(--bg-elevated) 92%, transparent);
+  box-shadow:
+    var(--shadow),
+    0 0 24px color-mix(in srgb, #22d3ee 10%, transparent);
+}
+
+.achieve-quote-mark {
+  color: #22d3ee;
+  margin-bottom: 0.55rem;
+  filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.45));
+}
+
+.achieve-quote p {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.achieve-track {
+  position: relative;
+  margin-top: 2.25rem;
+}
+
+.achieve-track-line {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .achieve-track-line {
+    display: block;
+    position: absolute;
+    top: 1.35rem;
+    left: 8%;
+    right: 4%;
+    height: 2px;
+    background: linear-gradient(90deg, #22d3ee, #a78bfa 50%, #f9a8d4);
+    box-shadow: 0 0 12px rgba(34, 211, 238, 0.35);
+    pointer-events: none;
+  }
+
+  .achieve-track-line::after {
+    content: "";
+    position: absolute;
+    right: -0.15rem;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border-left: 0.55rem solid #f9a8d4;
+    border-top: 0.35rem solid transparent;
+    border-bottom: 0.35rem solid transparent;
+    transform: translateY(-50%);
+  }
+}
+
+.achieve-cards {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .achieve-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .achieve-cards {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.9rem;
+  }
+}
+
+.achieve-card {
+  --achieve-tone: #22d3ee;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  min-height: 15.5rem;
+  padding: 1.85rem 1rem 1.1rem;
+  border-radius: 0.35rem 0.35rem 1rem 1rem;
+  clip-path: polygon(0 0.85rem, 0.85rem 0, calc(100% - 0.85rem) 0, 100% 0.85rem, 100% 100%, 0 100%);
+  background:
+    linear-gradient(
+        color-mix(in srgb, var(--bg-elevated) 94%, transparent),
+        color-mix(in srgb, var(--bg-elevated) 94%, transparent)
+      )
+      padding-box,
+    linear-gradient(
+        160deg,
+        color-mix(in srgb, var(--achieve-tone) 80%, transparent),
+        color-mix(in srgb, #a78bfa 35%, transparent) 55%,
+        color-mix(in srgb, #f9a8d4 30%, transparent)
+      )
+      border-box;
+  border: 1px solid transparent;
+  box-shadow:
+    var(--shadow),
+    0 0 24px color-mix(in srgb, var(--achieve-tone) 10%, transparent);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.achieve-card.is-cyan {
+  --achieve-tone: #22d3ee;
+}
+.achieve-card.is-purple {
+  --achieve-tone: #a78bfa;
+}
+.achieve-card.is-teal {
+  --achieve-tone: #67e8f9;
+}
+.achieve-card.is-pink {
+  --achieve-tone: #f9a8d4;
+}
+
+.achieve-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    var(--shadow),
+    0 16px 32px color-mix(in srgb, var(--achieve-tone) 16%, transparent);
+}
+
+.achieve-card-icon {
+  position: absolute;
+  top: -0.15rem;
+  left: 50%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 2.45rem;
+  height: 2.45rem;
+  border-radius: 9999px;
+  color: var(--achieve-tone);
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  border: 1px solid color-mix(in srgb, var(--achieve-tone) 55%, transparent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--achieve-tone) 35%, transparent);
+  transform: translate(-50%, -45%);
+}
+
+.achieve-card-num {
+  margin-top: 0.35rem;
+  font-family: var(--font-syne), sans-serif;
+  font-size: clamp(2rem, 3vw, 2.45rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: color-mix(in srgb, var(--achieve-tone) 80%, white);
+  text-shadow: 0 0 18px color-mix(in srgb, var(--achieve-tone) 35%, transparent);
+}
+
+.achieve-card-title {
+  font-family: var(--font-syne), sans-serif;
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--heading);
+}
+
+.achieve-card-detail {
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--text-soft);
+  flex: 1;
+}
+
+.achieve-card-arrows {
+  align-self: flex-end;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--achieve-tone) 75%, transparent);
+}
+
+.achieve-footer {
+  margin-top: 1.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem 1.1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, #a78bfa 35%, var(--border));
+  background: color-mix(in srgb, var(--bg-elevated) 92%, transparent);
+  box-shadow: 0 0 20px color-mix(in srgb, #22d3ee 8%, transparent);
+}
+
+.achieve-footer-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+.achieve-footer-item svg {
+  color: #22d3ee;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .achieve-card {
+    transition: none;
+  }
 }
 
 .publication-card {

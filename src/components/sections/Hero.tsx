@@ -19,7 +19,7 @@ export function Hero() {
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-[calc(100dvh-5rem)] max-w-5xl flex-col justify-center px-4 py-12 sm:py-16 md:px-8">
-        <p className="hero-kicker reveal-item">Portfolio · 2026</p>
+        <p className="hero-kicker reveal-item">Portfolio</p>
         <h1 className="reveal-item mt-3 font-display text-[2rem] font-bold leading-[1.12] tracking-tight text-[var(--heading)] sm:text-5xl md:text-6xl lg:text-7xl">
           Hello, I&apos;m{" "}
           <span className="name-gradient">{profile.name}</span>

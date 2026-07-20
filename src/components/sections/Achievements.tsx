@@ -55,17 +55,14 @@ export function Achievements() {
         </div>
 
         <div className="achieve-track reveal-item">
-          <span className="achieve-track-line track-draw" aria-hidden />
+          <span className="achieve-track-line" aria-hidden />
           <div className="achieve-cards">
             {achievements.map((item, index) => {
               const Icon = iconMap[item.icon];
               const tone = toneClass[index % toneClass.length];
               const number = String(index + 1).padStart(2, "0");
               return (
-                <article
-                  key={item.title}
-                  className={`achieve-card zero-g scroll-3d depth-enter ${tone}`}
-                >
+                <article key={item.title} className={`achieve-card ${tone}`}>
                   <span className="achieve-card-icon" aria-hidden>
                     <Icon size={18} strokeWidth={2.2} />
                   </span>
@@ -81,9 +78,9 @@ export function Achievements() {
           </div>
         </div>
 
-        <div className="achieve-footer reveal-item scroll-reveal" aria-label="Core traits">
+        <div className="achieve-footer reveal-item" aria-label="Core traits">
           {footerTraits.map((trait) => (
-            <span key={trait.label} className="achieve-footer-item zero-g depth-enter">
+            <span key={trait.label} className="achieve-footer-item">
               <trait.icon size={14} strokeWidth={2.2} aria-hidden />
               {trait.label}
             </span>

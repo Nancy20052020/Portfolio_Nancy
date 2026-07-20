@@ -10,7 +10,7 @@ export function Projects() {
           <p className="eyebrow">Projects</p>
           <h2 className="section-title">Projects</h2>
           <p className="section-sub">
-            ML, geospatial analysis, prep tools, and conversational AI.
+            ML, geospatial analysis, and conversational AI.
           </p>
         </div>
         <div className="mt-8">

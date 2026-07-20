@@ -27,8 +27,7 @@ export function Hero() {
         .from(".igloo-role", { y: 18, opacity: 0, duration: 0.65 }, "-=0.35")
         .from(".igloo-tagline", { y: 16, opacity: 0, duration: 0.65 }, "-=0.4")
         .from(".igloo-cta", { y: 14, opacity: 0, duration: 0.55 }, "-=0.35")
-        .from(".igloo-socials", { y: 12, opacity: 0, duration: 0.5 }, "-=0.3")
-        .from(".igloo-scroll", { opacity: 0, duration: 0.6 }, "-=0.2");
+        .from(".igloo-socials", { y: 12, opacity: 0, duration: 0.5 }, "-=0.3");
 
       gsap.to(".igloo-frost-veil", {
         opacity: 0.42,
@@ -98,11 +97,6 @@ export function Hero() {
               <Mail size={18} />
             </a>
           </div>
-        </div>
-
-        <div className="igloo-scroll" aria-hidden>
-          <span className="igloo-scroll-dot" />
-          <span>Scroll</span>
         </div>
       </div>
     </section>

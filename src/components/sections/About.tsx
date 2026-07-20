@@ -34,7 +34,11 @@ const nodeTone: Record<(typeof aboutContent.traits)[number]["tone"], string> = {
   pink: "n-pink",
 };
 
-function StatIcon({ icon }: { icon: (typeof aboutContent.stats)[number]["icon"] }) {
+function EduIcon({
+  icon,
+}: {
+  icon: (typeof aboutContent.education)[number]["icon"];
+}) {
   const props = { size: 18, strokeWidth: 2.2, "aria-hidden": true as const };
   switch (icon) {
     case "code":
@@ -136,16 +140,16 @@ export function About() {
           </div>
 
           <div className="about-stats reveal-item">
-            {aboutContent.stats.map((stat) => (
+            {aboutContent.education.map((item) => (
               <article
-                key={stat.label}
-                className={`about-stat depth-enter zero-g ${toneClass[stat.tone]}`}
+                key={item.label}
+                className={`about-stat depth-enter ${toneClass[item.tone]}`}
               >
                 <span className="about-stat-icon">
-                  <StatIcon icon={stat.icon} />
+                  <EduIcon icon={item.icon} />
                 </span>
-                <p className="about-stat-value">{stat.value}</p>
-                <p className="about-stat-label">{stat.label}</p>
+                <p className="about-stat-value">{item.value}</p>
+                <p className="about-stat-label">{item.label}</p>
               </article>
             ))}
           </div>
@@ -154,7 +158,7 @@ export function About() {
             {aboutContent.values.map((value) => (
               <article
                 key={value.title}
-                className={`about-value depth-enter zero-g ${toneClass[value.tone]}`}
+                className={`about-value depth-enter ${toneClass[value.tone]}`}
               >
                 <span className="about-value-icon">
                   <ValueIcon icon={value.icon} />

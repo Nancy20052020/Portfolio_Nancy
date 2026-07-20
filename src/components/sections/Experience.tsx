@@ -37,7 +37,7 @@ export function Experience() {
     <section className="section exp-section">
       <SectionAura variant="experience" />
       <div className="section-inner">
-        <div className="exp-heading reveal-item">
+        <div className="exp-heading">
           <p className="exp-eyebrow">Experience</p>
           <h2 className="exp-title">
             My <span className="exp-title-accent">Professional Journey</span>
@@ -53,16 +53,16 @@ export function Experience() {
             {experience.map((item, index) => (
               <li
                 key={`${item.role}-${item.org}`}
-                className={`exp-journey-item reveal-item ${toneClass[item.tone]}`}
+                className={`exp-journey-item ${toneClass[item.tone]}`}
               >
                 <div className="exp-rail" aria-hidden>
                   {index === 0 && <span className="exp-rail-pedestal" />}
                   <span className="exp-hex">
                     <ExperienceIcon icon={item.icon} />
                   </span>
-                  <span
-                    className={`exp-rail-connector${index < experience.length - 1 ? " rail-draw" : ""}`}
-                  />
+                  {index < experience.length - 1 && (
+                    <span className="exp-rail-connector" />
+                  )}
                 </div>
 
                 <article className="exp-card">

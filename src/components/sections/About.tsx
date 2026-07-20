@@ -157,7 +157,6 @@ export function About() {
             <span className="about-orbit-ring ring-1" aria-hidden />
             <span className="about-orbit-ring ring-2" aria-hidden />
             <span className="about-orbit-ring ring-3" aria-hidden />
-            <span className="about-orbit-node n5 is-decor" aria-hidden />
 
             <div className="about-core" aria-hidden>
               <span className="about-core-glow" />

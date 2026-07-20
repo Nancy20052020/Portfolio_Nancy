@@ -14,11 +14,14 @@ import { PageTransition } from "@/components/PageTransition";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export function AppShell({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
   return (
     <ParallaxProvider>
-      <SmoothScroll />
+      {!isHome && <SmoothScroll />}
       <PageTransition />
-      <div className="portfolio-shell">
+      <div className={`portfolio-shell${isHome ? " is-home" : ""}`}>
         <AmbientUniverse />
         <Sidebar />
         <main className="main-content">{children}</main>
@@ -53,32 +56,48 @@ export function PageMotion({ children }: { children: ReactNode }) {
         return;
       }
 
-      const master = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-      master.from(items, {
-        y: 56,
-        opacity: 0,
-        rotateX: 14,
-        transformOrigin: "50% 100%",
-        filter: "blur(10px)",
-        duration: 0.9,
-        stagger: 0.07,
+      const master = gsap.timeline({
+        defaults: { ease: "power3.out" },
+        onComplete: () => {
+          gsap.set([...items, ...depthItems], {
+            clearProps: "filter",
+            opacity: 1,
+            y: 0,
+            rotateX: 0,
+            scale: 1,
+          });
+        },
       });
 
-      master.from(
-        depthItems,
-        {
-          y: 72,
+      if (items.length) {
+        master.from(items, {
+          y: 36,
           opacity: 0,
-          rotateX: 22,
-          scale: 0.94,
-          transformOrigin: "50% 100%",
-          filter: "blur(12px)",
-          duration: 1,
-          stagger: 0.09,
-        },
-        0.08,
-      );
+          duration: 0.75,
+          stagger: 0.06,
+        });
+      }
+
+      if (depthItems.length) {
+        master.from(
+          depthItems,
+          {
+            y: 28,
+            opacity: 0,
+            duration: 0.7,
+            stagger: 0.05,
+          },
+          0.05,
+        );
+      }
+
+      // Ensure content is visible even if animation is interrupted
+      gsap.delayedCall(1.4, () => {
+        gsap.set([...items, ...depthItems, ...scrollItems], {
+          opacity: 1,
+          clearProps: "filter",
+        });
+      });
 
       const isMobile = window.innerWidth < 640;
 
@@ -113,19 +132,15 @@ export function PageMotion({ children }: { children: ReactNode }) {
           gsap.fromTo(
             el,
             {
-              y: 64,
-              opacity: 0.1,
-              rotateX: 24,
-              scale: 0.93,
+              y: 40,
+              opacity: 0.35,
               transformOrigin: "50% 100%",
             },
             {
               y: 0,
               opacity: 1,
-              rotateX: 0,
-              scale: 1,
-              duration: 0.85,
-              delay: 0.12 + i * 0.08,
+              duration: 0.7,
+              delay: 0.08 + i * 0.06,
               ease: "power3.out",
             },
           );
@@ -133,23 +148,19 @@ export function PageMotion({ children }: { children: ReactNode }) {
           gsap.fromTo(
             el,
             {
-              y: 80,
-              opacity: 0.15,
-              rotateX: 28,
-              scale: 0.92,
+              y: 48,
+              opacity: 0.35,
               transformOrigin: "50% 100%",
             },
             {
               y: 0,
               opacity: 1,
-              rotateX: 0,
-              scale: 1,
               ease: "none",
               scrollTrigger: {
                 trigger: el,
                 start: "top 92%",
-                end: "top 45%",
-                scrub: 0.8,
+                end: "top 55%",
+                scrub: 0.6,
               },
             },
           );

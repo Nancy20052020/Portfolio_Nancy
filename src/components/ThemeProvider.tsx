@@ -20,16 +20,12 @@ type ThemeContextValue = {
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("light");
+  const [theme, setThemeState] = useState<Theme>("dark");
 
   useEffect(() => {
     const stored = window.localStorage.getItem("nv-theme");
     const preferred =
-      stored === "light" || stored === "dark"
-        ? stored
-        : window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light";
+      stored === "light" || stored === "dark" ? stored : "dark";
     const id = window.setTimeout(() => {
       setThemeState(preferred);
       document.documentElement.setAttribute("data-theme", preferred);

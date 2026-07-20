@@ -1304,11 +1304,6 @@ body {
   gap: 0.85rem;
 }
 
-.hero-cv {
-  border-radius: 9999px;
-  padding: 0.75rem 1.15rem;
-}
-
 .hero-socials {
   margin-top: 1.25rem;
   display: flex;

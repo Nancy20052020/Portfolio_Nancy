@@ -30,14 +30,14 @@ export const profile = {
 export const aboutContent = {
   headline: [
     { text: "B.Tech AI & ML.", tone: "white" as const },
-    { text: "MUJ.", tone: "cyan" as const },
-    { text: "Builder.", tone: "purple" as const },
+    { text: "Manipal University Jaipur.", tone: "cyan" as const },
+    { text: "CGPA 9.79 / 10.", tone: "purple" as const },
   ],
   introBefore:
-    "I'm pursuing a B.Tech in Artificial Intelligence & Machine Learning at Manipal University Jaipur (MUJ), currently holding a CGPA of ",
+    "I am a B.Tech student in Artificial Intelligence and Machine Learning at Manipal University Jaipur (MUJ), with a current CGPA of ",
   introHighlight: "9.79 / 10",
   introAfter:
-    ". I build intelligent systems across clinical ML, geospatial analysis, and human-centered software.",
+    ". My work focuses on machine learning systems, geospatial analysis, and applied software engineering.",
   education: [
     {
       value: "B.Tech",
@@ -64,53 +64,31 @@ export const aboutContent = {
       tone: "magenta" as const,
     },
   ],
-  values: [
-    {
-      title: "Always Learning",
-      text: "I enjoy exploring new technologies and staying curious.",
-      icon: "bulb" as const,
-      tone: "cyan" as const,
-    },
-    {
-      title: "Love Building",
-      text: "I build clean, efficient and user-friendly solutions.",
-      icon: "puzzle" as const,
-      tone: "purple" as const,
-    },
-    {
-      title: "Goal Oriented",
-      text: "I focus on creating impact and delivering results.",
-      icon: "target" as const,
-      tone: "pink" as const,
-    },
-  ],
-  quoteBefore: "I believe in consistency, creativity and the power of code to create a ",
-  quoteHighlight: "better tomorrow",
   traits: [
     {
-      title: "Innovative",
-      text: "I enjoy creating smart and modern solutions.",
-      icon: "rocket" as const,
-      tone: "cyan" as const,
+      title: "Technical Focus",
+      text: "I develop clean, scalable software for applied AI and ML systems.",
+      icon: "code" as const,
+      tone: "purple" as const,
       position: "tr" as const,
     },
     {
-      title: "Developer",
-      text: "I write clean code and build scalable applications.",
-      icon: "code" as const,
-      tone: "purple" as const,
+      title: "Research Interest",
+      text: "I explore machine learning, geospatial analysis, and deep learning applications.",
+      icon: "rocket" as const,
+      tone: "cyan" as const,
       position: "mr" as const,
     },
     {
-      title: "Collaborative",
-      text: "I love working with people and sharing ideas.",
+      title: "Collaboration",
+      text: "I work effectively in teams and communicate technical ideas clearly.",
       icon: "heart" as const,
       tone: "pink" as const,
       position: "br" as const,
     },
     {
-      title: "Dreamer",
-      text: "I have big dreams and I'm constantly working towards them.",
+      title: "Academic Excellence",
+      text: "I maintain strong academic performance while building practical projects.",
       icon: "star" as const,
       tone: "cyan" as const,
       position: "bl" as const,

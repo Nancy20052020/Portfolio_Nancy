@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowRight, ExternalLink, Rocket } from "lucide-react";
 import { projectFilters, projects, type Project } from "@/data/content";
+import { TiltCard } from "@/components/TiltCard";
 
 type ProjectAction = {
   label: string;
@@ -69,7 +70,8 @@ export function ProjectGrid() {
           const actions = projectActions(project);
           const primary = actions[0];
           return (
-            <article key={project.id} className="project-card reveal-item">
+            <TiltCard key={project.id} className="project-tilt reveal-item zero-g">
+              <article className="project-card">
               <div className="project-media">
                 <Image
                   src={project.image}
@@ -145,6 +147,7 @@ export function ProjectGrid() {
                 </div>
               </div>
             </article>
+            </TiltCard>
           );
         })}
       </div>

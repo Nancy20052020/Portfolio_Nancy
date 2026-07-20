@@ -62,7 +62,7 @@ export function Achievements() {
               return (
                 <article
                   key={item.title}
-                  className={`achieve-card zero-g ${tone}`}
+                  className={`achieve-card zero-g scroll-3d ${tone}`}
                 >
                   <span className="achieve-card-icon" aria-hidden>
                     <Icon size={18} strokeWidth={2.2} />

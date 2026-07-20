@@ -51,7 +51,7 @@ export function Experience() {
             {experience.map((item, index) => (
               <li
                 key={`${item.role}-${item.org}`}
-                className={`exp-journey-item reveal-item ${toneClass[item.tone]}`}
+                className={`exp-journey-item reveal-item scroll-3d ${toneClass[item.tone]}`}
               >
                 <div className="exp-rail" aria-hidden>
                   {index === 0 && <span className="exp-rail-pedestal" />}

@@ -1045,21 +1045,6 @@ body {
   outline: none;
 }
 
-.about-orbit-node.is-decor {
-  position: absolute;
-  pointer-events: none;
-}
-
-.about-orbit-node.n5 {
-  position: absolute;
-  top: 28%;
-  left: 22%;
-  transform: translate(-50%, -50%);
-  background: #b6c4d4;
-  box-shadow: 0 0 12px #b6c4d4;
-  pointer-events: none;
-}
-
 .about-node-wrap .about-trait {
   z-index: 9;
 }

@@ -2338,6 +2338,10 @@ html.lenis body {
     grid-template-columns: minmax(0, 1.2fr) minmax(14rem, 0.75fr);
     gap: 2rem;
   }
+
+  .pubs-layout.pubs-layout-single {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .pubs-list {

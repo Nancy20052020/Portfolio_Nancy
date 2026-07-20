@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import {
@@ -24,6 +24,12 @@ const toneClass = {
   magenta: "is-magenta",
   white: "is-white",
 } as const;
+
+const nodeTone: Record<(typeof aboutContent.traits)[number]["tone"], string> = {
+  cyan: "n-cyan",
+  purple: "n-purple",
+  pink: "n-pink",
+};
 
 function StatIcon({ icon }: { icon: (typeof aboutContent.stats)[number]["icon"] }) {
   const props = { size: 18, strokeWidth: 2.2, "aria-hidden": true as const };
@@ -75,6 +81,7 @@ function TraitIcon({
 
 export function About() {
   const rootRef = useRef<HTMLElement>(null);
+  const [activeTrait, setActiveTrait] = useState<string | null>(null);
 
   useGSAP(
     () => {
@@ -87,15 +94,6 @@ export function About() {
         repeat: -1,
         ease: "none",
         stagger: { each: 4, from: "end" },
-      });
-
-      gsap.to(".about-trait", {
-        y: "+=10",
-        duration: 2.8,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        stagger: 0.35,
       });
 
       gsap.to(".about-core-glow", {
@@ -178,38 +176,66 @@ export function About() {
           </blockquote>
         </div>
 
-        <div className="about-visual reveal-item" aria-hidden>
+        <div className="about-visual reveal-item">
+          <p className="about-orbit-hint">Hover or tap a glowing dot</p>
           <div className="about-orbit">
-            <span className="about-orbit-ring ring-1" />
-            <span className="about-orbit-ring ring-2" />
-            <span className="about-orbit-ring ring-3" />
-            <span className="about-orbit-node n1" />
-            <span className="about-orbit-node n2" />
-            <span className="about-orbit-node n3" />
-            <span className="about-orbit-node n4" />
-            <span className="about-orbit-node n5" />
-            <div className="about-core">
+            <span className="about-orbit-ring ring-1" aria-hidden />
+            <span className="about-orbit-ring ring-2" aria-hidden />
+            <span className="about-orbit-ring ring-3" aria-hidden />
+            <span className="about-orbit-node n5 is-decor" aria-hidden />
+
+            <div className="about-core" aria-hidden>
               <span className="about-core-glow" />
               <Star className="about-core-star" size={28} strokeWidth={1.8} />
             </div>
+
+            {aboutContent.traits.map((trait, index) => {
+              const isActive = activeTrait === trait.title;
+              const nodeClass = `about-node-wrap pos-${trait.position}`;
+              return (
+                <div key={trait.title} className={nodeClass}>
+                  <button
+                    type="button"
+                    className={`about-orbit-node is-interactive ${nodeTone[trait.tone]} n${index + 1}${isActive ? " is-active" : ""}`}
+                    aria-expanded={isActive}
+                    aria-controls={`about-trait-${trait.title}`}
+                    aria-label={trait.title}
+                    onPointerEnter={(event) => {
+                      if (event.pointerType === "mouse") {
+                        setActiveTrait(trait.title);
+                      }
+                    }}
+                    onPointerLeave={(event) => {
+                      if (event.pointerType === "mouse") {
+                        setActiveTrait(null);
+                      }
+                    }}
+                    onFocus={() => setActiveTrait(trait.title)}
+                    onBlur={() => setActiveTrait(null)}
+                    onClick={() =>
+                      setActiveTrait((current) =>
+                        current === trait.title ? null : trait.title,
+                      )
+                    }
+                  />
+                  <article
+                    id={`about-trait-${trait.title}`}
+                    className={`about-trait ${toneClass[trait.tone]}${isActive ? " is-visible" : ""}`}
+                  >
+                    <span className="about-trait-icon">
+                      <TraitIcon icon={trait.icon} />
+                    </span>
+                    <div>
+                      <h3 className="about-trait-title">{trait.title}</h3>
+                      <p className="about-trait-text">{trait.text}</p>
+                    </div>
+                  </article>
+                </div>
+              );
+            })}
           </div>
 
-          {aboutContent.traits.map((trait) => (
-            <article
-              key={trait.title}
-              className={`about-trait pos-${trait.position} ${toneClass[trait.tone]}`}
-            >
-              <span className="about-trait-icon">
-                <TraitIcon icon={trait.icon} />
-              </span>
-              <div>
-                <h3 className="about-trait-title">{trait.title}</h3>
-                <p className="about-trait-text">{trait.text}</p>
-              </div>
-            </article>
-          ))}
-
-          <span className="about-dot-grid" />
+          <span className="about-dot-grid" aria-hidden />
         </div>
       </div>
     </section>

@@ -661,6 +661,20 @@ body {
   }
 }
 
+.about-orbit-hint {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
 .about-orbit {
   position: relative;
   width: min(100%, 22rem);
@@ -675,6 +689,7 @@ body {
   border-radius: 9999px;
   border: 1px solid color-mix(in srgb, #22d3ee 28%, transparent);
   box-shadow: inset 0 0 24px color-mix(in srgb, #a78bfa 8%, transparent);
+  pointer-events: none;
 }
 
 .about-orbit-ring.ring-2 {
@@ -687,6 +702,30 @@ body {
   border-color: color-mix(in srgb, #f9a8d4 28%, transparent);
 }
 
+.about-node-wrap {
+  position: absolute;
+  z-index: 5;
+  width: 0;
+  height: 0;
+}
+
+.about-node-wrap.pos-tr {
+  top: 8%;
+  right: 14%;
+}
+.about-node-wrap.pos-mr {
+  top: 42%;
+  right: 6%;
+}
+.about-node-wrap.pos-br {
+  bottom: 16%;
+  right: 18%;
+}
+.about-node-wrap.pos-bl {
+  bottom: 20%;
+  left: 12%;
+}
+
 .about-orbit-node {
   position: absolute;
   width: 0.55rem;
@@ -694,33 +733,52 @@ body {
   border-radius: 9999px;
   background: #22d3ee;
   box-shadow: 0 0 12px #22d3ee;
+  border: none;
+  padding: 0;
+  transform: translate(-50%, -50%);
 }
 
-.about-orbit-node.n1 {
-  top: 11%;
-  left: 48%;
+.about-orbit-node.is-decor {
+  pointer-events: none;
 }
-.about-orbit-node.n2 {
-  top: 42%;
-  right: 10%;
+
+.about-orbit-node.is-interactive {
+  width: 0.7rem;
+  height: 0.7rem;
+  cursor: pointer;
+  z-index: 6;
+}
+
+.about-orbit-node.is-interactive::before {
+  content: "";
+  position: absolute;
+  inset: -0.85rem;
+  border-radius: 9999px;
+}
+
+.about-orbit-node.n-cyan {
+  background: #22d3ee;
+  box-shadow: 0 0 14px #22d3ee;
+}
+.about-orbit-node.n-purple {
   background: #a78bfa;
-  box-shadow: 0 0 12px #a78bfa;
+  box-shadow: 0 0 14px #a78bfa;
 }
-.about-orbit-node.n3 {
-  bottom: 18%;
-  left: 28%;
+.about-orbit-node.n-pink {
   background: #f9a8d4;
-  box-shadow: 0 0 12px #f9a8d4;
+  box-shadow: 0 0 14px #f9a8d4;
 }
-.about-orbit-node.n4 {
-  top: 28%;
-  left: 16%;
-  background: #67e8f9;
-  box-shadow: 0 0 12px #67e8f9;
+
+.about-orbit-node.is-active,
+.about-orbit-node.is-interactive:hover,
+.about-orbit-node.is-interactive:focus-visible {
+  transform: translate(-50%, -50%) scale(1.35);
+  outline: none;
 }
+
 .about-orbit-node.n5 {
-  bottom: 28%;
-  right: 22%;
+  top: 28%;
+  left: 22%;
   background: #c4b5fd;
   box-shadow: 0 0 12px #c4b5fd;
 }
@@ -737,6 +795,7 @@ body {
   box-shadow:
     0 0 40px rgba(34, 211, 238, 0.35),
     0 0 80px rgba(167, 139, 250, 0.25);
+  pointer-events: none;
 }
 
 .about-core-glow {
@@ -760,19 +819,74 @@ body {
 
 .about-trait {
   position: absolute;
-  z-index: 3;
+  z-index: 7;
   display: flex;
   align-items: flex-start;
   gap: 0.55rem;
-  width: min(13.5rem, 72%);
+  width: min(13.5rem, 70vw);
   padding: 0.75rem 0.8rem;
   border-radius: 0.95rem;
   border: 1px solid color-mix(in srgb, var(--about-tone) 45%, var(--border));
-  background: color-mix(in srgb, var(--bg-elevated) 92%, transparent);
+  background: color-mix(in srgb, var(--bg-elevated) 94%, transparent);
   box-shadow:
     var(--shadow),
     0 0 20px color-mix(in srgb, var(--about-tone) 12%, transparent);
   backdrop-filter: blur(12px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(-50%, 0.75rem) scale(0.96);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s ease;
+}
+
+.about-trait.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate(-50%, 0) scale(1);
+}
+
+.about-node-wrap.pos-tr .about-trait {
+  top: 1.1rem;
+  left: 0;
+  transform: translate(0, 0.75rem) scale(0.96);
+}
+.about-node-wrap.pos-tr .about-trait.is-visible {
+  transform: translate(0, 0) scale(1);
+}
+
+.about-node-wrap.pos-mr .about-trait {
+  top: 1.1rem;
+  right: 0;
+  left: auto;
+  transform: translate(0, 0.75rem) scale(0.96);
+}
+.about-node-wrap.pos-mr .about-trait.is-visible {
+  transform: translate(0, 0) scale(1);
+}
+
+.about-node-wrap.pos-br .about-trait {
+  bottom: 1.1rem;
+  right: 0;
+  left: auto;
+  top: auto;
+  transform: translate(0, -0.75rem) scale(0.96);
+}
+.about-node-wrap.pos-br .about-trait.is-visible {
+  transform: translate(0, 0) scale(1);
+}
+
+.about-node-wrap.pos-bl .about-trait {
+  bottom: 1.1rem;
+  left: 0;
+  top: auto;
+  transform: translate(0, -0.75rem) scale(0.96);
+}
+.about-node-wrap.pos-bl .about-trait.is-visible {
+  transform: translate(0, 0) scale(1);
 }
 
 .about-trait-icon {
@@ -800,48 +914,33 @@ body {
   color: var(--text-soft);
 }
 
-.about-trait.pos-tr {
-  top: 4%;
-  right: 0;
-}
-.about-trait.pos-mr {
-  top: 38%;
-  right: 0;
-}
-.about-trait.pos-br {
-  bottom: 6%;
-  right: 2%;
-}
-.about-trait.pos-bl {
-  bottom: 10%;
-  left: 0;
-}
-
 @media (max-width: 1023px) {
   .about-visual {
-    min-height: auto;
-    padding: 1rem 0 0.5rem;
+    min-height: 26rem;
+    padding: 2rem 0 0.5rem;
   }
 
   .about-orbit {
-    margin-bottom: 1rem;
+    margin-bottom: 0;
   }
 
-  .about-trait {
-    position: relative;
-    inset: auto;
-    width: 100%;
-    margin-top: 0.65rem;
-  }
-
-  .about-trait.pos-tr,
-  .about-trait.pos-mr,
-  .about-trait.pos-br,
-  .about-trait.pos-bl {
-    top: auto;
+  .about-node-wrap.pos-tr .about-trait,
+  .about-node-wrap.pos-mr .about-trait,
+  .about-node-wrap.pos-br .about-trait,
+  .about-node-wrap.pos-bl .about-trait {
+    left: 50%;
     right: auto;
+    top: 1.25rem;
     bottom: auto;
-    left: auto;
+    width: min(14rem, 78vw);
+    transform: translate(-50%, 0.75rem) scale(0.96);
+  }
+
+  .about-node-wrap.pos-tr .about-trait.is-visible,
+  .about-node-wrap.pos-mr .about-trait.is-visible,
+  .about-node-wrap.pos-br .about-trait.is-visible,
+  .about-node-wrap.pos-bl .about-trait.is-visible {
+    transform: translate(-50%, 0) scale(1);
   }
 }
 

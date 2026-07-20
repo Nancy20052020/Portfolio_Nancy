@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Download, Mail } from "lucide-react";
+import { ArrowRight, Mail } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { profile } from "@/data/content";
@@ -81,7 +81,7 @@ export function Hero() {
           <ParallaxLayer depth={0.4}>
             <p className="hero-kicker reveal-item">Portfolio</p>
             <h1 className="hero-title reveal-item">
-              Hi, I&apos;m{" "}
+              Hello, I&apos;m{" "}
               <span className="name-gradient name-shimmer">{profile.name}</span>
             </h1>
             <p className="hero-role reveal-item">
@@ -96,16 +96,6 @@ export function Hero() {
                 Explore My Work
                 <ArrowRight size={16} />
               </Link>
-            </Magnetic>
-            <Magnetic strength={12}>
-              <a
-                href="/Nancy_Verma_CV.pdf"
-                className="btn-ghost hero-cv btn-magnetic"
-                download
-              >
-                <Download size={16} />
-                Download CV
-              </a>
             </Magnetic>
           </div>
 

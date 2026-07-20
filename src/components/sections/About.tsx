@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import {
@@ -186,7 +187,13 @@ export function About() {
 
             <div className="about-core" aria-hidden>
               <span className="about-core-glow" />
-              <Star className="about-core-star" size={28} strokeWidth={1.8} />
+              <Image
+                src="/images/about-portrait.png"
+                alt=""
+                fill
+                sizes="120px"
+                className="about-core-img"
+              />
             </div>
 
             {aboutContent.traits.map((trait, index) => {

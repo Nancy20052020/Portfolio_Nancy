@@ -8,8 +8,8 @@ import {
   FileCode2,
   GitBranch,
   Globe2,
+  Map,
   MessageCircle,
-  Network,
   Palette,
   Sparkles,
   Users,
@@ -67,14 +67,14 @@ function ToolIcon({ icon }: { icon: ToolSkill["icon"] }) {
   switch (icon) {
     case "git":
       return <GitBranch {...props} />;
-    case "react":
-      return <Network {...props} />;
     case "latex":
       return <FileCode2 {...props} />;
     case "colab":
       return <Sparkles {...props} />;
     case "gee":
       return <Globe2 {...props} />;
+    case "gis":
+      return <Map {...props} />;
   }
 }
 
@@ -93,13 +93,7 @@ export function Skills() {
   useGSAP(
     () => {
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const fills = gsap.utils.toArray<HTMLElement>(".skill-meter-fill");
-      if (reduce) {
-        fills.forEach((el) => {
-          el.style.width = `${el.dataset.level ?? 0}%`;
-        });
-        return;
-      }
+      if (reduce) return;
 
       gsap.from(".skill-tech-card", {
         y: 24,
@@ -107,19 +101,6 @@ export function Skills() {
         duration: 0.55,
         stagger: 0.07,
         ease: "power3.out",
-      });
-
-      fills.forEach((el) => {
-        gsap.fromTo(
-          el,
-          { width: "0%" },
-          {
-            width: `${el.dataset.level ?? 0}%`,
-            duration: 1.1,
-            ease: "power2.out",
-            delay: 0.2,
-          },
-        );
       });
     },
     { scope: rootRef },
@@ -153,20 +134,6 @@ export function Skills() {
                       <TechIcon icon={skill.icon} />
                     </div>
                     <p className="skill-tech-name">{skill.name}</p>
-                    <div
-                      className="skill-meter"
-                      role="meter"
-                      aria-valuenow={skill.level}
-                      aria-valuemin={0}
-                      aria-valuemax={100}
-                      aria-label={`${skill.name} proficiency`}
-                    >
-                      <span
-                        className="skill-meter-fill"
-                        data-level={skill.level}
-                      />
-                    </div>
-                    <p className="skill-tech-level">{skill.level}%</p>
                   </article>
                 ))}
               </div>

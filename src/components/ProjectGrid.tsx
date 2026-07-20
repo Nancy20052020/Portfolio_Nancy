@@ -70,7 +70,7 @@ export function ProjectGrid() {
           const actions = projectActions(project);
           const primary = actions[0];
           return (
-            <TiltCard key={project.id} className="project-tilt reveal-item zero-g">
+            <TiltCard key={project.id} className="project-tilt reveal-item zero-g scroll-3d">
               <article className="project-card">
               <div className="project-media">
                 <Image

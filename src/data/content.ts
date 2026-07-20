@@ -93,7 +93,7 @@ export const projects: Project[] = [
     links: {
       github: "https://github.com/Nancy20052020",
     },
-    accent: "#B79AF5",
+    accent: "#22D3EE",
   },
   {
     id: "drought-vci",
@@ -106,7 +106,7 @@ export const projects: Project[] = [
       demo: "https://drive.google.com/file/d/1RZha6dBhiwGYqZHKaGM_WiZF5jK6NnmV/view?usp=drivesdk",
       code: "https://code.earthengine.google.com/1f478591ab593ffe9bcde0a27be6fc48",
     },
-    accent: "#C8D7FF",
+    accent: "#A78BFA",
   },
   {
     id: "uhi-lst",
@@ -119,7 +119,7 @@ export const projects: Project[] = [
       demo: "https://drive.google.com/file/d/1TFvuLC2Rm8a2FTUSVplmug-8RdcGejW3/view?usp=drivesdk",
       code: "https://code.earthengine.google.com/170c492464d96e8cc66d885f25702049",
     },
-    accent: "#F7D7CC",
+    accent: "#F9A8D4",
   },
   {
     id: "preppilot",
@@ -130,7 +130,7 @@ export const projects: Project[] = [
     links: {
       github: "https://github.com/Nancy20052020",
     },
-    accent: "#EBC9A7",
+    accent: "#22D3EE",
   },
   {
     id: "multipdf",
@@ -141,7 +141,7 @@ export const projects: Project[] = [
     links: {
       github: "https://github.com/Nancy20052020",
     },
-    accent: "#C9C0E7",
+    accent: "#A78BFA",
   },
 ];
 

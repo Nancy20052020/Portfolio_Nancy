@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Mail } from "lucide-react";
 import { useGSAP } from "@gsap/react";
@@ -18,26 +17,33 @@ gsap.registerPlugin(useGSAP);
 function PortalStage() {
   const { x, y } = useParallax();
   const tilt = {
-    transform: `perspective(1200px) rotateY(${x * 8}deg) rotateX(${-y * 6}deg)`,
+    transform: `perspective(1400px) rotateY(${x * 9}deg) rotateX(${-y * 7}deg)`,
   };
 
   return (
-    <div className="hero-portal reveal-item zero-g" style={tilt}>
-      <span className="portal-ring ring-a" />
-      <span className="portal-ring ring-b" />
-      <span className="portal-ring ring-c" />
-      <div className="hero-portal-frame">
-        <Image
-          src="/images/hero-portal.png"
-          alt="Cosmic portal gateway"
-          fill
-          priority
-          sizes="(max-width: 900px) 100vw, 42vw"
-          className="hero-portal-img"
-        />
-        <HeroWebGL />
-        <span className="portal-sheen" />
+    <div className="hero-stage-wrap reveal-item depth-enter" style={tilt}>
+      <span className="hero-frost-halo halo-a" />
+      <span className="hero-frost-halo halo-b" />
+
+      <div className="hero-portal zero-g">
+        <span className="portal-ring ring-a" />
+        <span className="portal-ring ring-b" />
+        <span className="portal-ring ring-c" />
+        <div className="hero-portal-frame">
+          <HeroWebGL />
+          <span className="portal-sheen" />
+        </div>
       </div>
+
+      <article className="hero-stage-panel panel-top glass-panel">
+        <p className="hero-stage-label">Education</p>
+        <p className="hero-stage-value">{profile.education.school}</p>
+      </article>
+
+      <article className="hero-stage-panel panel-bottom glass-panel">
+        <p className="hero-stage-label">Current Focus</p>
+        <p className="hero-stage-value">{profile.education.degree}</p>
+      </article>
     </div>
   );
 }
@@ -65,6 +71,22 @@ export function Hero() {
         yoyo: true,
         ease: "sine.inOut",
       });
+
+      gsap.to(".ice-scan-line", {
+        xPercent: 130,
+        duration: 5.8,
+        repeat: -1,
+        ease: "none",
+      });
+
+      gsap.to(".hero-ice-chip", {
+        y: "-=5",
+        duration: 2.4,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        stagger: 0.12,
+      });
     },
     { scope: rootRef },
   );
@@ -72,25 +94,26 @@ export function Hero() {
   return (
     <section ref={rootRef} className="section hero-section">
       <div className="hero-bg" aria-hidden>
+        <span className="ice-scan-line" />
         <div className="hero-glow hero-glow-a" />
         <div className="hero-glow hero-glow-b" />
         <div className="floating-orb orb-1" />
         <div className="floating-orb orb-2" />
       </div>
 
-      <div className="hero-layout">
-        <div className="hero-copy">
-          <ParallaxLayer depth={0.4}>
+      <div className="hero-igloo-grid">
+        <ParallaxLayer depth={0.35} className="hero-copy">
+          <div>
             <p className="hero-kicker reveal-item">Portfolio</p>
             <h1 className="hero-title reveal-item">
-              Hello, I&apos;m{" "}
               <span className="name-gradient name-shimmer">{profile.name}</span>
+              <span className="hero-title-sub">AI &amp; ML Engineer</span>
             </h1>
             <p className="hero-role reveal-item">
               <Typewriter phrases={profile.titleRoles} />
             </p>
             <p className="hero-tagline reveal-item">{profile.tagline}</p>
-          </ParallaxLayer>
+          </div>
 
           <div className="hero-actions reveal-item">
             <Magnetic>
@@ -119,9 +142,17 @@ export function Hero() {
               <Mail size={18} />
             </a>
           </div>
-        </div>
 
-        <ParallaxLayer depth={1.4}>
+          <div className="hero-ice-rail reveal-item" aria-label="Specialties">
+            {profile.titleRoles.map((role) => (
+              <span key={role} className="hero-ice-chip">
+                {role}
+              </span>
+            ))}
+          </div>
+        </ParallaxLayer>
+
+        <ParallaxLayer depth={1.15} className="hero-stage-col">
           <PortalStage />
         </ParallaxLayer>
       </div>

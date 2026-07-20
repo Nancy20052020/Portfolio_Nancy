@@ -63,7 +63,7 @@ export function AmbientUniverse() {
         if (p.y > height) p.y = 0;
 
         ctx.beginPath();
-        ctx.fillStyle = `rgba(165, 243, 252, ${p.a})`;
+        ctx.fillStyle = `rgba(214, 222, 232, ${p.a})`;
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
       }
@@ -90,7 +90,7 @@ export function AmbientUniverse() {
           shooting.y - shooting.vy * 8,
         );
         g.addColorStop(0, "rgba(255,255,255,0.9)");
-        g.addColorStop(1, "rgba(167,139,250,0)");
+        g.addColorStop(1, "rgba(158,180,204,0)");
         ctx.strokeStyle = g;
         ctx.lineWidth = 1.5;
         ctx.beginPath();

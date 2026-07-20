@@ -103,7 +103,7 @@ export function Skills() {
             {technicalSkills.map((skill) => (
               <article
                 key={skill.name}
-                className={`skill-icon-card ${toneClass[skill.tone]}`}
+                className={`skill-icon-card zero-g ${toneClass[skill.tone]}`}
               >
                 <div className="skill-tech-icon" aria-hidden>
                   <TechIcon icon={skill.icon} />

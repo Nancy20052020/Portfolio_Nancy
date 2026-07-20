@@ -3310,3 +3310,220 @@ html.lenis body {
     animation: none !important;
   }
 }
+
+/* ── Cinematic page transition ── */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.pt-backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(3, 7, 18, 0.55) 0%,
+    rgba(3, 7, 18, 0.92) 70%
+  );
+  backdrop-filter: blur(8px);
+}
+
+.pt-stage {
+  position: relative;
+  width: 8rem;
+  height: 8rem;
+}
+
+.pt-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+}
+
+.pt-ring.ring-1 {
+  border-color: rgba(34, 211, 238, 0.55);
+  box-shadow: 0 0 24px rgba(34, 211, 238, 0.25);
+}
+
+.pt-ring.ring-2 {
+  inset: 0.75rem;
+  border-color: rgba(167, 139, 250, 0.5);
+  box-shadow: 0 0 20px rgba(167, 139, 250, 0.2);
+}
+
+.pt-ring.ring-3 {
+  inset: 1.5rem;
+  border-color: rgba(249, 168, 212, 0.45);
+  box-shadow: 0 0 16px rgba(249, 168, 212, 0.18);
+}
+
+.pt-core {
+  position: absolute;
+  inset: 2.25rem;
+  border-radius: 9999px;
+  background: radial-gradient(circle, #67e8f9 0%, #a78bfa 55%, transparent 72%);
+  box-shadow: 0 0 40px rgba(34, 211, 238, 0.5);
+}
+
+/* ── Section ambient auras ── */
+.section-aura {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.section-aura-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(60px);
+  opacity: 0.35;
+  animation: aura-drift 14s ease-in-out infinite alternate;
+}
+
+.section-aura-orb.orb-a {
+  width: 40vw;
+  height: 35vh;
+  top: -8%;
+  left: -6%;
+}
+
+.section-aura-orb.orb-b {
+  width: 35vw;
+  height: 30vh;
+  right: -8%;
+  bottom: 5%;
+  animation-delay: -5s;
+  animation-duration: 18s;
+}
+
+.section-aura-orb.orb-c {
+  width: 25vw;
+  height: 22vh;
+  top: 40%;
+  left: 35%;
+  opacity: 0.2;
+  animation-delay: -9s;
+  animation-duration: 20s;
+}
+
+.aura-about .orb-a { background: rgba(34, 211, 238, 0.4); }
+.aura-about .orb-b { background: rgba(167, 139, 250, 0.35); }
+.aura-about .orb-c { background: rgba(249, 168, 212, 0.25); }
+
+.aura-skills .orb-a { background: rgba(167, 139, 250, 0.4); }
+.aura-skills .orb-b { background: rgba(34, 211, 238, 0.3); }
+.aura-skills .orb-c { background: rgba(249, 168, 212, 0.2); }
+
+.aura-projects .orb-a { background: rgba(34, 211, 238, 0.38); }
+.aura-projects .orb-b { background: rgba(249, 168, 212, 0.28); }
+.aura-projects .orb-c { background: rgba(167, 139, 250, 0.22); }
+
+.aura-experience .orb-a { background: rgba(167, 139, 250, 0.38); }
+.aura-experience .orb-b { background: rgba(34, 211, 238, 0.28); }
+.aura-experience .orb-c { background: rgba(249, 168, 212, 0.2); }
+
+.aura-achievements .orb-a { background: rgba(249, 168, 212, 0.35); }
+.aura-achievements .orb-b { background: rgba(34, 211, 238, 0.3); }
+.aura-achievements .orb-c { background: rgba(167, 139, 250, 0.25); }
+
+.aura-publications .orb-a { background: rgba(167, 139, 250, 0.38); }
+.aura-publications .orb-b { background: rgba(34, 211, 238, 0.28); }
+.aura-publications .orb-c { background: rgba(249, 168, 212, 0.2); }
+
+.aura-contact .orb-a { background: rgba(34, 211, 238, 0.35); }
+.aura-contact .orb-b { background: rgba(249, 168, 212, 0.28); }
+.aura-contact .orb-c { background: rgba(167, 139, 250, 0.22); }
+
+@keyframes aura-drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(3%, 5%, 0) scale(1.06); }
+}
+
+.depth-enter {
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+
+.skills-panel-3d {
+  transform-style: preserve-3d;
+  transition: box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.skills-panel-3d:hover {
+  box-shadow:
+    var(--shadow),
+    0 0 36px rgba(34, 211, 238, 0.12),
+    0 12px 40px rgba(0, 0, 0, 0.15);
+  border-color: color-mix(in srgb, #22d3ee 30%, var(--border));
+}
+
+.rail-draw,
+.track-draw {
+  will-change: transform;
+}
+
+/* Publications & Contact cinematic headings */
+.pubs-heading,
+.contact-heading {
+  text-align: center;
+  max-width: 42rem;
+  margin-inline: auto;
+}
+
+.pubs-eyebrow,
+.contact-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #67e8f9;
+}
+
+.pubs-title,
+.contact-title {
+  margin-top: 0.65rem;
+  font-family: var(--font-syne), sans-serif;
+  font-size: clamp(1.85rem, 4vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--heading);
+}
+
+.pubs-sub,
+.contact-sub {
+  margin-top: 0.65rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--text-soft);
+}
+
+.pubs-section .section-inner,
+.contact-section .section-inner,
+.about-section .section-inner,
+.skills-section .section-inner,
+.projects-section .section-inner,
+.exp-section .section-inner,
+.achieve-section .section-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.float-3d-sidebar {
+  transform-style: preserve-3d;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-transition,
+  .section-aura-orb {
+    display: none !important;
+  }
+}

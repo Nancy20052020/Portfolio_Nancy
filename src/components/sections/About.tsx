@@ -1,58 +1,215 @@
 "use client";
 
-import { GraduationCap, MapPin, Sparkles } from "lucide-react";
-import { profile } from "@/data/content";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import {
+  Code2,
+  Heart,
+  Lightbulb,
+  Puzzle,
+  Rocket,
+  Sparkles,
+  Star,
+  Target,
+} from "lucide-react";
+import { aboutContent } from "@/data/content";
 
-const cards = [
-  {
-    label: "Education",
-    value: "B.Tech AI & ML",
-    sub: profile.education.school,
-    icon: GraduationCap,
-  },
-  {
-    label: "CGPA",
-    value: profile.education.cgpa,
-    sub: profile.education.years,
-    icon: Sparkles,
-  },
-  {
-    label: "Based In",
-    value: "Jaipur, India",
-    sub: "Open to remote & hybrid",
-    icon: MapPin,
-  },
-];
+gsap.registerPlugin(useGSAP);
+
+const toneClass = {
+  cyan: "is-cyan",
+  purple: "is-purple",
+  pink: "is-pink",
+  magenta: "is-magenta",
+  white: "is-white",
+} as const;
+
+function StatIcon({ icon }: { icon: (typeof aboutContent.stats)[number]["icon"] }) {
+  const props = { size: 18, strokeWidth: 2.2, "aria-hidden": true as const };
+  switch (icon) {
+    case "code":
+      return <Code2 {...props} />;
+    case "rocket":
+      return <Rocket {...props} />;
+    case "gear":
+      return <Sparkles {...props} />;
+    case "heart":
+      return <Heart {...props} />;
+  }
+}
+
+function ValueIcon({
+  icon,
+}: {
+  icon: (typeof aboutContent.values)[number]["icon"];
+}) {
+  const props = { size: 20, strokeWidth: 2.1, "aria-hidden": true as const };
+  switch (icon) {
+    case "bulb":
+      return <Lightbulb {...props} />;
+    case "puzzle":
+      return <Puzzle {...props} />;
+    case "target":
+      return <Target {...props} />;
+  }
+}
+
+function TraitIcon({
+  icon,
+}: {
+  icon: (typeof aboutContent.traits)[number]["icon"];
+}) {
+  const props = { size: 16, strokeWidth: 2.2, "aria-hidden": true as const };
+  switch (icon) {
+    case "rocket":
+      return <Rocket {...props} />;
+    case "code":
+      return <Code2 {...props} />;
+    case "heart":
+      return <Heart {...props} />;
+    case "star":
+      return <Star {...props} />;
+  }
+}
 
 export function About() {
+  const rootRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduce) return;
+
+      gsap.to(".about-orbit-ring", {
+        rotate: 360,
+        duration: 28,
+        repeat: -1,
+        ease: "none",
+        stagger: { each: 4, from: "end" },
+      });
+
+      gsap.to(".about-trait", {
+        y: "+=10",
+        duration: 2.8,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        stagger: 0.35,
+      });
+
+      gsap.to(".about-core-glow", {
+        scale: 1.08,
+        opacity: 0.95,
+        duration: 2.4,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+    },
+    { scope: rootRef },
+  );
+
   return (
-    <section className="section">
-      <div className="section-inner">
-        <div className="section-heading reveal-item">
-          <p className="eyebrow">About</p>
-          <h2 className="section-title">About</h2>
-          <p className="section-sub">
-            AI & ML undergraduate at Manipal University Jaipur with a 9.79 CGPA,
-            currently shipping software at Grids App LLC — from clinical ML to
-            satellite Earth observation.
-          </p>
+    <section ref={rootRef} className="section about-section">
+      <div className="section-inner about-layout">
+        <div className="about-copy">
+          <div className="about-heading reveal-item">
+            <div className="about-eyebrow-row">
+              <p className="about-eyebrow">About Me</p>
+              <span className="about-eyebrow-line" aria-hidden />
+            </div>
+            <h2 className="about-headline">
+              {aboutContent.headline.map((line) => (
+                <span key={line.text} className={toneClass[line.tone]}>
+                  {line.text}
+                </span>
+              ))}
+            </h2>
+            <p className="about-intro">
+              {aboutContent.introBefore}
+              <span className="about-highlight">{aboutContent.introHighlight}</span>
+              {aboutContent.introAfter}
+            </p>
+          </div>
+
+          <div className="about-stats reveal-item">
+            {aboutContent.stats.map((stat) => (
+              <article
+                key={stat.label}
+                className={`about-stat ${toneClass[stat.tone]}`}
+              >
+                <span className="about-stat-icon">
+                  <StatIcon icon={stat.icon} />
+                </span>
+                <p className="about-stat-value">{stat.value}</p>
+                <p className="about-stat-label">{stat.label}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="about-values reveal-item">
+            {aboutContent.values.map((value) => (
+              <article
+                key={value.title}
+                className={`about-value ${toneClass[value.tone]}`}
+              >
+                <span className="about-value-icon">
+                  <ValueIcon icon={value.icon} />
+                </span>
+                <h3 className="about-value-title">{value.title}</h3>
+                <p className="about-value-text">{value.text}</p>
+              </article>
+            ))}
+          </div>
+
+          <blockquote className="about-quote reveal-item">
+            <span className="about-quote-mark" aria-hidden>
+              “”
+            </span>
+            <p>
+              {aboutContent.quoteBefore}
+              <span className="about-quote-accent">
+                {aboutContent.quoteHighlight}
+              </span>
+              .
+            </p>
+            <span className="about-quote-dots" aria-hidden />
+          </blockquote>
         </div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-3">
-          {cards.map((card) => (
-            <div key={card.label} className="info-card glass-panel reveal-item">
-              <div className="mb-4 inline-flex rounded-2xl bg-[var(--accent-soft)] p-3 text-[var(--accent)]">
-                <card.icon size={20} />
-              </div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
-                {card.label}
-              </p>
-              <p className="mt-2 font-display text-xl font-semibold text-[var(--heading)]">
-                {card.value}
-              </p>
-              <p className="mt-1 text-sm text-[var(--text-soft)]">{card.sub}</p>
+        <div className="about-visual reveal-item" aria-hidden>
+          <div className="about-orbit">
+            <span className="about-orbit-ring ring-1" />
+            <span className="about-orbit-ring ring-2" />
+            <span className="about-orbit-ring ring-3" />
+            <span className="about-orbit-node n1" />
+            <span className="about-orbit-node n2" />
+            <span className="about-orbit-node n3" />
+            <span className="about-orbit-node n4" />
+            <span className="about-orbit-node n5" />
+            <div className="about-core">
+              <span className="about-core-glow" />
+              <Star className="about-core-star" size={28} strokeWidth={1.8} />
             </div>
+          </div>
+
+          {aboutContent.traits.map((trait) => (
+            <article
+              key={trait.title}
+              className={`about-trait pos-${trait.position} ${toneClass[trait.tone]}`}
+            >
+              <span className="about-trait-icon">
+                <TraitIcon icon={trait.icon} />
+              </span>
+              <div>
+                <h3 className="about-trait-title">{trait.title}</h3>
+                <p className="about-trait-text">{trait.text}</p>
+              </div>
+            </article>
           ))}
+
+          <span className="about-dot-grid" />
         </div>
       </div>
     </section>

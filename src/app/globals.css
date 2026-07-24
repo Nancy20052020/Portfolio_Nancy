@@ -3505,27 +3505,28 @@ html.lenis body {
   pointer-events: none;
   visibility: hidden;
   opacity: 0;
-  transition: opacity 0.18s ease;
-}
-
-.page-transition.is-soft .pt-backdrop {
-  backdrop-filter: none;
 }
 
 .pt-backdrop {
   position: absolute;
   inset: 0;
-  background: color-mix(in srgb, var(--bg) 55%, transparent);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 [data-theme="light"] .pt-backdrop {
-  background: color-mix(in srgb, var(--bg) 45%, transparent);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
 }
 
 .pt-stage,
 .pt-ring,
 .pt-core {
   display: none;
+}
+
+.page-motion {
+  will-change: opacity, transform;
 }
 
 /* ── Section ambient auras ── */
@@ -3909,7 +3910,6 @@ html.lenis body {
 .depth-enter,
 .scroll-3d,
 .scroll-reveal,
-.page-motion,
 .main-content,
 .section,
 .igloo-overlay,

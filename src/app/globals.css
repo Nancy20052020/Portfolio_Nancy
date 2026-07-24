@@ -313,13 +313,8 @@ html[data-theme="light"] {
   opacity: 1;
 }
 
-.nav-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 18px color-mix(in srgb, #b6bac5 12%, transparent);
-}
-
 .nav-item-active {
-  box-shadow: inset 3px 0 0 #b6bac5;
+  box-shadow: inset 3px 0 0 var(--accent);
 }
 
 .plane-orbit {
@@ -417,9 +412,9 @@ html[data-theme="light"] {
     width: calc(var(--sidebar-w) - 1.25rem);
     flex-direction: column;
     padding: 1.25rem 0.85rem;
-    transform-style: preserve-3d;
-    transform: perspective(1200px) rotateY(8deg) translateZ(0);
-    animation: sidebar-float 6.5s ease-in-out infinite;
+    cursor: default;
+    transform: none;
+    animation: none;
     box-shadow:
       var(--shadow),
       18px 24px 40px rgba(0, 0, 0, 0.12),
@@ -427,9 +422,7 @@ html[data-theme="light"] {
   }
 
   .sidebar-desktop:hover {
-    animation-play-state: paused;
-    transform: perspective(1200px) rotateY(0deg) translateZ(12px);
-    transition: transform 0.45s ease;
+    transform: none;
   }
 }
 
@@ -535,19 +528,23 @@ html[data-theme="light"] {
   padding: 0.8rem 0.85rem;
   font-size: 0.9rem;
   color: var(--text-muted);
-  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
   min-height: 44px;
 }
 
 .nav-item:hover {
   background: var(--accent-soft);
   color: var(--text);
+  transform: none;
+  box-shadow: none;
 }
 
 .nav-item-active {
   background: var(--accent-soft);
   color: var(--accent);
   font-weight: 700;
+  box-shadow: inset 3px 0 0 var(--accent);
 }
 
 .theme-toggle {
@@ -560,6 +557,7 @@ html[data-theme="light"] {
   background: var(--accent-soft);
   padding: 0.45rem 0.65rem;
   color: var(--text);
+  cursor: pointer;
 }
 
 .theme-toggle-thumb {
@@ -2135,15 +2133,16 @@ html.lenis body {
 
 .achieve-title {
   font-family: var(--font-syne), sans-serif;
-  font-size: clamp(1.7rem, 7vw, 3rem);
+  font-size: clamp(1.4rem, 5.5vw, 2.75rem);
   font-weight: 800;
   letter-spacing: -0.03em;
   text-transform: uppercase;
   color: var(--heading);
-  line-height: 1.05;
-  overflow-wrap: anywhere;
-  word-break: break-word;
+  line-height: 1.1;
   max-width: 100%;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
 }
 
 .achieve-sub {
@@ -2384,8 +2383,9 @@ html.lenis body {
   }
 
   .achieve-title {
-    font-size: clamp(1.55rem, 9.2vw, 2rem);
-    letter-spacing: -0.02em;
+    font-size: min(1.55rem, 8.4vw);
+    letter-spacing: -0.035em;
+    white-space: nowrap;
   }
 
   .achieve-cards {

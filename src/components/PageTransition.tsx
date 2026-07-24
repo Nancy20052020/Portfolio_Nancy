@@ -2,8 +2,9 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
+import gsap from "gsap";
 
-/** Lightweight route flash — no heavy overlay that hides page copy. */
+/** Soft, slower route wash — never leaves the next page stuck hidden. */
 export function PageTransition() {
   const pathname = usePathname();
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -18,22 +19,45 @@ export function PageTransition() {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) return;
 
-    overlay.style.opacity = "0.35";
-    overlay.style.visibility = "visible";
-    overlay.style.pointerEvents = "none";
+    const tl = gsap.timeline({
+      defaults: { ease: "power2.inOut" },
+      onComplete: () => {
+        gsap.set(overlay, {
+          opacity: 0,
+          visibility: "hidden",
+          pointerEvents: "none",
+        });
+      },
+    });
 
-    const id = window.setTimeout(() => {
-      overlay.style.opacity = "0";
-      window.setTimeout(() => {
-        overlay.style.visibility = "hidden";
-      }, 180);
-    }, 40);
+    tl.set(overlay, {
+      visibility: "visible",
+      pointerEvents: "none",
+    })
+      .fromTo(
+        overlay,
+        { opacity: 0 },
+        { opacity: 0.72, duration: 0.35 },
+      )
+      .to(overlay, {
+        opacity: 0,
+        duration: 0.65,
+        delay: 0.12,
+      })
+      .set(overlay, { visibility: "hidden" });
 
-    return () => window.clearTimeout(id);
+    return () => {
+      tl.kill();
+      gsap.set(overlay, {
+        opacity: 0,
+        visibility: "hidden",
+        pointerEvents: "none",
+      });
+    };
   }, [pathname]);
 
   return (
-    <div ref={overlayRef} className="page-transition is-soft" aria-hidden>
+    <div ref={overlayRef} className="page-transition" aria-hidden>
       <div className="pt-backdrop" />
     </div>
   );

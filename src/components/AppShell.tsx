@@ -28,7 +28,16 @@ export function AppShell({ children }: { children: ReactNode }) {
   );
 }
 
-/** Gentle page enter — always settles to fully visible. */
+function showFully(el: HTMLElement) {
+  gsap.set(el, {
+    opacity: 1,
+    visibility: "visible",
+    y: 0,
+    clearProps: "transform,filter",
+  });
+}
+
+/** Gentle page enter — cleanup always restores full visibility (Strict Mode safe). */
 export function PageMotion({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
@@ -40,31 +49,35 @@ export function PageMotion({ children }: { children: ReactNode }) {
 
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (reduce) {
-        gsap.set(el, { clearProps: "all", opacity: 1, y: 0 });
+        showFully(el);
         return;
       }
 
-      gsap.fromTo(
+      // Baseline visible first so a killed tween can never strand the page blank
+      showFully(el);
+
+      const tween = gsap.fromTo(
         el,
-        { autoAlpha: 0, y: 28 },
+        { opacity: 0.15, y: 18 },
         {
-          autoAlpha: 1,
+          opacity: 1,
           y: 0,
-          duration: 0.95,
-          ease: "power3.out",
-          clearProps: "all",
-          onComplete: () => {
-            gsap.set(el, { clearProps: "all", opacity: 1, visibility: "visible", y: 0 });
-          },
+          duration: 0.75,
+          ease: "power2.out",
+          overwrite: "auto",
+          onComplete: () => showFully(el),
         },
       );
 
-      // Safety net if the tween is interrupted
-      gsap.delayedCall(1.3, () => {
-        gsap.set(el, { clearProps: "all", opacity: 1, visibility: "visible", y: 0 });
-      });
+      const safety = gsap.delayedCall(1, () => showFully(el));
+
+      return () => {
+        tween.kill();
+        safety.kill();
+        showFully(el);
+      };
     },
-    { scope: ref, dependencies: [pathname] },
+    { dependencies: [pathname] },
   );
 
   return (

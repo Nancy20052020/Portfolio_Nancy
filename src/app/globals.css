@@ -1457,8 +1457,19 @@ html[data-theme="light"] {
 }
 
 .page-motion {
-  perspective: 1400px;
-  transform-style: preserve-3d;
+  opacity: 1;
+  visibility: visible;
+  min-height: calc(100dvh - 4.5rem);
+  transform: none;
+  transform-style: flat;
+  perspective: none;
+  will-change: auto;
+}
+
+@media (min-width: 1024px) {
+  .page-motion {
+    min-height: 100dvh;
+  }
 }
 
 .scroll-3d {
@@ -2626,20 +2637,10 @@ html.lenis body {
   min-height: 110px;
 }
 
-.page-motion {
-  min-height: calc(100dvh - 4.5rem);
-}
-
-@media (min-width: 1024px) {
-  .page-motion {
-    min-height: 100dvh;
-  }
-}
-
 /* Skills showcase */
 .skills-section {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .skills-heading {
@@ -3525,10 +3526,6 @@ html.lenis body {
   display: none;
 }
 
-.page-motion {
-  will-change: opacity, transform;
-}
-
 /* ── Section ambient auras ── */
 .section-aura {
   pointer-events: none;
@@ -3611,16 +3608,14 @@ html.lenis body {
 }
 
 .skills-panel-3d {
-  transform-style: preserve-3d;
-  transition: box-shadow 0.35s ease, border-color 0.35s ease;
+  transform-style: flat;
+  transform: none !important;
+  will-change: auto;
 }
 
 .skills-panel-3d:hover {
-  box-shadow:
-    var(--shadow),
-    0 0 36px rgba(182, 186, 197, 0.12),
-    0 12px 40px rgba(0, 0, 0, 0.15);
-  border-color: color-mix(in srgb, #b6bac5 30%, var(--border));
+  box-shadow: var(--shadow);
+  border-color: var(--border);
 }
 
 .rail-draw,

@@ -13,7 +13,7 @@ export function SmoothScroll() {
     if (reduce) return;
 
     const lenis = new Lenis({
-      duration: 1.35,
+      duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       touchMultiplier: 1.35,
@@ -29,7 +29,14 @@ export function SmoothScroll() {
 
     document.documentElement.classList.add("lenis-active");
 
+    // Refresh after paint so Skills/layout height is correct on first visit
+    const refreshId = window.requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+      lenis.resize();
+    });
+
     return () => {
+      window.cancelAnimationFrame(refreshId);
       gsap.ticker.remove(ticker);
       lenis.destroy();
       document.documentElement.classList.remove("lenis-active");

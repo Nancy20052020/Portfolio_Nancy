@@ -89,7 +89,7 @@ export function Skills() {
     <section className="section skills-section">
       <SectionAura variant="skills" />
       <div className="section-inner">
-        <div className="skills-heading reveal-item">
+        <div className="skills-heading">
           <div className="skills-eyebrow-row">
             <span className="skills-eyebrow-line" aria-hidden />
             <p className="skills-eyebrow">Skills</p>
@@ -100,8 +100,8 @@ export function Skills() {
           <span className="skills-divider" aria-hidden />
         </div>
 
-        <div className="skills-all-layout reveal-item">
-          <div className="skills-block glass-panel skills-panel-3d">
+        <div className="skills-all-layout">
+          <div className="skills-block glass-panel">
             <SectionLabel>Languages</SectionLabel>
             <div className="skill-icon-grid">
               {technicalSkills.map((skill) => (
@@ -118,7 +118,7 @@ export function Skills() {
             </div>
           </div>
 
-          <div className="skills-block glass-panel skills-panel-3d">
+          <div className="skills-block glass-panel">
             <SectionLabel>Machine Learning</SectionLabel>
             <div className="skill-extra-grid">
               {machineLearningSkills.map((skill) => (
@@ -133,7 +133,7 @@ export function Skills() {
             </div>
           </div>
 
-          <div className="skills-block glass-panel skills-panel-3d">
+          <div className="skills-block glass-panel">
             <SectionLabel>Tools & Technologies</SectionLabel>
             <div className="skills-tools-row skills-tools-row-flat">
               {toolSkills.map((tool) => (
@@ -147,7 +147,7 @@ export function Skills() {
             </div>
           </div>
 
-          <div className="skills-block glass-panel skills-panel-3d">
+          <div className="skills-block glass-panel">
             <SectionLabel>Soft Skills</SectionLabel>
             <div className="skill-extra-grid">
               {softSkills.map((skill) => (

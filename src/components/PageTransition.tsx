@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import gsap from "gsap";
 
-/** Soft, slower route wash — never leaves the next page stuck hidden. */
+/** Soft route wash — always clears itself so pages never stay covered. */
 export function PageTransition() {
   const pathname = usePathname();
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -13,46 +13,40 @@ export function PageTransition() {
   useEffect(() => {
     const overlay = overlayRef.current;
     if (!overlay) return;
-    if (pathname === prevPath.current) return;
-    prevPath.current = pathname;
 
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) return;
-
-    const tl = gsap.timeline({
-      defaults: { ease: "power2.inOut" },
-      onComplete: () => {
-        gsap.set(overlay, {
-          opacity: 0,
-          visibility: "hidden",
-          pointerEvents: "none",
-        });
-      },
-    });
-
-    tl.set(overlay, {
-      visibility: "visible",
-      pointerEvents: "none",
-    })
-      .fromTo(
-        overlay,
-        { opacity: 0 },
-        { opacity: 0.72, duration: 0.35 },
-      )
-      .to(overlay, {
-        opacity: 0,
-        duration: 0.65,
-        delay: 0.12,
-      })
-      .set(overlay, { visibility: "hidden" });
-
-    return () => {
-      tl.kill();
+    const hide = () => {
       gsap.set(overlay, {
         opacity: 0,
         visibility: "hidden",
         pointerEvents: "none",
       });
+    };
+
+    if (pathname === prevPath.current) {
+      hide();
+      return;
+    }
+    prevPath.current = pathname;
+
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      hide();
+      return;
+    }
+
+    const tl = gsap.timeline({
+      defaults: { ease: "power2.inOut" },
+      onComplete: hide,
+      onInterrupt: hide,
+    });
+
+    tl.set(overlay, { visibility: "visible", pointerEvents: "none" })
+      .fromTo(overlay, { opacity: 0 }, { opacity: 0.55, duration: 0.28 })
+      .to(overlay, { opacity: 0, duration: 0.5, delay: 0.06 });
+
+    return () => {
+      tl.kill();
+      hide();
     };
   }, [pathname]);
 

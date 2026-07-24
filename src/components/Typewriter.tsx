@@ -18,10 +18,18 @@ export function Typewriter({
   pauseMs = 1800,
 }: TypewriterProps) {
   const [index, setIndex] = useState(0);
-  const [text, setText] = useState("");
+  const [text, setText] = useState(() => phrases[0] ?? "");
   const [deleting, setDeleting] = useState(false);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
+    // Show first phrase immediately, then begin cycle after pause
+    const boot = setTimeout(() => setReady(true), pauseMs);
+    return () => clearTimeout(boot);
+  }, [pauseMs]);
+
+  useEffect(() => {
+    if (!ready) return;
     const current = phrases[index % phrases.length];
     let timeout: ReturnType<typeof setTimeout>;
 
@@ -41,7 +49,7 @@ export function Typewriter({
     }
 
     return () => clearTimeout(timeout);
-  }, [text, deleting, index, phrases, typingSpeed, deletingSpeed, pauseMs]);
+  }, [ready, text, deleting, index, phrases, typingSpeed, deletingSpeed, pauseMs]);
 
   return (
     <span className={className} aria-live="polite">

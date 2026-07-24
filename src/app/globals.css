@@ -304,8 +304,8 @@ html[data-theme="light"] {
 
 [data-nav-scroll="down"] .sidebar-desktop,
 [data-nav-scroll="down"] .mobile-bar {
-  opacity: 0.78;
-  backdrop-filter: blur(22px);
+  opacity: 1;
+  backdrop-filter: blur(18px);
 }
 
 [data-nav-scroll="up"] .sidebar-desktop,
@@ -3904,12 +3904,25 @@ html.lenis body {
   opacity: 0.35;
 }
 
-/* Visibility safety: never leave animated content invisible */
+/* Visibility safety: never leave page content invisible */
 .reveal-item,
 .depth-enter,
 .scroll-3d,
-.scroll-reveal {
-  opacity: 1;
+.scroll-reveal,
+.page-motion,
+.main-content,
+.section,
+.igloo-overlay,
+.igloo-copy,
+.igloo-brand,
+.igloo-brand-main,
+.igloo-role,
+.igloo-tagline,
+.igloo-cta,
+.igloo-socials,
+.igloo-kicker {
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .about-intro,
